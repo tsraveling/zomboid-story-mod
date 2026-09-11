@@ -1,0 +1,7 @@
+{
+    "Sandbox_CDCLastHope": "CDC Last Hope",
+    "Sandbox_CDCLastHope_RewardRadius": "Reward radius (tiles)",
+    "Sandbox_CDCLastHope_RewardRadius_tooltip": "Players within this many tiles of the ham radio share quest rewards.",
+    "Sandbox_CDCLastHope_DebugMenu": "Enable debug menu",
+    "Sandbox_CDCLastHope_DebugMenu_tooltip": "Adds a CDC Debug submenu to the world right-click menu."
+}

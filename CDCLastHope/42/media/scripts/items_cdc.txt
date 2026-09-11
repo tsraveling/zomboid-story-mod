@@ -1,0 +1,40 @@
+module CDCLastHope
+{
+    imports { Base }
+
+    item ScientistLaptop
+    {
+        DisplayCategory = Junk,
+        ItemType = base:normal,
+        Weight = 0.5,
+        Icon = CDCPink,
+        WorldStaticModel = BookClosedGround,
+    }
+
+    item ThumbDrive
+    {
+        DisplayCategory = Junk,
+        ItemType = base:normal,
+        Weight = 0.1,
+        Icon = CDCPink,
+        WorldStaticModel = BookClosedGround,
+    }
+
+    item TissueSample
+    {
+        DisplayCategory = Junk,
+        ItemType = base:normal,
+        Weight = 0.2,
+        Icon = CDCPink,
+        WorldStaticModel = BookClosedGround,
+    }
+
+    item Microscope
+    {
+        DisplayCategory = Junk,
+        ItemType = base:normal,
+        Weight = 3.0,
+        Icon = CDCPink,
+        WorldStaticModel = BookClosedGround,
+    }
+}

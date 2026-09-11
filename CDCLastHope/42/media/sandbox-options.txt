@@ -1,0 +1,13 @@
+VERSION = 1,
+
+option CDCLastHope.RewardRadius
+{
+    type = integer, min = 1, max = 100, default = 10,
+    page = CDCLastHope, translation = CDCLastHope_RewardRadius,
+}
+
+option CDCLastHope.DebugMenu
+{
+    type = boolean, default = false,
+    page = CDCLastHope, translation = CDCLastHope_DebugMenu,
+}
