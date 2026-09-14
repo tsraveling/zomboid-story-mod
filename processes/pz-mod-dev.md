@@ -2,13 +2,13 @@
 
 How to run and iterate on the mod locally in Project Zomboid Build 42. Mod source is `CDCLastHope/` in this repo, symlinked into the game's mods folder so edits are live on next lua reload.
 
-1. Symlink once: `ln -sfn "$PWD/CDCLastHope" ~/Zomboid/mods/CDCLastHope`
+1. Symlink once: `ln -sfn "$PWD/CDCLastHope" ~/Zomboid/mods/CDCLastHope`; B42 reads `CDCLastHope/42/mod.info`, the root `mod.info` is Workshop-only
 2. In Steam, set Project Zomboid launch options to `-debug`
 3. Launch game, Mods menu, enable "CDC Last Hope"
 4. Pick a test mode
   - singleplayer -> Singleplayer
   - multiplayer -> Host MP
-5. After editing lua, reload in-game: debug menu (F11 or bug icon), Lua, Reload Lua
+5. After editing lua, press F11 for the Lua debugger, open the "Lua Files" pane, select the changed file, click Reload; one file at a time
 6. Edits to `items_cdc.txt`, `sandbox-options.txt`, translations, or textures need a full game restart
 7. Read `~/Zomboid/console.txt` for `[CDCLastHope]` log lines and lua errors
 8. Right-click world, CDC Debug, "Force active" to bypass the day-25 gate

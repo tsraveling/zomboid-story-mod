@@ -13,8 +13,49 @@ function CDC.log(msg)
     print("[CDCLastHope] " .. tostring(msg))
 end
 
+-- Knox Event date; story.apocalypse may override (1-based month/day)
+CDC.APOCALYPSE = { year = 1993, month = 7, day = 9 }
+
+-- days since 1970-01-01 for a civil date (1-based month/day)
+function CDC.daysFromCivil(y, m, d)
+    if m <= 2 then y = y - 1 end
+    local era = math.floor(y / 400)
+    local yoe = y - era * 400
+    local mp = (m + 9) % 12
+    local doy = math.floor((153 * mp + 2) / 5) + d - 1
+    local doe = yoe * 365 + math.floor(yoe / 4) - math.floor(yoe / 100) + doy
+    return era * 146097 + doe - 719468
+end
+
+-- inverse of daysFromCivil; returns y, m, d (1-based)
+function CDC.civilFromDays(z)
+    z = z + 719468
+    local era = math.floor(z / 146097)
+    local doe = z - era * 146097
+    local yoe = math.floor((doe - math.floor(doe / 1460) + math.floor(doe / 36524) - math.floor(doe / 146096)) / 365)
+    local y = yoe + era * 400
+    local doy = doe - (365 * yoe + math.floor(yoe / 4) - math.floor(yoe / 100))
+    local mp = math.floor((5 * doy + 2) / 153)
+    local d = doy - math.floor((153 * mp + 2) / 5) + 1
+    local m = mp < 10 and mp + 3 or mp - 9
+    if m <= 2 then y = y + 1 end
+    return y, m, d
+end
+
+-- current in-game calendar as absolute day number (GameTime month/day are 0-based)
+function CDC.calendarDays()
+    local gt = getGameTime()
+    return CDC.daysFromCivil(gt:getYear(), gt:getMonth() + 1, gt:getDay() + 1)
+end
+
+function CDC.apocalypseDays()
+    local a = (CDC.story and CDC.story.apocalypse) or CDC.APOCALYPSE
+    return CDC.daysFromCivil(a.year, a.month, a.day)
+end
+
+-- days since the apocalypse by calendar date, independent of when this save started
 function CDC.day()
-    return getGameTime():getNightsSurvived()
+    return CDC.calendarDays() - CDC.apocalypseDays()
 end
 
 function CDC.hours()

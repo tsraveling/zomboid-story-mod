@@ -73,6 +73,30 @@ function Dbg.tune(player)
     player:Say("Tuned to " .. tostring(CDC.story.freq / 1000))
 end
 
+-- SP only; in MP the server owns game time.
+-- Moves the calendar (our gate), nights survived (vanilla radio clock), and fast-forwards radio scripts
+-- the same way vanilla does for a late sandbox start (ZomboidRadio.Init -> simulateScriptsUntil).
+function Dbg.advanceDays(player, n)
+    local gt = getGameTime()
+    local y, m, d = CDC.civilFromDays(CDC.calendarDays() + n)
+    gt:setYear(y)
+    gt:setMonth(m - 1)
+    gt:setDay(d - 1)
+    local nights = gt:getNightsSurvived() + n
+    gt:setNightsSurvived(nights)
+    local ok, err = pcall(function()
+        local stamp
+        if RadioAPI and RadioAPI.timeToTimeStamp then
+            stamp = RadioAPI.timeToTimeStamp(nights, gt:getHour(), 0)
+        else
+            stamp = nights * 1440 + gt:getHour() * 60
+        end
+        getZomboidRadio():getScriptManager():simulateScriptsUntil(stamp, false)
+    end)
+    if not ok then CDC.log("radio fast-forward failed: " .. tostring(err)) end
+    player:Say(string.format("%04d-%02d-%02d, apocalypse day %d, night %d", y, m, d, CDC.day(), nights))
+end
+
 function Dbg.fill(player, context, squares)
     if not CDC.isDebug() then return end
     local st = CDC.State.get()
@@ -80,7 +104,17 @@ function Dbg.fill(player, context, squares)
     local menu = ISContextMenu:getNew(context)
     context:addSubMenu(root, menu)
 
-    menu:addOption("Force active: " .. (st.meta.forceActive and "ON" or "OFF") .. " (day " .. CDC.day() .. "/" .. CDC.State.activationDay() .. ")", player, function(pl) Dbg.send(pl, { op = "forceActive" }) end)
+    menu:addOption("Force active: " .. (st.meta.forceActive and "ON" or "OFF") .. " (apocalypse day " .. CDC.day() .. "/" .. CDC.State.activationDay() .. ")", player, function(pl) Dbg.send(pl, { op = "forceActive" }) end)
+    if not isClient() then
+        local timeOpt = menu:addOption("Advance time (SP only)")
+        local timeMenu = ISContextMenu:getNew(context)
+        menu:addSubMenu(timeOpt, timeMenu)
+        timeMenu:addOption("+1 day", player, Dbg.advanceDays, 1)
+        timeMenu:addOption("+10 days", player, Dbg.advanceDays, 10)
+        timeMenu:addOption("Jump to activation day", player, function(pl)
+            Dbg.advanceDays(pl, math.max(0, CDC.State.activationDay() - CDC.day()))
+        end)
+    end
     menu:addOption("Set flag...", player, Dbg.promptSetFlag)
 
     local clearOpt = menu:addOption("Clear flag")

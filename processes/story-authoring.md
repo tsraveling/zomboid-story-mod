@@ -2,8 +2,8 @@
 
 All narrative lives in `CDCLastHope/42/media/lua/shared/CDCLastHope/story.lua`. The framework reads the `CDC.story` table; you never touch other lua. Inline lua functions are allowed anywhere a value is documented as `fn`.
 
-1. Set `freq` (kHz) and `precue = { day, text }`; nothing in the mod works before `precue.day`
-2. Set `callout.text` (string or list); loops forever on `freq` once active
+1. Set `freq` (kHz) and `precue = { day, text }`; `day` counts from the Knox Event calendar date (1993-07-09), so 25 means Aug 3; nothing in the mod works before it
+2. Set `callout.text` (string or list); airs hourly on `freq` once active
 3. Write `entry(ctx)` returning the first node id for every Transmit
 4. Write nodes -> Nodes
 5. Add effects to delivery choices -> Effects

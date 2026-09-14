@@ -3,8 +3,9 @@
 
   Quick reference (full guide: processes/ howto in repo):
     freq            kHz. Ham radios within CDC.FREQ_MARGIN of this can Transmit.
-    precue          { day, text }  From this day: nothing works before it; dead vanilla stations carry `text`.
-    callout         { text }       Loops forever on `freq` once active. String or list of strings.
+    precue          { day, text }  Day counted from the apocalypse date by calendar (default 1993-07-09, so 25 = Aug 3), not nights survived. Nothing works before it; dead vanilla stations carry `text`.
+    apocalypse      optional { year, month, day } override of the Knox Event date.
+    callout         { text }       Loops forever on `freq` once active, airs hourly. String or list of strings.
     sites           { {x,y,r,name,requires={items={["Base.Wire"]=2}, perk="Electricity", level=2}} }
     entry(ctx)      Returns first node id for every Transmit. "noResponse" and "alreadyDone" are reserved nodes.
     nodes[id]       { text = string|fn(ctx), choices = { { text, cond=fn(ctx), effects={...}, next=id|fn(ctx)|nil } } }
