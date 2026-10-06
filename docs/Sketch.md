@@ -1,5 +1,35 @@
 "Vox Clamantis" (Vox Clamantis in Deserto)
 
+# Process
+
+## Prologue
+
+## 1. Muldraugh and Rosewood
+
+### Crash Site
+
+### Strange Smell
+
+### Phones going dead
+
+### Zombie Meat
+
+### Junkie Body
+
+The CDC perhaps had record of this. A person infected with the prior version. Corpse perhaps still animated but not aggressive. Find in the basement mortuary of the [Muldraugh Police Station](https://projectzomboidmap.com/#10638x10403x1233x-1).
+
+## 2. Irvington and Echo Creek
+
+## 3. Brandenburg and Riverside
+
+## 4. Louisville
+
+### Police Arrest Record
+
+
+
+# Material
+
 ## Radio Towers
 
 - [Tower near Riverside](https://projectzomboidmap.com/#4857x6296x363x5)

@@ -1,0 +1,259 @@
+--- This is the first module you encounter, the first time you tune in to the right frequency and hit the "contact" action.
+
+# start
+
+radio: *static*
+
+@if :met_anyone()
+-> return
+@else
+-> first_time
+@endif
+
+
+--- @region cdc:first-contact
+# first_time
+
+cdc: " ... that? Can you hear me?"
+
+> I can hear you!
+
+cdc: "Holy mother of fucking jesus christ."
+
+cdc: "There's somebody alive out there."
+
+cdc: "Fuck!"
+
+cdc: "How are you? Who are you?"
+
+> I'm {:pc_first_name()}!
+
+radio: *sounds of someone yelling to someone else, and excited voices cutting through the static*
+
+cdc: "... CHRIST I thought we were the last people alive on fucking EARTH down here!"
+
+> How many of you are there?
+
+cdc: "A few thousand. We got lucky as shit, the feds were so worried about *terrorism*, whatever the fuck that means, that they built this huge new underground facility here, labs, independent power supply, circular water filtration systems, dorms, the works."
+
+cdc: "When the shit was hitting the fan a lot of us got our families and as many others as we could and got the fuck inside."
+
+cdc: "Then somebody got infected on the upper floor, and all hell broke loose, and ... jesus, yeah."
+
+> Fuck.
+
+cdc: "Yeah. Basically there's a few thousand of those ... things ... on the floors above us, but we're safe and walled off from them, and I guess comfortable as we can be, given the circumstances."
+
+cdc: "I'm Daniel, by the way. Daniel Chidi. Dr. Daniel Chidi, not that that's worth shit anymore. I am --"
+
+cdc: "I was --"
+
+cdc: "I'm a virologist. And no, I have no idea what the fuck this thing is."
+
+> Is there something I can do to help?
+
+radio: *long silence*
+
+cdc: "Jesus. I hadn't really thought ..."
+
+cdc: "I didn't think anybody would call. I didn't think anybody was left."
+
+radio: *longer silence*
+
+cdc: "{:pc_first_name()}, are you ... safe?"
+
+> Not even a little bit.
+> For now. Not forever.
+
+cdc: "I hear that. I can't in good conscience ask you to risk your life for this, but ..."
+
+> Spit it out!
+
+cdc: "Well shit, I don't want to die down here in a few years when the power stops working just sitting on my ass and doing nothing. How would you feel about doing something for me?" 
+
+> Let me hear it.
+  -> first_quest
+
+--- @region cdc:return-contact
+# return
+
+cdc: " ... hello!"
+
+cdc: "Is this {:mem_full_name()}?"
+
+@if :is_returning()
+
+> Yeah, this is {:pc_first_name()}!
+
+cdc: "Awesome. Glad to here your voice again. Here's where we're at ..."
+-> summary
+
+@elseif :did_think_dead()
+
+> This is {:pc_first_name()}.
+
+cdc: "Fuck! I thought you were dead!"
+:update_meet()
+cdc: "Damn, I'm glad to hear your voice again!"
+radio: *static and distant swearing*
+cdc: "Goddamn. Okay. Welcome back, {:pc_first_name()}. Here's where we stand ..."
+-> summary
+
+@elseif :has_met()
+
+> No, this is {:pc_first_name()}.
+  cdc: "Oh of course! {:pc_full_name()}. Happy to talk to you again."
+  :update_meet()
+  -> summary
+@else
+> No, this is {:pc_full_name()}.
+  -> meet_new
+> No, this is {:pc_full_name()}. {:mem_first_name()} is no longer with us.
+  -> mourn_last
+@endif
+
+--- We get to this block if this is a new character that the CDC hasn't met before.
+# meet_new
+
+cdc: "Good to meet you, {:pc_first_name()}!"
+
+cdc: I'm Daniel. Hopefully {:mem_last_name()} has already told you about me.
+
+> They ... they didn't make it.
+  -> mourn_last
+> They did!
+> Sure ...
+
+:do_meet()
+
+cdc: "Great. Well, {:pc_first_name()}, here's where we stand ..."
+-> summary
+
+# mourn_last
+
+:set_thought_dead()
+
+cdc: "Christ. Fuck. I'm sorry to hear that."
+
+cdc: "I can't imagine how hard it must be for you all out there."
+
+radio: *long silence*
+
+cdc: *sigh*
+
+cdc: "Well, {:pc_first_name()}, it is good to meet you. Here's where we stand ..."
+-> summary
+
+--- @region cdc:first-quest
+
+# first_quest
+
+cdc: "Shit. All right. So we have a theory."
+
+cdc: "A theory we thought we'd never be able to test. But now that you're out there ..."
+
+> Yes ...?
+
+cdc: "Look. It seems like whatever is driving these things, it's not biological. It's ... synthetic."
+
+> What do you mean, "synthetic"?
+
+cdc: "I wish I could tell you. Just that it's not a virus co-opting a biological system. It's a non-biological substance with biological ... behaviors? that co-opts a dead body and repurposes its architecture."
+
+> So it's a fucking zombie.
+
+cdc: "Well ... yes. Yeah, it's a fucking zombie."
+
+cdc: "But, like ... it's *literally* undead."
+
+cdc: "And up until the world ended, I didn't really believe in magic."
+
+> What do you need from me?
+
+cdc: "Basically? I need a sample. Wait a sec. You are in the Knox Zone, right?"
+
+> Knox Zone?
+
+cdc: "Yeah. The area around Louisville, Kentucky. Where all of this shit started."
+
+> Yeah. I'm in the Knox Zone. Apparently.
+
+cdc: "Great. That means you're at point zero. We've noticed some ... let's call it adaptation, in whatever this shit is."
+
+cdc: "If you could get us a sample from any of those things, then call me back here, I can tell you what to look for."
+
+> A sample?
+
+cdc: "Yeah. Like a ... well, like a piece of one."
+
+> Zombie meat?
+
+cdc: "Zombie meat."
+
+cdc: "So. Can you help me?"
+
+> Shit, yeah, I can help you.
+  -> accept_first
+> I have to think about it.
+
+cdc: "Yeah, I get that."
+
+cdc: "Okay. Well, I'm just glad somebody else is alive out there."
+
+cdc: "Take it easy, {:pc_first_name()}. And give me a call back if you change your mind."
+
+> Bye, Daniel.
+
+cdc: "Over and out."
+
+radio: *static*
+
+EXIT
+
+# accept_first
+
+:set_quest("first", 1)  --- start the quest
+cdc: "FUCK yes."
+cdc: "Sorry."
+cdc: "I just thought we were gonna die in here."
+cdc: "I guess now maybe we can die in here while we're trying to figure this shit out."
+cdc: "Thank you, {:pc_first_name()}. If we ever get out of this alive ..."
+
+> Yeah. Me too.
+> Okay, calm down. 
+
+cdc: "Yeah. Okay."
+cdc: "All right. I guess just ... call me once you have the zombie meat? I'll walk you through observation and we can figure out what to do from there based on what you're looking at."
+
+> Okay. You got it.
+
+cdc: "Seriously. Thank you. And call me anytime."
+
+> Bye, Daniel.
+
+cdc: "Over and out."
+
+radio: *static*
+
+EXIT
+
+--- @region cdc:quest-router
+# summary
+
+--- Summary block for everything in progress
+(? :get_quest("first") = 0) cdc: "If you were ever interested in helping me out with my research, you know, getting me some fresh zombie meat, that's still on the table."
+(? :get_quest("first") = 1) cdc: "Once you have the zombie meat sample, just let me know."
+cdc: "And of course if you just want to talk, I've got nothing here but time."
+
+# router
+
+cdc: "So what did you want to talk about?"
+
+> (? :get_quest("first") < 100) About the zombie meat ...
+  GO quests/first.ska
+
+
+
+--- TODO: Build this out as a kind of router
+
+--- STUB: Figure out mechanism for the return to quest status thing.

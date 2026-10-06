@@ -1,0 +1,45 @@
+@methods
+  --- checks to see if the player meets the conditions for completing a given quest key
+  check_quest(key string, stage int) bool
+
+  --- sets the quest of the given key to the given stage
+  set_quest(key string, stage int) action
+
+  --- gets the current stage of the given quest. 0 is always "not started", 1 is always "started", 10 is always "done." Use other numbers for intermediate.
+  get_quest(key string) int
+
+  --- Fetches the current player's name
+  pc_full_name() string
+  pc_first_name() string
+  pc_last_name() string
+
+  --- Fetches the name of the last character CDC remembers
+  mem_full_name() string
+  mem_first_name() string
+  mem_last_name() string
+
+  --- Introduces the character to the CDC and makes them the one they remember.
+  do_meet() action
+
+  --- Switch the CDC context back to a character it already remembers.
+  update_meet() action
+
+  --- has the CDC met this character?
+  has_met() bool
+
+  --- true if the current character is the same one the CDC spoke to last time
+  is_returning() bool
+
+  --- check if the CDC thought the current character was dead
+  --- checked on a map against name
+  did_think_dead() bool
+
+  --- has the CDC met anybody at all?
+  met_anyone() bool
+
+  --- update the cdc death knowledge map with the remembered character.
+  set_thought_dead() action
+@end
+
+@globals
+@end

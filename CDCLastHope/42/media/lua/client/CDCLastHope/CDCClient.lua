@@ -96,8 +96,10 @@ end
 function F.show(item)
     local radio = findRadio(item.x, item.y, item.z)
     if not radio then return end
+    -- Java picks the int overload (0-255) for Lua numbers; floats 0-1 truncate to black
     local c = item.color
-    local ok = pcall(function() radio:AddDeviceText(item.text, c.r, c.g, c.b, "", "", CDC.FLOAT_RANGE) end)
+    local r, g, b = math.floor(c.r * 255 + 0.5), math.floor(c.g * 255 + 0.5), math.floor(c.b * 255 + 0.5)
+    local ok = pcall(function() radio:AddDeviceText(item.text, r, g, b, "", "", CDC.FLOAT_RANGE) end)
     if not ok then pcall(function() radio:Say(item.text) end) end
 end
 
