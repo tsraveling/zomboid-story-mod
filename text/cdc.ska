@@ -4,7 +4,7 @@
 
 radio: *static*
 
-@if :met_anyone()
+@if met_anyone()
 -> return
 @else
 -> first_time
@@ -26,7 +26,7 @@ cdc: "Fuck!"
 
 cdc: "How are you? Who are you?"
 
-> I'm {:pc_first_name()}!
+> I'm {pc_first_name()}!
 
 radio: *sounds of someone yelling to someone else, and excited voices cutting through the static*
 
@@ -60,7 +60,7 @@ cdc: "I didn't think anybody would call. I didn't think anybody was left."
 
 radio: *longer silence*
 
-cdc: "{:pc_first_name()}, are you ... safe?"
+cdc: "{pc_first_name()}, are you ... safe?"
 
 > Not even a little bit.
 > For now. Not forever.
@@ -79,59 +79,59 @@ cdc: "Well shit, I don't want to die down here in a few years when the power sto
 
 cdc: " ... hello!"
 
-cdc: "Is this {:mem_full_name()}?"
+cdc: "Is this {mem_full_name()}?"
 
-@if :is_returning()
+@if is_returning()
 
-> Yeah, this is {:pc_first_name()}!
+> Yeah, this is {pc_first_name()}!
 
 cdc: "Awesome. Glad to here your voice again. Here's where we're at ..."
 -> summary
 
-@elseif :did_think_dead()
+@elseif did_think_dead()
 
-> This is {:pc_first_name()}.
+> This is {pc_first_name()}.
 
 cdc: "Fuck! I thought you were dead!"
-:update_meet()
+~ update_meet()
 cdc: "Damn, I'm glad to hear your voice again!"
 radio: *static and distant swearing*
-cdc: "Goddamn. Okay. Welcome back, {:pc_first_name()}. Here's where we stand ..."
+cdc: "Goddamn. Okay. Welcome back, {pc_first_name()}. Here's where we stand ..."
 -> summary
 
-@elseif :has_met()
+@elseif has_met()
 
-> No, this is {:pc_first_name()}.
-  cdc: "Oh of course! {:pc_full_name()}. Happy to talk to you again."
-  :update_meet()
+> No, this is {pc_first_name()}.
+  cdc: "Oh of course! {pc_full_name()}. Happy to talk to you again."
+  ~ update_meet()
   -> summary
 @else
-> No, this is {:pc_full_name()}.
+> No, this is {pc_full_name()}.
   -> meet_new
-> No, this is {:pc_full_name()}. {:mem_first_name()} is no longer with us.
+> No, this is {pc_full_name()}. {mem_first_name()} is no longer with us.
   -> mourn_last
 @endif
 
 --- We get to this block if this is a new character that the CDC hasn't met before.
 # meet_new
 
-cdc: "Good to meet you, {:pc_first_name()}!"
+cdc: "Good to meet you, {pc_first_name()}!"
 
-cdc: I'm Daniel. Hopefully {:mem_last_name()} has already told you about me.
+cdc: I'm Daniel. Hopefully {mem_last_name()} has already told you about me.
 
 > They ... they didn't make it.
   -> mourn_last
 > They did!
 > Sure ...
 
-:do_meet()
+~ do_meet()
 
-cdc: "Great. Well, {:pc_first_name()}, here's where we stand ..."
+cdc: "Great. Well, {pc_first_name()}, here's where we stand ..."
 -> summary
 
 # mourn_last
 
-:set_thought_dead()
+~ set_thought_dead()
 
 cdc: "Christ. Fuck. I'm sorry to hear that."
 
@@ -141,7 +141,7 @@ radio: *long silence*
 
 cdc: *sigh*
 
-cdc: "Well, {:pc_first_name()}, it is good to meet you. Here's where we stand ..."
+cdc: "Well, {pc_first_name()}, it is good to meet you. Here's where we stand ..."
 -> summary
 
 --- @region cdc:first-quest
@@ -200,7 +200,7 @@ cdc: "Yeah, I get that."
 
 cdc: "Okay. Well, I'm just glad somebody else is alive out there."
 
-cdc: "Take it easy, {:pc_first_name()}. And give me a call back if you change your mind."
+cdc: "Take it easy, {pc_first_name()}. And give me a call back if you change your mind."
 
 > Bye, Daniel.
 
@@ -212,12 +212,12 @@ EXIT
 
 # accept_first
 
-:set_quest("first", 1)  --- start the quest
+~ set_quest("first", 1)  --- start the quest
 cdc: "FUCK yes."
 cdc: "Sorry."
 cdc: "I just thought we were gonna die in here."
 cdc: "I guess now maybe we can die in here while we're trying to figure this shit out."
-cdc: "Thank you, {:pc_first_name()}. If we ever get out of this alive ..."
+cdc: "Thank you, {pc_first_name()}. If we ever get out of this alive ..."
 
 > Yeah. Me too.
 > Okay, calm down. 
@@ -241,15 +241,15 @@ EXIT
 # summary
 
 --- Summary block for everything in progress
-(? :get_quest("first") = 0) cdc: "If you were ever interested in helping me out with my research, you know, getting me some fresh zombie meat, that's still on the table."
-(? :get_quest("first") = 1) cdc: "Once you have the zombie meat sample, just let me know."
+(? get_quest("first") == 0) cdc: "If you were ever interested in helping me out with my research, you know, getting me some fresh zombie meat, that's still on the table."
+(? get_quest("first") == 1) cdc: "Once you have the zombie meat sample, just let me know."
 cdc: "And of course if you just want to talk, I've got nothing here but time."
 
 # router
 
 cdc: "So what did you want to talk about?"
 
-> (? :get_quest("first") < 100) About the zombie meat ...
+> (? get_quest("first") < 100) About the zombie meat ...
   GO quests/first.ska
 
 

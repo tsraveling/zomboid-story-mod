@@ -1,7 +1,7 @@
 # start
 
-(? :get_quest("first") = 0) -> reconsider
-(? :get_quest("first") = 1) -> meat
+(? get_quest("first") == 0) -> reconsider
+(? get_quest("first") == 1) -> meat
 
 --- NOTE: The edge case where character 1 turns him down and now this is char 2 talking is not really handled here.
 
@@ -19,9 +19,9 @@ cdc: "Shit -- really? Have you reconsidered?"
 
 cdc: "FUCK yes."
 
-:set_quest("first", 1)
+~ set_quest("first", 1)
 
-cdc: "Seriously. {:pc_first_name()}, we're going to be a dream team."
+cdc: "Seriously. {pc_first_name()}, we're going to be a dream team."
 
 --- STUB: zombie meat briefing
 
