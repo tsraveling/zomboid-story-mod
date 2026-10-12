@@ -127,8 +127,7 @@ cdc: "It's very odd, but it kind of seems like there's more diversity *at origin
 cdc: "It makes me wonder if this is less one thing getting out, and more something getting out after a cross-strain mutation."
 cdc: "This is really fucking good work, {pc_first_name()}. Let us cook on it some over here and we'll get you some next actions. For now just sit tight and stay safe."
 cdc: "Daniel Chidi with the CDC, over and out."
-radio: *static*
-
+radio: *static* 
 EXIT
 
 # back

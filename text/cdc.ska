@@ -255,6 +255,11 @@ cdc: "So what did you want to talk about?"
   GO quests/first.ska
 > Any other work I should be doing right now?
   -> other_work
+> I want to DEBUG TEST THE API.
+  -> api_tester
+> I think that's all for now!
+  cdc: "All right, talk to you next time. CDC, over and out."
+  EXIT
 
 # other_work
 
@@ -269,3 +274,14 @@ cdc: "Dont think so, {pc_first_name()}. We'll let you know when we've got some m
 > "Cool."
   -> router
 @endif
+
+# api_tester
+
+cdc: "Ok, giving you some skillz."
+
+~ reward_xp("LongBlade", 50.0)
+~ reward_xp("Electricity", 75.0)
+
+cdc: "Done."
+
+-> router

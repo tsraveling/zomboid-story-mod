@@ -1895,13 +1895,58 @@ CDCSkaldModules["cdc.ska"] = {
               },
               line = 256,
             },
+            {
+              text = {
+                parts = {
+                  "I want to DEBUG TEST THE API.",
+                },
+              },
+              members = {
+                {
+                  line = 259,
+                  body = {
+                    t = "move",
+                    target = "api_tester",
+                  },
+                },
+              },
+              line = 258,
+            },
+            {
+              text = {
+                parts = {
+                  "I think that's all for now!",
+                },
+              },
+              members = {
+                {
+                  line = 261,
+                  body = {
+                    t = "beat",
+                    attribution = "cdc",
+                    text = {
+                      parts = {
+                        "\"All right, talk to you next time. CDC, over and out.\"",
+                      },
+                    },
+                  },
+                },
+                {
+                  line = 262,
+                  body = {
+                    t = "exit",
+                  },
+                },
+              },
+              line = 260,
+            },
           },
         },
       },
     },
     {
       tag = "other_work",
-      line = 259,
+      line = 264,
       members = {
         {
           t = "chain",
@@ -1927,10 +1972,10 @@ CDCSkaldModules["cdc.ska"] = {
                   },
                 },
               },
-              line = 261,
+              line = 266,
               members = {
                 {
-                  line = 262,
+                  line = 267,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -1943,7 +1988,7 @@ CDCSkaldModules["cdc.ska"] = {
                 },
                 {
                   t = "choices",
-                  line = 263,
+                  line = 268,
                   choices = {
                     {
                       text = {
@@ -1953,7 +1998,7 @@ CDCSkaldModules["cdc.ska"] = {
                       },
                       members = {
                         {
-                          line = 264,
+                          line = 269,
                           body = {
                             t = "go",
                             module = "quests/first.ska",
@@ -1961,7 +2006,7 @@ CDCSkaldModules["cdc.ska"] = {
                           },
                         },
                       },
-                      line = 263,
+                      line = 268,
                     },
                     {
                       text = {
@@ -1971,24 +2016,24 @@ CDCSkaldModules["cdc.ska"] = {
                       },
                       members = {
                         {
-                          line = 266,
+                          line = 271,
                           body = {
                             t = "move",
                             target = "router",
                           },
                         },
                       },
-                      line = 265,
+                      line = 270,
                     },
                   },
                 },
               },
             },
             {
-              line = 267,
+              line = 272,
               members = {
                 {
-                  line = 268,
+                  line = 273,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -2011,7 +2056,7 @@ CDCSkaldModules["cdc.ska"] = {
                 },
                 {
                   t = "choices",
-                  line = 269,
+                  line = 274,
                   choices = {
                     {
                       text = {
@@ -2021,19 +2066,90 @@ CDCSkaldModules["cdc.ska"] = {
                       },
                       members = {
                         {
-                          line = 270,
+                          line = 275,
                           body = {
                             t = "move",
                             target = "router",
                           },
                         },
                       },
-                      line = 269,
+                      line = 274,
                     },
                   },
                 },
               },
             },
+          },
+        },
+      },
+    },
+    {
+      tag = "api_tester",
+      line = 278,
+      members = {
+        {
+          line = 280,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Ok, giving you some skillz.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 282,
+          body = {
+            t = "call",
+            method = "reward_xp",
+            args = {
+              {
+                t = "str",
+                v = "LongBlade",
+              },
+              {
+                t = "float",
+                v = 50.0,
+              },
+            },
+          },
+        },
+        {
+          line = 283,
+          body = {
+            t = "call",
+            method = "reward_xp",
+            args = {
+              {
+                t = "str",
+                v = "Electricity",
+              },
+              {
+                t = "float",
+                v = 75.0,
+              },
+            },
+          },
+        },
+        {
+          line = 285,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Done.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 287,
+          body = {
+            t = "move",
+            target = "router",
           },
         },
       },

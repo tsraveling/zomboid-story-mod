@@ -43,7 +43,19 @@ local function grantXp(x, y, z, xp)
     if not xp or #xp == 0 then return end
     local radius = CDC.sandbox("RewardRadius", 20)
     for _, p in ipairs(playersNear(x, y, z, radius)) do
-        reply(p, "grantXp", { xp = xp })
+        for _, e in ipairs(xp) do
+            local perk = Perks.FromString(e.perk)
+            if perk and perk ~= Perks.None then
+                local before = p:getXp():getXP(perk)
+                addXpNoMultiplier(p, perk, e.amount)
+                if CDC.isDebug() then
+                    CDC.log(string.format("xp %s +%s -> %s: %.1f -> %.1f (level %d)", e.perk, tostring(e.amount), p:getFullName(), before, p:getXp():getXP(perk), p:getPerkLevel(perk)))
+                end
+            else
+                CDC.log("unknown perk " .. tostring(e.perk))
+            end
+        end
+        reply(p, "xpHalo", { xp = xp })
     end
 end
 

@@ -31,6 +31,13 @@ function CDCJournalPanel:refresh()
     for _, line in ipairs(items) do
         table.insert(out, "<RGB:0.9,0.9,0.7> - " .. line .. " <LINE> ")
     end
+    local done = CDC.QuestStatus.done(CDC.State.get())
+    if #done > 0 then
+        table.insert(out, " <LINE> <RGB:1,1,1> <SIZE:medium> Completed Quests <SIZE:small> <LINE> ")
+        for _, line in ipairs(done) do
+            table.insert(out, "<RGB:0.6,0.8,0.6> - " .. line .. " <LINE> ")
+        end
+    end
     self.text:setText(table.concat(out))
     self.text:paginate()
 end

@@ -34,7 +34,7 @@ CAVEAT: Lua reload does not re-run `OnLoadRadioScripts` or `OnPreDistributionMer
 Items are declared in `CDCLastHope/42/media/scripts/items_cdc.txt`. Inventory icon is a PNG; the dropped-on-floor look is a 3D model reference.
 
 1. Add an `item X { ... }` block in the `module CDCLastHope` block, copy an existing one
-2. Add `"ItemName_CDCLastHope.X": "Display Name"` to `42/media/lua/shared/Translate/EN/ItemName.json`
+2. Add `"CDCLastHope.X": "Display Name"` (B42 keys have no `ItemName_` prefix) to `42/media/lua/shared/Translate/EN/ItemName.json`
 3. Icon: drop a 32x32 PNG at `42/media/textures/Item_<Icon>.png` and set `Icon = <Icon>`
 4. World model: set `WorldStaticModel` to a vanilla name from `processes/pz-world-models.md`
 5. Restart game (scripts are not hot-reloaded)

@@ -28,17 +28,20 @@ function H.pickupResult(args)
     if CDC.Pickup then CDC.Pickup.onResult(args) end
 end
 
-function H.grantXp(args)
+-- skill-up arrow over the local player, same as vanilla VHS gains
+function H.xpHalo(args)
     local p = getSpecificPlayer(0)
     if not p then return end
     for _, e in ipairs(args.xp or {}) do
         local perk = Perks.FromString(e.perk)
-        if perk then p:getXp():AddXP(perk, e.amount) else CDC.log("unknown perk " .. tostring(e.perk)) end
+        if perk and perk ~= Perks.None then
+            HaloTextHelper.addTextWithArrow(p, perk:getName(), "[br/]", true, HaloTextHelper.getGoodColor())
+        end
     end
 end
 
 function H.floatText(args)
-    CDC.Float.enqueue(args)
+    CDC.Float.display(args)
 end
 
 function H.debugDone(args)
@@ -66,24 +69,8 @@ Events.OnGameStart.Add(function()
 end)
 
 -- floating text above the radio for bystanders
-CDC.Float = { queue = {}, nextAt = 0, STAGGER_MS = 3000, MAX_LINES = 4 }
+CDC.Float = {}
 local F = CDC.Float
-
-function F.split(text)
-    local out, lead = {}, ""
-    for s in tostring(text):gmatch("[^%.%?!]+[%.%?!]*") do
-        s = s:gsub("^%s+", ""):gsub("%s+$", "")
-        -- wordless pieces (quotes, ellipses) join a neighboring sentence
-        if s ~= "" and not s:find("%w") then
-            if #out > 0 then out[#out] = out[#out] .. s else lead = lead .. s .. " " end
-        elseif s ~= "" then
-            table.insert(out, lead .. s)
-            lead = ""
-        end
-    end
-    if #out == 0 then out = { tostring(text) } end
-    return out
-end
 
 -- floats drop a quote pair wrapping the whole line; color already marks speech
 function F.unquote(text)
@@ -91,13 +78,10 @@ function F.unquote(text)
     return inner or tostring(text)
 end
 
-function F.enqueue(args)
+function F.display(args)
     args.text = F.unquote(args.text)
     if args.onlineId ~= nil then F.sayAs(args); return end
-    local parts = F.split(args.text)
-    for i = 1, math.min(#parts, F.MAX_LINES) do
-        table.insert(F.queue, { x = args.x, y = args.y, z = args.z, text = parts[i], color = args.color or CDC.COLOR_CDC })
-    end
+    F.show({ x = args.x, y = args.y, z = args.z, text = args.text, color = args.color or CDC.COLOR_CDC })
 end
 
 local function findSpeaker(onlineId)
@@ -134,11 +118,3 @@ function F.show(item)
     local ok = pcall(function() radio:AddDeviceText(item.text, r, g, b, "", "", CDC.FLOAT_RANGE) end)
     if not ok then pcall(function() radio:Say(item.text) end) end
 end
-
-Events.OnTick.Add(function()
-    if #F.queue == 0 then return end
-    local now = getTimestampMs()
-    if now < F.nextAt then return end
-    F.show(table.remove(F.queue, 1))
-    F.nextAt = now + F.STAGGER_MS
-end)

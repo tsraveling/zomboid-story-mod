@@ -1117,19 +1117,25 @@ CDCSkaldModules["quests/first.ska"] = {
             attribution = "radio",
             text = {
               parts = {
-                "*static*",
+                "*static* ",
               },
             },
+          },
+        },
+        {
+          line = 131,
+          body = {
+            t = "exit",
           },
         },
       },
     },
     {
       tag = "back",
-      line = 132,
+      line = 133,
       members = {
         {
-          line = 134,
+          line = 135,
           body = {
             t = "go",
             module = "cdc.ska",
