@@ -111,3 +111,14 @@ function CDC.isOnFrequency(obj)
     local dd = obj:getDeviceData()
     return math.abs(dd:getChannel() - CDC.story.freq) <= CDC.FREQ_MARGIN
 end
+
+-- req: full type ("Base.HuntingKnife") or vanilla tag ("tag:SHARP_KNIFE"); returns first matching item or nil
+function CDC.findTool(inv, req)
+    local tag = req:match("^tag:(.+)$")
+    if tag then
+        local t = ItemTag[tag]
+        if not t then CDC.log("unknown item tag " .. tag); return nil end
+        return inv:getFirstTagRecurse(t)
+    end
+    return inv:getFirstTypeRecurse(req)
+end

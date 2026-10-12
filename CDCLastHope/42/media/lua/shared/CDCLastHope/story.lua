@@ -7,7 +7,7 @@
     apocalypse      optional { year, month, day } override of the Knox Event date.
     callout         { text }       Loops forever on `freq` once active, airs hourly. String or list of strings.
     world.pickups   { id, x,y,z, sprite=nil, label, item, once="global"|"character"|"none", duration=2, text, cond=fn(ctx,square), condFailText }
-    world.corpseActions { id, label, requires=fullType|nil, consumes=false, gives, duration=3, text, cond=fn(ctx) }  hidden when cond false
+    world.corpseActions { id, label, requires=fullType|"tag:ITEM_TAG"|nil, requiresLabel, consumes=false, gives, duration=3, text, cond=fn(ctx) }  hidden when cond false
     world.spawns    { item, lists={"ClassroomDesk"}, chance=5 }
     items           optional extra item list for debug spawn menu
 
@@ -36,7 +36,7 @@ CDC.story = {
     world = {
         pickups = {},
         corpseActions = {
-            { id = "meat", label = "Cut meat", requires = "Base.HuntingKnife", consumes = false,
+            { id = "meat", label = "Cut meat", requires = "tag:SHARP_KNIFE", requiresLabel = "a knife or other blade", consumes = false,
               gives = "CDCLastHope.ZombieMeat", duration = 3,
               cond = function(ctx) return ctx.quest("first") == 1 end,
               text = "PLACEHOLDER: You carve off a chunk of meat." },

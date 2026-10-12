@@ -48,7 +48,7 @@ Conversations are Skald modules in `text/`. World config (frequency, precue, cal
 
 1. Pickup: `{ id, x, y, z, sprite, label, item, once, duration, text, cond = fn(ctx, square), condFailText, goneText }`
 2. `once`: `"global"` (default, one per world), `"character"`, `"none"`
-3. Corpse action: `{ id, label, requires = fullType, consumes = bool, gives, duration, text, cond = fn(ctx) }`; hidden when `cond` returns false
+3. Corpse action: `{ id, label, requires = fullType | "tag:ITEM_TAG", requiresLabel, consumes = bool, gives, duration, text, cond = fn(ctx) }`; hidden when `cond` returns false; tags are vanilla `ItemTag` names, e.g. `tag:SHARP_KNIFE` matches any knife, machete, razor or sharpened stone; `requiresLabel` is the tooltip text when missing
 4. Spawn: `{ item, lists = { ... }, chance }` with list names from `processes/pz-distribution-lists.md`
 5. Find coordinates in-game: debug mode shows x,y,z bottom-left; or right-click, Tile Report
 

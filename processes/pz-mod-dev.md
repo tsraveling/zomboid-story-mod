@@ -8,7 +8,7 @@ How to run and iterate on the mod locally in Project Zomboid Build 42. Mod sourc
 4. Pick a test mode
   - singleplayer -> Singleplayer
   - multiplayer -> Host MP
-5. After editing lua, press F11 for the Lua debugger, open the "Lua Files" pane, select the changed file, click Reload; one file at a time
+5. After editing lua, open the Lua debugger (F11 by default; on Mac, F11 is Show Desktop, so rebind it in PZ key options, e.g. to `/`), open the "Lua Files" pane, select the changed file, click Reload; one file at a time
 6. Edits to `items_cdc.txt`, `sandbox-options.txt`, translations, or textures need a full game restart
 7. Read `~/Zomboid/console.txt` for `[CDCLastHope]` log lines and lua errors
 8. Right-click world, CDC Debug, "Force active" to bypass the day-25 gate

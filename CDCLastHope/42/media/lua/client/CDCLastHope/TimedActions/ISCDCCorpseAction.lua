@@ -3,7 +3,7 @@ require "TimedActions/ISBaseTimedAction"
 ISCDCCorpseAction = ISBaseTimedAction:derive("ISCDCCorpseAction")
 
 function ISCDCCorpseAction:isValid()
-    if self.def.requires and not self.character:getInventory():containsTypeRecurse(self.def.requires) then return false end
+    if self.def.requires and not CDC.findTool(self.character:getInventory(), self.def.requires) then return false end
     if self.def.cond and not self.def.cond(CDC.Context.new(self.character, nil)) then return false end
     return self.body:getSquare() ~= nil
 end
@@ -20,7 +20,7 @@ end
 function ISCDCCorpseAction:perform()
     local inv = self.character:getInventory()
     if self.def.requires and self.def.consumes then
-        local tool = inv:getFirstTypeRecurse(self.def.requires)
+        local tool = CDC.findTool(inv, self.def.requires)
         if tool then inv:Remove(tool) end
     end
     if self.def.gives then inv:AddItem(self.def.gives) end

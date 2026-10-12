@@ -17,6 +17,7 @@ end
 function CDC.Client.applyOps(player, ops)
     local st = CDC.State.get()
     for _, op in ipairs(ops) do CDC.State.apply(st, op) end
+    if CDC.isDebug() then CDC.log("state ops sent: " .. #ops .. ", met " .. #st.met .. ", dead " .. #st.dead) end
     CDC.Net.send(player, "state", { ops = ops })
 end
 
@@ -69,16 +70,29 @@ CDC.Float = { queue = {}, nextAt = 0, STAGGER_MS = 3000, MAX_LINES = 4 }
 local F = CDC.Float
 
 function F.split(text)
-    local out = {}
+    local out, lead = {}, ""
     for s in tostring(text):gmatch("[^%.%?!]+[%.%?!]*") do
         s = s:gsub("^%s+", ""):gsub("%s+$", "")
-        if s ~= "" then table.insert(out, s) end
+        -- wordless pieces (quotes, ellipses) join a neighboring sentence
+        if s ~= "" and not s:find("%w") then
+            if #out > 0 then out[#out] = out[#out] .. s else lead = lead .. s .. " " end
+        elseif s ~= "" then
+            table.insert(out, lead .. s)
+            lead = ""
+        end
     end
     if #out == 0 then out = { tostring(text) } end
     return out
 end
 
+-- floats drop a quote pair wrapping the whole line; color already marks speech
+function F.unquote(text)
+    local inner = tostring(text):match('^%s*"(.*)"%s*$')
+    return inner or tostring(text)
+end
+
 function F.enqueue(args)
+    args.text = F.unquote(args.text)
     if args.onlineId ~= nil then F.sayAs(args); return end
     local parts = F.split(args.text)
     for i = 1, math.min(#parts, F.MAX_LINES) do

@@ -43,7 +43,9 @@ end
 
 function C:continue()
     if self.state ~= "content" then return end
-    self:advance(self.rt:act(0))
+    local held = self.held
+    self.held = nil
+    self:advance(held)
 end
 
 -- i: 1-based index into the last options list; nil continues past a group with nothing available
@@ -66,14 +68,28 @@ function C:query(res)
     end
     local ok, v = pcall(f, self.host, unpack(res.args))
     if not ok then CDC.log("skald: query " .. res.method .. " failed: " .. tostring(v)); return nil end
+    if CDC.isDebug() then CDC.log("skald: query " .. res.method .. " -> " .. tostring(v)) end
     return v
 end
 
 function C:post(res)
     local f = CDC.Skald.posts[res.method]
     if not f then CDC.log("skald: no post handler for " .. tostring(res.method)); return end
+    if CDC.isDebug() then CDC.log("skald: post " .. res.method) end
     local ok, err = pcall(f, self.host, unpack(res.args))
     if not ok then CDC.log("skald: post " .. res.method .. " failed: " .. tostring(err)) end
+end
+
+-- steps past queries and bookkeeping without firing actions
+function C:peek(res)
+    while res.type == "query" or res.type == "notification" or res.type == "go" do
+        if res.type == "query" then
+            res = self.rt:answer(self:query(res))
+        else
+            res = self.rt:act(0)
+        end
+    end
+    return res
 end
 
 -- runs the engine until it needs the player or a job
@@ -94,8 +110,13 @@ function C:advance(res)
             local who = res.attribution or ""
             local kind = who == "" and "narration" or (SPEAKERS[who] and who or "other")
             self.view:line(kind, SPEAKERS[who] or who, chunks(res.text))
-            self.state = "content"
-            return self.view:waiting()
+            -- a line followed directly by a choice skips Continue; actions wait for the click
+            res = self:peek(self.rt:act(0))
+            if res.type ~= "options" then
+                self.held = res
+                self.state = "content"
+                return self.view:waiting()
+            end
         elseif t == "options" then
             self.opts = {}
             for _, o in ipairs(res.options) do

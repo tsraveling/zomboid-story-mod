@@ -24,6 +24,20 @@ function ISCDCJobAction:zombieInSight()
     return false
 end
 
+-- game hours -> action time units, same conversion as ISReadABook:getDuration
+local function units(hours)
+    return hours * 60 * 2 * getGameTime():getMinutesPerDay()
+end
+
+-- skip vanilla's mood / pain stretching; length is fixed game time
+function ISCDCJobAction:adjustMaxTime(maxTime)
+    return maxTime
+end
+
+function ISCDCJobAction:isUsingTimeout()
+    return false
+end
+
 function ISCDCJobAction:isValid()
     return self.radio:getObjectIndex() ~= -1 and CDC.isRadioLive(self.radio)
 end
@@ -36,6 +50,7 @@ end
 function ISCDCJobAction:start()
     self:setActionAnim("Loot")
     self:setAnimVariable("LootPosition", "Mid")
+    self:setCurrentTime(units(self.progress))
     self.syncedAt = self.progress
     self.last = CDC.hours()
     self.lastHealth = self:health()
@@ -51,7 +66,6 @@ function ISCDCJobAction:update()
     local now = CDC.hours()
     self.progress = math.min(self.duration, self.progress + math.max(0, now - self.last))
     self.last = now
-    self:setJobDelta(self.duration > 0 and self.progress / self.duration or 1)
     if self.progress >= self.duration then
         self:forceComplete()
         return
@@ -96,7 +110,7 @@ function ISCDCJobAction:new(character, radio, key, duration, progress, dialogue)
     o.duration = duration
     o.progress = progress
     o.dialogue = dialogue
-    o.maxTime = -1
+    o.maxTime = math.max(1, units(duration))
     o.stopOnWalk = true
     o.stopOnRun = true
     o.useProgressBar = true

@@ -129,6 +129,8 @@ cdc: "This is really fucking good work, {pc_first_name()}. Let us cook on it som
 cdc: "Daniel Chidi with the CDC, over and out."
 radio: *static*
 
+EXIT
+
 # back
 
 GO cdc.ska -> router

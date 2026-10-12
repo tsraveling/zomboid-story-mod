@@ -28,6 +28,8 @@ cdc: "How are you? Who are you?"
 
 > I'm {pc_first_name()}!
 
+~ do_meet()
+
 radio: *sounds of someone yelling to someone else, and excited voices cutting through the static*
 
 cdc: "... CHRIST I thought we were the last people alive on fucking EARTH down here!"
