@@ -243,7 +243,7 @@ EXIT
 --- Summary block for everything in progress
 (? get_quest("first") == 0) cdc: "If you were ever interested in helping me out with my research, you know, getting me some fresh zombie meat, that's still on the table."
 (? get_quest("first") == 1) cdc: "Once you have the zombie meat sample, just let me know."
-cdc: "And of course if you just want to talk, I've got nothing here but time."
+cdc: "If you just want to talk, I've got nothing here but time."
 
 # router
 
@@ -251,9 +251,19 @@ cdc: "So what did you want to talk about?"
 
 > (? get_quest("first") < 100) About the zombie meat ...
   GO quests/first.ska
+> Any other work I should be doing right now?
+  -> other_work
 
+# other_work
 
-
---- TODO: Build this out as a kind of router
-
---- STUB: Figure out mechanism for the return to quest status thing.
+@if quest_available("first")
+cdc: "Well, we still need that zombie meat sample. Feeling up for it?"
+> "Actually ..."
+  GO quests/first.ska
+> "Maybe another time."
+  -> router
+@else
+cdc: "Dont think so, {pc_first_name()}. We'll let you know when we've got some more questions for you!"
+> "Cool."
+  -> router
+@endif

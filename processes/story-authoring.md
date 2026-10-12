@@ -32,7 +32,7 @@ All narrative lives in `CDCLastHope/42/media/lua/shared/CDCLastHope/story.lua`. 
 
 1. Pickup: `{ id, x, y, z, sprite, label, item, once, deliveredFlag, duration, text, cond = fn(ctx, square), condFailText, goneText }`
 2. `once`: `"global"` (default, one per world), `"character"`, `"untilDelivered"` (needs `deliveredFlag`), `"none"`
-3. Corpse action: `{ id, label, requires = fullType, consumes = bool, gives, duration, text }`
+3. Corpse action: `{ id, label, requires = fullType, consumes = bool, gives, duration, text, cond = fn(ctx) }`; hidden when `cond` returns false
 4. Spawn: `{ item, lists = { ... }, chance }` with list names from `processes/pz-distribution-lists.md`
 5. Site: `{ x, y, r, name, requires = { items = { ["Base.Wire"] = 2 }, perk = "Electricity", level = 2 }, duration, text }`
 6. Find coordinates in-game: debug mode shows x,y,z bottom-left; or right-click, Tile Report

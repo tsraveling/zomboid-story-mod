@@ -29,6 +29,15 @@ module CDCLastHope
         WorldStaticModel = BookClosedGround,
     }
 
+    item ZombieMeat
+    {
+        DisplayCategory = Junk,
+        ItemType = base:normal,
+        Weight = 0.3,
+        Icon = CDCPink,
+        WorldStaticModel = BookClosedGround,
+    }
+
     item Microscope
     {
         DisplayCategory = Junk,

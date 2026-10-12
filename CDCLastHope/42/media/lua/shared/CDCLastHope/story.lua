@@ -14,7 +14,7 @@
     flagLabels      { flag = "Human label" } used in journal history.
     journal         { { cond=fn(ctx), text=string|fn } } shown in CDC journal tab.
     world.pickups   { id, x,y,z, sprite=nil, label, item, once="global"|"character"|"untilDelivered"|"none", deliveredFlag, duration=2, text, cond=fn(ctx,square), condFailText }
-    world.corpseActions { id, label, requires=fullType|nil, consumes=false, gives, duration=3, text }
+    world.corpseActions { id, label, requires=fullType|nil, consumes=false, gives, duration=3, text, cond=fn(ctx) }  hidden when cond false
     world.spawns    { item, lists={"ClassroomDesk"}, chance=5 }
     items           optional extra item list for debug spawn menu
 
@@ -142,6 +142,10 @@ CDC.story = {
             { id = "sample", label = "PLACEHOLDER Take tissue sample", requires = "Base.HuntingKnife", consumes = false,
               gives = "CDCLastHope.TissueSample", duration = 3,
               text = "PLACEHOLDER: You cut a sample free and bag it." },
+            { id = "meat", label = "Cut meat", requires = "Base.HuntingKnife", consumes = false,
+              gives = "CDCLastHope.ZombieMeat", duration = 3,
+              cond = function(ctx) return ctx.get("quest_first") == 1 end,
+              text = "PLACEHOLDER: You carve off a chunk of meat." },
         },
         spawns = {
             { item = "CDCLastHope.Microscope", lists = { "ClassroomDesk", "MedicalStorageTools" }, chance = 5 },

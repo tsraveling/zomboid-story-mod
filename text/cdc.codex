@@ -1,6 +1,36 @@
 @methods
-  --- checks to see if the player meets the conditions for completing a given quest key
+  --- checks to see if the player meets the conditions for completing a given quest key. used for more complex computed conditions.
   check_quest(key string, stage int) bool
+
+  --- checks that the given skill is AT LEAST the given level
+  check_skill(skill string, level int) bool
+
+  --- true if this quest is available to be started: aka, if prereqs are met, and if the quest has been built.
+  quest_available(key string) bool
+
+  --- checks if user has at least one of the given item in their inventory.
+  has_item(item string) bool
+
+  --- checks if user has started a given time-duration job
+  has_started_job(key string) bool
+
+  --- checks if user has completed a time-duration job
+  check_job_done(key string) bool
+
+  --- true if the radio has a microscope within range
+  radio_has_microscope() bool
+
+  --- true if the radio has a computer within range and turned on
+  radio_has_computer() bool
+
+  --- true if this radio is within range of a broadcast tower.
+  at_tower() bool
+
+  --- rewards xp to everyone within range of the radio
+  reward_xp(skill string, amount float) action
+
+  --- does job until complete, then continues. handle interrupts manually. Note that because this is triggered from Skald, this is by definition a "radio job" -- done while on the phone with the CDC. The first call of this registers the job in memory and records its duration.
+  do_job(key string, hours float) action
 
   --- sets the quest of the given key to the given stage
   set_quest(key string, stage int) action

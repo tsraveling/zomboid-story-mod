@@ -4,6 +4,7 @@ ISCDCCorpseAction = ISBaseTimedAction:derive("ISCDCCorpseAction")
 
 function ISCDCCorpseAction:isValid()
     if self.def.requires and not self.character:getInventory():containsTypeRecurse(self.def.requires) then return false end
+    if self.def.cond and not self.def.cond(CDC.Context.new(self.character, nil)) then return false end
     return self.body:getSquare() ~= nil
 end
 

@@ -109,11 +109,14 @@ end
 function M.addCorpseOptions(player, context)
     local body = ISWorldObjectContextMenu.fetchVars and ISWorldObjectContextMenu.fetchVars.body
     if not body or body:isAnimal() then return end
+    local ctx = CDC.Context.new(player, nil)
     for _, def in ipairs(CDC.story.world.corpseActions) do
-        local opt = context:addOption(def.label or def.id, player, M.corpse, def, body)
-        if def.requires and not player:getInventory():containsTypeRecurse(def.requires) then
-            opt.notAvailable = true
-            tooltip(opt, "Requires: " .. tostring(def.requires))
+        if def.cond == nil or def.cond(ctx) then
+            local opt = context:addOption(def.label or def.id, player, M.corpse, def, body)
+            if def.requires and not player:getInventory():containsTypeRecurse(def.requires) then
+                opt.notAvailable = true
+                tooltip(opt, "Requires: " .. tostring(def.requires))
+            end
         end
     end
 end

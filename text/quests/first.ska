@@ -1,6 +1,7 @@
 # start
 
 (? get_quest("first") == 0) -> reconsider
+(? has_started_job("meat")) -> resume
 (? get_quest("first") == 1) -> meat
 
 --- NOTE: The edge case where character 1 turns him down and now this is char 2 talking is not really handled here.
@@ -23,13 +24,110 @@ cdc: "FUCK yes."
 
 cdc: "Seriously. {pc_first_name()}, we're going to be a dream team."
 
---- STUB: zombie meat briefing
+cdc: "Ok. So like I mentioned, there's some ... *weird* shit about how these monsters work."
 
-# meat
+> What do you mean?
 
---- STUB: Do you have the meats?
+cdc: "It's a little hard to explain. When we first started getting reports and video of them, we thought it was some kind of drug, or some kind of neurodegenerative disorder maybe."
 
---- STUB: Quest completion ....
+> (? check_skill("Doctor", 2)) (Doctor 2) Like rabies?
+  cdc: "... yes. Exactly like rabies."
+> Like what?
+  cdc: "Like rabies, for instance."
+
+cdc: "But it wasn't either of those things. We thought the original reports of actually dead bodies animating were just the usual hyperbole and superstition, but turns out that was real too."
+
+cdc: "What we found is that there's a very fine substance coating the nerve linings. It's more like a puppeteer than a traditional neural parasite. It still piggybacks on brain neural matter as a main control center, which is why destroying the brain kills them permanently."
+
+cdc: "But fuck, we only had a couple of days before the shit blew up and we had to come down here. We only managed a few samples."
+
+> ... okay?
+
+cdc: "Okay. So, we noticed some odd variation in the substance. More diversity than you might have expected from a new plague like this."
+
+> (? check_skill("Doctor", 4)) (Doctor 4) Indicating a combinatorial jump.
+  cdc: "Shit. Yes. *Exactly*."
+  cdc: "Damn, {pc_first_name()}, I hope you survive this thing."
+  cdc: "But yeah. We think there might be multiple origins of this thing."
+> I'm not following.
+  cdc: "It means we think there might be *multiple* origins of this thing. Different strains that combined to form the main Z strain."
+
+cdc: "But the effect gets diluted the further away from the origin you get."
+cdc: "Which is why we need you."
+
+> Zombie meat.
+
+cdc: "Exactly. The characteristics we're looking for should be visible without any special equipment. I need you to get a piece of one of those things, and just bring it back to the radio. Call me, and I'll walk you through the analysis."
+
+~ set_quest("first", 1)
+
+> I'm on it.
+
+cdc: "Thank you, {pc_first_name()}."
+
+cdc: "You're kind of our last hail mary out there."
+
+cdc: "The new gods really let us down on this one, so I'm dropping a line to the old ones for you."
+
+> Over and out.
+
+cdc: "CDC, over and out."
+
+radio: *static*
+
+EXIT
+
+# resume --- if interrupted
+
+cdc: "Yeah, perfect. Ready to resume the analysis?"
+
+> (? has_item("ZombieMeat")) Ready.
+> I seem to have misplaced my meat.
+  cdc: "Oh. Uh, ok, sure. I guess just let me know when you ... find it."
+  -> back
+> Not quite.
+  cdc: "Fair enough."
+  -> back
+
+cdc: "Perfect."
+
+-> job
+
+# meat --- if first:1
+
+--- Lead-in: > About the zombie meat ...
+
+cdc: "Yeah -- were you able to get a sample?"
+
+> (? has_item("ZombieMeat")) I have it.
+  -> complete
+> Not yet.
+  cdc: "No worries. Just keep me posted."
+  -> back
+
+# complete
+
+cdc: "Hell yes. Perfect. Okay, let me walk you through the analysis ..."
+-> job
+
+# job
+
+~ do_job("meat", 0.5)
+~ reward_xp("Doctor", 50.0)
+~ reward_xp("Butchering", 20.0)
+~ set_quest("first", 100) --- quest is done
+
+You spend half an hour examining the strange meat. Even dismembered like this, when you look closely, it quivers and moves in a strange and unsettling motion. Occasionally it phosphors with microscopic pricks of violet light.
+
+But occasionally the rhythm of motion will change, and the pricks of light shade suddenly green or yellow. The effect is hypnotically schizophrenic.
+
+cdc: "Ok. Damn. So to recap:"
+cdc: "Samples from the zombies we were able to collect here in Atlanta before the shit hit the fan show a lot more uniformity in behavior. Same violence on a whole-organism level, but the substance *itself* is a lot more stable the further we get from the origin."
+cdc: "It's very odd, but it kind of seems like there's more diversity *at origin* for this thing than out here in the wild, so to speak. Usually it's the other way around."
+cdc: "It makes me wonder if this is less one thing getting out, and more something getting out after a cross-strain mutation."
+cdc: "This is really fucking good work, {pc_first_name()}. Let us cook on it some over here and we'll get you some next actions. For now just sit tight and stay safe."
+cdc: "Daniel Chidi with the CDC, over and out."
+radio: *static*
 
 # back
 
