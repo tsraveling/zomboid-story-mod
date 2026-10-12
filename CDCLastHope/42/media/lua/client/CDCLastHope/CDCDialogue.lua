@@ -103,9 +103,9 @@ function ISCDCDialogue:options(opts)
     self:buildButtons(defs)
 end
 
-function ISCDCDialogue:working(key)
+function ISCDCDialogue:working(key, duration, progress)
     self:buildButtons({ { label = "Working...", disabled = true } })
-    self.job = ISCDCJobAction:new(self.player, self.radio, key, self)
+    self.job = ISCDCJobAction:new(self.player, self.radio, key, duration, progress, self)
     ISTimedActionQueue.add(self.job)
 end
 

@@ -8,7 +8,7 @@ CDC.TXLOG_CAP = 200
 CDC.TRANSMIT_TIME = 100    -- timed action ticks, ~3s real time
 CDC.EQUIP_RANGE = 3        -- tiles from radio for microscope / computer
 CDC.TOWER_RADIUS = 25      -- tiles from a tower for at_tower()
-CDC.TOWERS = {}            -- { {x, y} }; broadcast towers for at_tower()
+CDC.TOWERS = {}            -- { {x = 0, y = 0} }; broadcast towers for at_tower()
 CDC.JOB_ZOMBIE_RANGE = 10  -- visible zombie within this interrupts a radio job
 CDC.JOB_SYNC_HOURS = 0.25  -- game hours between job progress syncs
 CDC.JOB_GAME_SPEED = 3     -- SP game speed while a radio job runs

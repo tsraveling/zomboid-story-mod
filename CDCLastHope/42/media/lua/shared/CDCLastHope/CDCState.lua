@@ -8,23 +8,33 @@ local function blank()
     return { quests = {}, jobs = {}, met = {}, dead = {}, pickups = {}, txlog = {}, meta = { forceActive = false, seq = 0 } }
 end
 
-local OBSOLETE = { "flags", "log", "radios" }
+local SCHEMA = 2
+
+-- v1 kept quest stages as flags ("quest_first" = 1)
+local function migrate(d)
+    for k, v in pairs(blank()) do
+        if d[k] == nil then d[k] = v end
+    end
+    if d.meta.seq == nil then d.meta.seq = 0 end
+    for flag, v in pairs(d.flags or {}) do
+        local key = type(flag) == "string" and flag:match("^quest_(.+)$")
+        if key and type(v) == "number" and d.quests[key] == nil then d.quests[key] = v end
+    end
+    d.flags, d.log, d.radios = nil, nil, nil
+    d.meta.schema = SCHEMA
+end
 
 -- always call fresh; client copy is replaced on every server transmit
 function S.get()
     local d = ModData.getOrCreate(CDC.MODDATA_KEY)
-    for k, v in pairs(blank()) do
-        if d[k] == nil then d[k] = v end
-    end
-    for _, k in ipairs(OBSOLETE) do d[k] = nil end
-    if d.meta.seq == nil then d.meta.seq = 0 end
+    if not d.meta or d.meta.schema ~= SCHEMA then migrate(d) end
     return d
 end
 
 function S.reset()
     local d = S.get()
     for k in pairs(d) do d[k] = nil end
-    for k, v in pairs(blank()) do d[k] = v end
+    migrate(d)
 end
 
 function S.activationDay()

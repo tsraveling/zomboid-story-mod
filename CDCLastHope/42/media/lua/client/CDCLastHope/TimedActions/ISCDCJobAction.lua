@@ -36,10 +36,7 @@ end
 function ISCDCJobAction:start()
     self:setActionAnim("Loot")
     self:setAnimVariable("LootPosition", "Mid")
-    local j = CDC.State.job(CDC.State.get(), self.key)
-    self.duration = j.duration
-    self.progress = j.progress
-    self.syncedAt = j.progress
+    self.syncedAt = self.progress
     self.last = CDC.hours()
     self.lastHealth = self:health()
     self.ticks = 0
@@ -79,7 +76,7 @@ end
 
 function ISCDCJobAction:stop()
     self:restoreSpeed()
-    if self.duration then self:sync() end
+    self:sync()
     ISBaseTimedAction.stop(self)
     self.dialogue:onJobStopped()
 end
@@ -92,10 +89,12 @@ function ISCDCJobAction:perform()
     self.dialogue:onJobDone()
 end
 
-function ISCDCJobAction:new(character, radio, key, dialogue)
+function ISCDCJobAction:new(character, radio, key, duration, progress, dialogue)
     local o = ISBaseTimedAction.new(self, character)
     o.radio = radio
     o.key = key
+    o.duration = duration
+    o.progress = progress
     o.dialogue = dialogue
     o.maxTime = -1
     o.stopOnWalk = true

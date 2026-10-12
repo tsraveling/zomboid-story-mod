@@ -1,18 +1,17 @@
 #!/usr/bin/env bash
 # Compiles text/ with skalder and vendors the skald-lua runtime into the mod.
-# PZ's require discards return values, so every generated file registers itself as a global instead.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 SKALD_LUA="${SKALD_LUA:-$HOME/repos/skald-lua}"
-OUT="$ROOT/CDCLastHope/42/media/lua/client/CDCLastHope/skald"
+DEST="$ROOT/CDCLastHope/42/media/lua/client/CDCLastHope/skald"
 REQ="CDCLastHope/skald"
 TMP="$(mktemp -d)"
+OUT="$TMP/out"
 trap 'rm -rf "$TMP"' EXIT
 
 skalder --compile lua "$ROOT/text" -o "$TMP/story"
 
-rm -rf "$OUT"
 mkdir -p "$OUT/story"
 
 sed 's|^return Skald$|SkaldRuntime = Skald|' "$SKALD_LUA/src/skald.lua" > "$OUT/SkaldRuntime.lua"
@@ -39,4 +38,6 @@ done < <(find "$TMP/story" -name '*.lua' ! -name '_codex.lua' | sort)
     for r in "${requires[@]}"; do echo "require \"$r\""; done
 } > "$OUT/index.lua"
 
-echo "compiled $(( ${#requires[@]} - 2 )) modules -> $OUT"
+rm -rf "$DEST"
+mv "$OUT" "$DEST"
+echo "compiled $(( ${#requires[@]} - 2 )) modules -> $DEST"

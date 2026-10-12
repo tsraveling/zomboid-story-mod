@@ -50,9 +50,13 @@ end
 Srv.handlers = {}
 
 -- args: ops = { {type, ...} }; see CDC.State.ops
+local DEBUG_OPS = { clearJob = true, clearPeople = true }
+
 function Srv.handlers.state(player, args)
     local st = S.get()
-    for _, op in ipairs(args.ops or {}) do S.apply(st, op) end
+    for _, op in ipairs(args.ops or {}) do
+        if not DEBUG_OPS[op.type] or CDC.isDebug() then S.apply(st, op) end
+    end
     sync()
 end
 

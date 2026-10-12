@@ -6,7 +6,7 @@ require "CDCLastHope/skald/index"
 --   line(kind, who, text)   kind: player | cdc | radio | other | narration
 --   options(opts)           opts: { {text, available} }
 --   waiting()               content shown, wait for continue()
---   working(key)            radio job running; call jobDone() / jobInterrupted()
+--   working(key, duration, progress)  radio job running; call jobDone() / jobInterrupted()
 --   ended(reason)           exit | end | error | interrupted
 CDC.Convo = {}
 CDC.Convo.__index = CDC.Convo
@@ -64,13 +64,16 @@ function C:query(res)
         CDC.log("skald: no query handler for " .. tostring(res.method))
         return nil
     end
-    return f(self.host, unpack(res.args))
+    local ok, v = pcall(f, self.host, unpack(res.args))
+    if not ok then CDC.log("skald: query " .. res.method .. " failed: " .. tostring(v)); return nil end
+    return v
 end
 
 function C:post(res)
     local f = CDC.Skald.posts[res.method]
     if not f then CDC.log("skald: no post handler for " .. tostring(res.method)); return end
-    f(self.host, unpack(res.args))
+    local ok, err = pcall(f, self.host, unpack(res.args))
+    if not ok then CDC.log("skald: post " .. res.method .. " failed: " .. tostring(err)) end
 end
 
 -- runs the engine until it needs the player or a job
@@ -115,13 +118,14 @@ end
 function C:startJob(key, hours)
     local job = CDC.State.job(CDC.State.get(), key)
     if not job then
-        CDC.Client.applyOps(self.host.player, { { type = "job", key = key, duration = hours, progress = 0 } })
+        job = { duration = hours, progress = 0 }
+        CDC.Client.applyOps(self.host.player, { { type = "job", key = key, duration = job.duration, progress = 0 } })
     elseif job.progress >= job.duration then
         return self:advance(self.rt:act(0))
     end
     self.state = "job"
     self.jobKey = key
-    self.view:working(key)
+    self.view:working(key, job.duration, job.progress)
 end
 
 function C:jobDone()
