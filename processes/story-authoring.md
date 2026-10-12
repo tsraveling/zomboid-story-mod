@@ -42,8 +42,9 @@ Conversations are Skald modules in `text/`. World config (frequency, precue, cal
 
 ## Quest Availability
 
-1. `CDCLastHope/42/media/lua/shared/CDCLastHope/CDCQuests.lua`: `Q.available[questKey] = function(st) ... end`
-2. Read state with `CDC.State.quest(st, key)` and `CDC.State.jobDone(st, key)`; unknown keys are unavailable
+1. `CDCLastHope/42/media/lua/shared/CDCLastHope/CDCQuests.lua`: `Q.available[questKey] = function() ... end` returns whether prereqs are met, e.g. `function() return Q.isDone("first") end`
+2. A quest past stage 0 is never available; rules don't need to check their own stage. Unknown keys are unavailable
+3. Add small helpers next to `Q.isDone` for new kinds of prereqs
 
 ## World Content
 
