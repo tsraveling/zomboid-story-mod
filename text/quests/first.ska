@@ -81,7 +81,7 @@ EXIT
 
 cdc: "Yeah, perfect. Ready to resume the analysis?"
 
-> (? has_item("ZombieMeat")) Ready.
+> (? has_item("ZombieMeat")) (Zombie Meat) Ready.
 > I seem to have misplaced my meat.
   cdc: "Oh. Uh, ok, sure. I guess just let me know when you ... find it."
   -> back
@@ -99,7 +99,7 @@ cdc: "Perfect."
 
 cdc: "Yeah -- were you able to get a sample?"
 
-> (? has_item("ZombieMeat")) I have it.
+> (? has_item("ZombieMeat")) (Zombie Meat) I have it.
   -> complete
 > Not yet.
   cdc: "No worries. Just keep me posted."

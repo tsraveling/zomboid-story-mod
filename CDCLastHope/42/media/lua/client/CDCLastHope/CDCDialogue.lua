@@ -18,6 +18,7 @@ local COLORS = {
     radio = CDC.COLOR_RADIO,
     other = CDC.COLOR_OTHER,
     narration = CDC.COLOR_NARRATION,
+    reward = CDC.COLOR_REWARD,
 }
 
 -- tag: optional block tag to start at (debug)
@@ -82,7 +83,7 @@ function ISCDCDialogue:line(kind, who, text)
         self:floatPlayer(text, color)
     elseif kind == "other" then
         self:floatRadio(who .. ": " .. text, color)
-    elseif kind ~= "narration" then
+    elseif kind ~= "narration" and kind ~= "reward" then
         self:floatRadio(text, color)
     end
 end
@@ -91,11 +92,18 @@ function ISCDCDialogue:waiting()
     self:buildButtons({ { label = "Continue", onClick = function() self.convo:continue() end } })
 end
 
+-- unavailable options show grayed only when their text starts with "(", e.g. "(Doctor 4) ..."
+local function showLocked(text)
+    return text:match("^%s*%(") ~= nil
+end
+
 function ISCDCDialogue:options(opts)
     local defs, any = {}, false
     for i, o in ipairs(opts) do
         any = any or o.available
-        table.insert(defs, { label = clean(o.text), disabled = not o.available, onClick = function() self.convo:choose(i) end })
+        if o.available or showLocked(o.text) then
+            table.insert(defs, { label = clean(o.text), disabled = not o.available, onClick = function() self.convo:choose(i) end })
+        end
     end
     if not any then
         table.insert(defs, { label = "Continue", onClick = function() self.convo:choose(nil) end })

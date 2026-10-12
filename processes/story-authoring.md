@@ -13,7 +13,7 @@ Conversations are Skald modules in `text/`. World config (frequency, precue, cal
 
 1. Every Transmit loads `cdc.ska` and starts at its first block; nothing carries over between calls except quest/job/character state
 2. `cdc:` lines float above the radio in purple, `radio:` lines in gray, any other speaker in white prefixed with its name; unattributed lines are narration and only appear in the dialogue box
-3. Player choices float above the player in cyan; options whose `(? ...)` condition fails are shown grayed out
+3. Player choices float above the player in cyan; an option whose `(? ...)` condition fails is hidden, unless its text starts with `(` (e.g. `(Doctor 4) ...`), in which case it shows grayed out
 4. Each line waits for Continue; `EXIT` (or running off the end) shows End transmission
 5. A block that falls through into the next block keeps going; end conversations with `EXIT` explicitly
 
@@ -23,7 +23,7 @@ Conversations are Skald modules in `text/`. World config (frequency, precue, cal
 2. Jobs: `do_job(key, hours)`, `has_started_job(key)`, `check_job_done(key)` -> Jobs
 3. Player: `check_skill("Doctor", 2)`, `has_item("ZombieMeat")` (unqualified names try `CDCLastHope.` then `Base.`), `pc_first_name()`, `pc_last_name()`, `pc_full_name()`
 4. Radio surroundings: `radio_has_microscope()` (placed vanilla microscope within 3 tiles), `radio_has_computer()` (placed desktop computer within 3 tiles on a powered square), `at_tower()` (within 25 tiles of an entry in `CDC.TOWERS`; none defined yet)
-5. Rewards: `reward_xp("Doctor", 50.0)` grants exactly that much XP (no profession/trait/sandbox multipliers) to every player within the sandbox RewardRadius (default 20) of the radio, with a skill-up arrow over their head; skill keys in `processes/pz-skill-keys.md`
+5. Rewards: `reward_xp("Doctor", 50.0)` grants exactly that much XP (no profession/trait/sandbox multipliers) to every player within the sandbox RewardRadius (default 20) of the radio, with a skill-up arrow over their head and a green `Skill +N` line in the dialogue box; skill keys in `processes/pz-skill-keys.md`
 6. CDC memory: `met_anyone()`, `has_met()`, `is_returning()`, `did_think_dead()`, `mem_first_name()` / `mem_last_name()` / `mem_full_name()`, `do_meet()`, `update_meet()`, `set_thought_dead()`
 
 ## Jobs

@@ -150,6 +150,10 @@ function Po.set_quest(h, key, stage)
 end
 
 function Po.reward_xp(h, skill, amount)
+    local perk = Perks.FromString(skill)
+    local name = (perk and perk ~= Perks.None) and perk:getName() or skill
+    local n = amount == math.floor(amount) and string.format("%d", amount) or tostring(amount)
+    h.line("reward", name .. " +" .. n)
     local sq = h.radio:getSquare()
     CDC.Net.send(h.player, "reward", { x = sq:getX(), y = sq:getY(), z = sq:getZ(), xp = { { perk = skill, amount = amount } } })
 end

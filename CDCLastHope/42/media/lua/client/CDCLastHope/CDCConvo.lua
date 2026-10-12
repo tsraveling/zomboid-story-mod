@@ -3,7 +3,7 @@ require "CDCLastHope/CDCSkald"
 require "CDCLastHope/skald/index"
 
 -- drives one Skald conversation. view receives:
---   line(kind, who, text)   kind: player | cdc | radio | other | narration
+--   line(kind, who, text)   kind: player | cdc | radio | other | narration | reward
 --   options(opts)           opts: { {text, available} }
 --   waiting()               content shown, wait for continue()
 --   working(key, duration, progress)  radio job running; call jobDone() / jobInterrupted()
@@ -22,8 +22,12 @@ end
 
 function C.new(player, radio, view)
     local o = setmetatable({}, C)
-    o.host = { player = player, radio = radio }
     o.view = view
+    o.host = {
+        player = player,
+        radio = radio,
+        line = function(kind, text) view:line(kind, "", text) end,
+    }
     o.rt = SkaldRuntime.new(CDCSkaldCodex, {
         load_module = function(path) return CDCSkaldModules[path] end,
         warn = function(msg, line) CDC.log("skald warn: " .. tostring(msg) .. " @" .. tostring(line)) end,

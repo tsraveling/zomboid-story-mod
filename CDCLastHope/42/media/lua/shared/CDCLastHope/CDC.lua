@@ -17,6 +17,7 @@ CDC.COLOR_PLAYER = { r = 0.3, g = 0.9, b = 1.0 }
 CDC.COLOR_RADIO = { r = 0.6, g = 0.6, b = 0.6 }
 CDC.COLOR_OTHER = { r = 1.0, g = 1.0, b = 1.0 }
 CDC.COLOR_NARRATION = { r = 0.6, g = 0.6, b = 0.6 }
+CDC.COLOR_REWARD = { r = 0.4, g = 0.9, b = 0.4 }
 
 function CDC.log(msg)
     print("[CDCLastHope] " .. tostring(msg))
