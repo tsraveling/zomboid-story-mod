@@ -6,8 +6,17 @@ CDC.FREQ_MARGIN = 300      -- kHz either side of story.freq
 CDC.FLOAT_RANGE = 20       -- tiles; bystanders see radio text within this
 CDC.TXLOG_CAP = 200
 CDC.TRANSMIT_TIME = 100    -- timed action ticks, ~3s real time
-CDC.COLOR_CDC = { r = 0.35, g = 0.6, b = 1.0 }
-CDC.COLOR_PLAYER = { r = 0.78, g = 0.6, b = 0.92 }
+CDC.EQUIP_RANGE = 3        -- tiles from radio for microscope / computer
+CDC.TOWER_RADIUS = 25      -- tiles from a tower for at_tower()
+CDC.TOWERS = {}            -- { {x, y} }; broadcast towers for at_tower()
+CDC.JOB_ZOMBIE_RANGE = 10  -- visible zombie within this interrupts a radio job
+CDC.JOB_SYNC_HOURS = 0.25  -- game hours between job progress syncs
+CDC.JOB_GAME_SPEED = 3     -- SP game speed while a radio job runs
+CDC.COLOR_CDC = { r = 0.75, g = 0.5, b = 1.0 }
+CDC.COLOR_PLAYER = { r = 0.3, g = 0.9, b = 1.0 }
+CDC.COLOR_RADIO = { r = 0.6, g = 0.6, b = 0.6 }
+CDC.COLOR_OTHER = { r = 1.0, g = 1.0, b = 1.0 }
+CDC.COLOR_NARRATION = { r = 0.6, g = 0.6, b = 0.6 }
 
 function CDC.log(msg)
     print("[CDCLastHope] " .. tostring(msg))
@@ -101,33 +110,4 @@ end
 function CDC.isOnFrequency(obj)
     local dd = obj:getDeviceData()
     return math.abs(dd:getChannel() - CDC.story.freq) <= CDC.FREQ_MARGIN
-end
-
--- effect descriptors; story.lua uses these in choice.effects
-CDC.fx = {}
-
--- strict: server rejects if flag already set (drives "alreadyDone")
-function CDC.fx.setFlag(key, value)
-    if value == nil then value = true end
-    return { type = "setFlag", key = key, value = value }
-end
-
--- overwrite silently
-function CDC.fx.putFlag(key, value)
-    if value == nil then value = true end
-    return { type = "putFlag", key = key, value = value }
-end
-
-function CDC.fx.clearFlag(key)
-    return { type = "clearFlag", key = key }
-end
-
--- perk is a string name, e.g. "Electricity"
-function CDC.fx.xp(perk, amount)
-    return { type = "xp", perk = perk, amount = amount }
-end
-
--- runs client-side on the caller after server commit succeeds
-function CDC.fx.fn(f)
-    return { type = "fn", fn = f }
 end

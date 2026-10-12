@@ -5,7 +5,6 @@ require "CDCLastHope/CDCDialogue"
 require "CDCLastHope/TimedActions/ISCDCTransmitAction"
 require "CDCLastHope/TimedActions/ISCDCPickupAction"
 require "CDCLastHope/TimedActions/ISCDCCorpseAction"
-require "CDCLastHope/TimedActions/ISCDCUplinkAction"
 
 CDC.Menu = {}
 local M = CDC.Menu
@@ -44,12 +43,6 @@ function M.transmit(player, radio)
     end
 end
 
-function M.uplink(player, radio, site)
-    if luautils.walkAdj(player, radio:getSquare()) then
-        ISTimedActionQueue.add(ISCDCUplinkAction:new(player, radio, site))
-    end
-end
-
 function M.pickup(player, def, square)
     if luautils.walkAdj(player, square) then
         ISTimedActionQueue.add(ISCDCPickupAction:new(player, def, square))
@@ -67,16 +60,6 @@ function M.addRadioOptions(player, context, radio, active)
         context:addOption("Transmit", player, M.transmit, radio)
     end
     context:addOption("View transmission log", player, function(pl, r) CDC.Dialogue.open(pl, r, true) end, radio)
-    if active then
-        local sq = radio:getSquare()
-        local site = CDC.Sites.at(sq:getX(), sq:getY())
-        if site and not CDC.State.uplinkOf(radio) then
-            local opt = context:addOption("Connect to uplink (" .. tostring(site.name) .. ")", player, M.uplink, radio, site)
-            local ok = CDC.Uplink.meetsRequirements(player, site)
-            opt.notAvailable = not ok
-            tooltip(opt, "Requires: " .. CDC.Uplink.requirementText(site))
-        end
-    end
 end
 
 function M.addPickupOptions(player, context, squares)

@@ -12,7 +12,6 @@ function P.available(def, player)
     local once = def.once or "global"
     if once == "global" then return st.pickups[def.id] == nil end
     if once == "character" then return not (player:getModData().CDCPickups or {})[def.id] end
-    if once == "untilDelivered" then return def.deliveredFlag == nil or st.flags[def.deliveredFlag] == nil end
     return true
 end
 
@@ -36,38 +35,4 @@ function P.onResult(args)
         md.CDCPickups[p.def.id] = true
     end
     CDC.Modal.show(p.player, p.def.text)
-end
-
--- uplink sites
-CDC.Uplink = {}
-local U = CDC.Uplink
-
-function U.meetsRequirements(player, site)
-    local req = site.requires or {}
-    local inv = player:getInventory()
-    for t, n in pairs(req.items or {}) do
-        if inv:getCountTypeRecurse(t) < n then return false end
-    end
-    if req.perk and req.level then
-        if player:getPerkLevel(Perks.FromString(req.perk)) < req.level then return false end
-    end
-    return true
-end
-
-function U.requirementText(site)
-    local req = site.requires or {}
-    local parts = {}
-    for t, n in pairs(req.items or {}) do table.insert(parts, tostring(n) .. "x " .. t) end
-    if req.perk and req.level then table.insert(parts, req.perk .. " " .. tostring(req.level)) end
-    return table.concat(parts, ", ")
-end
-
-function U.consume(player, site)
-    local inv = player:getInventory()
-    for t, n in pairs((site.requires or {}).items or {}) do
-        for _ = 1, n do
-            local it = inv:getFirstTypeRecurse(t)
-            if it then inv:Remove(it) end
-        end
-    end
 end

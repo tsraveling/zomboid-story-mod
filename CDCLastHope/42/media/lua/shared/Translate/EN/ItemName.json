@@ -1,7 +1,3 @@
 {
-    "ItemName_CDCLastHope.ScientistLaptop": "PLACEHOLDER Scientist's Laptop",
-    "ItemName_CDCLastHope.ThumbDrive": "PLACEHOLDER Thumb Drive",
-    "ItemName_CDCLastHope.TissueSample": "PLACEHOLDER Tissue Sample",
-    "ItemName_CDCLastHope.ZombieMeat": "PLACEHOLDER Zombie Meat",
-    "ItemName_CDCLastHope.Microscope": "PLACEHOLDER Microscope"
+    "ItemName_CDCLastHope.ZombieMeat": "PLACEHOLDER Zombie Meat"
 }

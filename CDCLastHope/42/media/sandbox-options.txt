@@ -2,7 +2,7 @@ VERSION = 1,
 
 option CDCLastHope.RewardRadius
 {
-    type = integer, min = 1, max = 100, default = 10,
+    type = integer, min = 1, max = 100, default = 20,
     page = CDCLastHope, translation = CDCLastHope_RewardRadius,
 }
 

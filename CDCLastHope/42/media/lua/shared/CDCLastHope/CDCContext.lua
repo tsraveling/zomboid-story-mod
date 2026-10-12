@@ -1,15 +1,6 @@
 require "CDCLastHope/CDCState"
 
-CDC.Sites = {}
-
--- site whose radius covers (x,y), or nil
-function CDC.Sites.at(x, y)
-    for _, site in ipairs(CDC.story.sites or {}) do
-        if CDC.dist(x, y, site.x, site.y) <= (site.r or 20) then return site end
-    end
-    return nil
-end
-
+-- ctx handed to story.lua world config (pickup / corpse action conds)
 CDC.Context = {}
 
 -- spec: full type string, list of full types, or function(item) -> bool
@@ -34,19 +25,13 @@ function CDC.Context.new(player, radio)
     ctx.day = CDC.day()
     ctx.name = player:getFullName()
     ctx.username = player:getUsername()
-    ctx.isNewCharacter = not player:getModData().CDCIntroSeen
 
-    local sq = radio and radio:getSquare() or player:getSquare()
-    ctx.atSite = sq and CDC.Sites.at(sq:getX(), sq:getY()) or nil
-    ctx.uplinked = (radio ~= nil) and (CDC.State.uplinkOf(radio) ~= nil)
-
-    function ctx.has(flag)
-        local v = CDC.State.get().flags[flag]
-        return v ~= nil and v ~= false
+    function ctx.quest(key)
+        return CDC.State.quest(CDC.State.get(), key)
     end
 
-    function ctx.get(flag)
-        return CDC.State.get().flags[flag]
+    function ctx.jobDone(key)
+        return CDC.State.jobDone(CDC.State.get(), key)
     end
 
     function ctx.hasItem(spec)
@@ -55,14 +40,6 @@ function CDC.Context.new(player, radio)
 
     function ctx.countItem(fullType)
         return player:getInventory():getCountTypeRecurse(fullType)
-    end
-
-    function ctx.lastDelivery(flag)
-        return CDC.State.lastDelivery(flag)
-    end
-
-    function ctx.daysSince(entry)
-        return CDC.State.daysSince(entry)
     end
 
     function ctx.perkLevel(perkName)

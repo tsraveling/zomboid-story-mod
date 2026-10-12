@@ -3,6 +3,7 @@ require "ISUI/ISPanel"
 require "ISUI/ISRichTextPanel"
 require "XpSystem/ISUI/ISCharacterInfoWindow"
 require "CDCLastHope/CDCClient"
+require "CDCLastHope/CDCQuestStatus"
 
 CDCJournalPanel = ISPanel:derive("CDCJournalPanel")
 
@@ -21,33 +22,14 @@ function CDCJournalPanel:createChildren()
 end
 
 function CDCJournalPanel:refresh()
-    local player = getSpecificPlayer(self.playerNum)
-    if not player then return end
     local out = {}
     table.insert(out, "<RGB:1,1,1> <SIZE:medium> CDC Objectives <SIZE:small> <LINE> ")
-    if not CDC.State.isActive() then
-        table.insert(out, "<RGB:0.6,0.6,0.6> Nothing yet. <LINE> ")
-    else
-        local ctx = CDC.Context.new(player, nil)
-        local n = 0
-        for _, j in ipairs(CDC.story.journal) do
-            if j.cond == nil or j.cond(ctx) then
-                n = n + 1
-                table.insert(out, "<RGB:0.9,0.9,0.7> - " .. tostring(CDC.Story.resolve(j.text, ctx)) .. " <LINE> ")
-            end
-        end
-        if n == 0 then table.insert(out, "<RGB:0.6,0.6,0.6> No active objectives. <LINE> ") end
+    local items = CDC.State.isActive() and CDC.QuestStatus.current(CDC.State.get()) or {}
+    if #items == 0 then
+        table.insert(out, "<RGB:0.6,0.6,0.6> No active objectives. <LINE> ")
     end
-    table.insert(out, " <LINE> <RGB:1,1,1> <SIZE:medium> World History <SIZE:small> <LINE> ")
-    local log = CDC.State.get().log
-    if #log == 0 then
-        table.insert(out, "<RGB:0.6,0.6,0.6> Nothing delivered yet. <LINE> ")
-    else
-        for i = #log, 1, -1 do
-            local e = log[i]
-            table.insert(out, string.format("<RGB:0.7,0.85,1> Day %d: %s delivered by %s (%s) <LINE> ",
-                e.day or 0, CDC.Story.flagLabel(e.flag), tostring(e.characterName), tostring(e.username)))
-        end
+    for _, line in ipairs(items) do
+        table.insert(out, "<RGB:0.9,0.9,0.7> - " .. line .. " <LINE> ")
     end
     self.text:setText(table.concat(out))
     self.text:paginate()
@@ -75,6 +57,6 @@ function ISCharacterInfoWindow:createChildren()
     origCreateChildren(self)
     self.cdcView = CDCJournalPanel:new(0, 8, self.panel.width, self.height - 8, self.playerNum)
     self.cdcView:initialise()
-    self.cdcView.infoText = "CDC Last Hope objectives and world history."
+    self.cdcView.infoText = "CDC Last Hope objectives."
     self.panel:addView("CDC", self.cdcView)
 end

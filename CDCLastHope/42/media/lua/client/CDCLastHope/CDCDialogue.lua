@@ -2,16 +2,26 @@ if isServer() then return end
 require "ISUI/ISCollapsableWindow"
 require "ISUI/ISRichTextPanel"
 require "ISUI/ISButton"
-require "CDCLastHope/CDCClient"
+require "CDCLastHope/CDCConvo"
+require "CDCLastHope/TimedActions/ISCDCJobAction"
 
 ISCDCDialogue = ISCollapsableWindow:derive("ISCDCDialogue")
 
-CDC.Dialogue = { instance = nil, reqCounter = 0 }
+CDC.Dialogue = { instance = nil }
 local D = CDC.Dialogue
 
 local BTN_H, PAD, LOG_H = 26, 8, 260
 
-function D.open(player, radio, readOnly)
+local COLORS = {
+    player = CDC.COLOR_PLAYER,
+    cdc = CDC.COLOR_CDC,
+    radio = CDC.COLOR_RADIO,
+    other = CDC.COLOR_OTHER,
+    narration = CDC.COLOR_NARRATION,
+}
+
+-- tag: optional block tag to start at (debug)
+function D.open(player, radio, readOnly, tag)
     if D.instance then D.instance:close() end
     local pn = player:getPlayerNum()
     local w, h = 520, LOG_H + 120
@@ -23,21 +33,8 @@ function D.open(player, radio, readOnly)
     win:setVisible(true)
     D.instance = win
     pcall(function() player:playSound(readOnly and "RadioButton" or "RadioStatic") end)
-    if readOnly then win:refreshLog() else win:begin() end
+    if readOnly then win:refreshLog() else win:begin(tag) end
     return win
-end
-
-function D.onCommitResult(args)
-    local inst = D.instance
-    if not inst or not inst.pending or inst.pending.reqId ~= args.reqId then return end
-    local p = inst.pending
-    inst.pending = nil
-    if args.ok then
-        for _, f in ipairs(p.fns) do f(inst.ctx) end
-        inst:route(p.choice)
-    else
-        inst:showNode("alreadyDone")
-    end
 end
 
 local function clean(s)
@@ -65,76 +62,84 @@ function ISCDCDialogue:createChildren()
     end
 end
 
-function ISCDCDialogue:begin()
-    self.ctx = CDC.Context.new(self.player, self.radio)
-    self.player:getModData().CDCIntroSeen = true
+function ISCDCDialogue:begin(tag)
     self.history = {}
     for _, l in ipairs(CDC.State.get().txlog) do table.insert(self.history, l) end
     self.lines = {}
-    local id = CDC.story.entry(self.ctx) or "noResponse"
-    self:showNode(id)
+    self.convo = CDC.Convo.new(self.player, self.radio, self)
+    self.convo:begin(tag)
 end
 
-function ISCDCDialogue:showNode(id)
-    local node = CDC.Story.node(id) or CDC.Story.node("noResponse")
-    if not node then self:close(); return end
-    self.node = node
-    local text = CDC.Story.text(node, self.ctx)
-    self:say("CDC", text, CDC.COLOR_CDC)
-    self:emitFloat(text, CDC.COLOR_CDC)
-    local choices = CDC.Story.visibleChoices(node, self.ctx)
-    local defs = {}
-    for _, c in ipairs(choices) do
-        table.insert(defs, { label = clean(CDC.Story.resolve(c.text, self.ctx)), choice = c, onClick = function() self:onChoice(c) end })
+-- SECTION: Convo view
+
+function ISCDCDialogue:line(kind, who, text)
+    local color = COLORS[kind] or CDC.COLOR_OTHER
+    local l = { who = who, text = text, color = color }
+    table.insert(self.lines, l)
+    CDC.Net.send(self.player, "txlog", l)
+    self:refreshLog()
+    if kind == "player" then
+        self:floatPlayer(text, color)
+    elseif kind == "other" then
+        self:floatRadio(who .. ": " .. text, color)
+    elseif kind ~= "narration" then
+        self:floatRadio(text, color)
     end
-    if #defs == 0 then
-        table.insert(defs, { label = "End transmission", onClick = function() self:close() end })
+end
+
+function ISCDCDialogue:waiting()
+    self:buildButtons({ { label = "Continue", onClick = function() self.convo:continue() end } })
+end
+
+function ISCDCDialogue:options(opts)
+    local defs, any = {}, false
+    for i, o in ipairs(opts) do
+        any = any or o.available
+        table.insert(defs, { label = clean(o.text), disabled = not o.available, onClick = function() self.convo:choose(i) end })
+    end
+    if not any then
+        table.insert(defs, { label = "Continue", onClick = function() self.convo:choose(nil) end })
     end
     self:buildButtons(defs)
 end
 
-function ISCDCDialogue:say(who, text, color)
-    table.insert(self.lines, { who = who, text = text, color = color })
-    CDC.Net.send(self.player, "txlog", { who = who, text = text, color = color })
-    self:refreshLog()
+function ISCDCDialogue:working(key)
+    self:buildButtons({ { label = "Working...", disabled = true } })
+    self.job = ISCDCJobAction:new(self.player, self.radio, key, self)
+    ISTimedActionQueue.add(self.job)
 end
 
-function ISCDCDialogue:emitFloat(text, color)
+function ISCDCDialogue:ended(reason)
+    if reason == "interrupted" then self:close(); return end
+    self:buildButtons({ { label = "End transmission", onClick = function() self:close() end } })
+end
+
+-- SECTION: Job callbacks (ISCDCJobAction)
+
+function ISCDCDialogue:onJobDone()
+    self.job = nil
+    self.convo:jobDone()
+end
+
+function ISCDCDialogue:onJobStopped()
+    if not self.job then return end
+    self.job = nil
+    self.convo:jobInterrupted()
+end
+
+-- SECTION: Rendering
+
+function ISCDCDialogue:floatRadio(text, color)
     local sq = self.radio:getSquare()
     CDC.Net.send(self.player, "floatText", { x = sq:getX(), y = sq:getY(), z = sq:getZ(), text = text, color = color })
 end
 
-function ISCDCDialogue:onChoice(c)
-    if self.pending then return end
-    local text = tostring(CDC.Story.resolve(c.text, self.ctx))
-    self:say(self.ctx.name, text, CDC.COLOR_PLAYER)
-    self:emitFloat(text, CDC.COLOR_PLAYER)
-    local pc = CDC.COLOR_PLAYER
-    local ok = pcall(function() self.player:Say(text, pc.r, pc.g, pc.b, UIFont.Dialogue, 30, "default") end)
-    if not ok then self.player:Say(text) end
-
-    local ops, xp, fns = {}, {}, {}
-    for _, e in ipairs(c.effects or {}) do
-        if e.type == "xp" then table.insert(xp, { perk = e.perk, amount = e.amount })
-        elseif e.type == "fn" then table.insert(fns, e.fn)
-        else table.insert(ops, e) end
-    end
-    if #ops > 0 or #xp > 0 then
-        D.reqCounter = D.reqCounter + 1
-        self.pending = { reqId = D.reqCounter, choice = c, fns = fns }
-        self:buildButtons({ { label = "Transmitting...", disabled = true } })
-        local sq = self.radio:getSquare()
-        CDC.Net.send(self.player, "commit", { reqId = D.reqCounter, ops = ops, xp = xp, x = sq:getX(), y = sq:getY(), z = sq:getZ() })
-    else
-        for _, f in ipairs(fns) do f(self.ctx) end
-        self:route(c)
-    end
-end
-
-function ISCDCDialogue:route(c)
-    local nxt = c.next
-    if type(nxt) == "function" then nxt = nxt(self.ctx) end
-    if nxt == nil then self:close() else self:showNode(nxt) end
+function ISCDCDialogue:floatPlayer(text, color)
+    local p = self.player
+    CDC.Net.send(p, "floatText", {
+        x = math.floor(p:getX()), y = math.floor(p:getY()), z = math.floor(p:getZ()),
+        text = text, color = color, onlineId = p:getOnlineID(),
+    })
 end
 
 function ISCDCDialogue:buildButtons(defs)
@@ -146,6 +151,7 @@ function ISCDCDialogue:buildButtons(defs)
         btn:initialise()
         btn:instantiate()
         btn.enable = not d.disabled
+        if d.disabled then btn.textColor = { r = 0.5, g = 0.5, b = 0.5, a = 1 } end
         self:addChild(btn)
         table.insert(self.buttons, btn)
         y = y + BTN_H + 4
@@ -159,9 +165,10 @@ function ISCDCDialogue:refreshLog()
     local out = {}
     local function line(l)
         local c = l.color or CDC.COLOR_CDC
-        table.insert(out, rgb(c) .. clean(l.who) .. ": " .. clean(l.text) .. " <LINE> ")
+        local prefix = (l.who and l.who ~= "") and (clean(l.who) .. ": ") or ""
+        table.insert(out, rgb(c) .. prefix .. clean(l.text) .. " <LINE> ")
     end
-    for _, l in ipairs(hist) do line(l) end
+    for _, l in ipairs(hist or {}) do line(l) end
     if self.lines and #self.lines > 0 then
         if #hist > 0 then table.insert(out, "<RGB:0.5,0.5,0.5> --- <LINE> ") end
         for _, l in ipairs(self.lines) do line(l) end
@@ -189,6 +196,15 @@ function ISCDCDialogue:onKeyRelease(key)
 end
 
 function ISCDCDialogue:close()
+    if self.closed then return end
+    self.closed = true
+    local job = self.job
+    if job and job.action then
+        job:forceStop()
+    elseif job then
+        ISTimedActionQueue.clear(self.player)
+        self:onJobStopped()
+    end
     pcall(function() self.player:playSound("RadioButton") end)
     self:removeFromUIManager()
     if D.instance == self then D.instance = nil end

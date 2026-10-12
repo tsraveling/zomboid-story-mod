@@ -1,6 +1,7 @@
 if isServer() then return end
 require "ISUI/ISTextBox"
 require "CDCLastHope/CDCClient"
+require "CDCLastHope/CDCDialogue"
 
 CDC.Debug = {}
 local Dbg = CDC.Debug
@@ -18,30 +19,39 @@ local function dump(v, indent, out)
     end
 end
 
-local function parseValue(s)
-    if s == "true" then return true end
-    if s == "false" then return false end
-    if s == "nil" then return nil end
-    return tonumber(s) or s
-end
-
 function Dbg.send(player, args)
     CDC.Net.send(player, "debug", args)
 end
 
-function Dbg.promptSetFlag(player)
+-- one-line text prompt; onText(text) on OK
+function Dbg.prompt(player, title, onText)
     local pn = player:getPlayerNum()
-    local box = ISTextBox:new(0, 0, 300, 160, "Set flag (key=value)", "", nil, function(target, button)
+    local box = ISTextBox:new(0, 0, 300, 160, title, "", nil, function(target, button)
         if button.internal ~= "OK" then return end
-        local s = button.parent.entry:getText() or ""
-        local k, v = s:match("^%s*([^=%s]+)%s*=%s*(.-)%s*$")
-        if not k then k, v = s:match("^%s*(%S+)%s*$"), "true" end
-        if k then Dbg.send(player, { op = "setFlag", key = k, value = parseValue(v) }) end
+        onText(button.parent.entry:getText() or "")
     end, pn)
     box:initialise()
     box:addToUIManager()
     box:setX((getPlayerScreenWidth(pn) - 300) / 2)
     box:setY((getPlayerScreenHeight(pn) - 160) / 2)
+end
+
+function Dbg.promptQuest(player)
+    Dbg.prompt(player, "Set quest stage (key=stage)", function(s)
+        local k, v = s:match("^%s*([^=%s]+)%s*=%s*(%d+)%s*$")
+        if not k then player:Say("Expected key=stage"); return end
+        CDC.Client.applyOps(player, { { type = "quest", key = k, stage = tonumber(v) } })
+    end)
+end
+
+function Dbg.promptJump(player)
+    Dbg.prompt(player, "Start at (tag or module.ska:tag)", function(s)
+        s = s:gsub("^%s+", ""):gsub("%s+$", "")
+        if s == "" then return end
+        local radio = Dbg.nearestHam(player)
+        if not radio then player:Say("No ham radio nearby"); return end
+        CDC.Dialogue.open(player, radio, false, s)
+    end)
 end
 
 function Dbg.nearestHam(player)
@@ -115,17 +125,28 @@ function Dbg.fill(player, context, squares)
             Dbg.advanceDays(pl, math.max(0, CDC.State.activationDay() - CDC.day()))
         end)
     end
-    menu:addOption("Set flag...", player, Dbg.promptSetFlag)
+    menu:addOption("Set quest stage...", player, Dbg.promptQuest)
 
-    local clearOpt = menu:addOption("Clear flag")
-    local clearMenu = ISContextMenu:getNew(context)
-    menu:addSubMenu(clearOpt, clearMenu)
+    local jobOpt = menu:addOption("Jobs")
+    local jobMenu = ISContextMenu:getNew(context)
+    menu:addSubMenu(jobOpt, jobMenu)
     local any = false
-    for k, v in pairs(st.flags) do
+    for k, j in pairs(st.jobs) do
         any = true
-        clearMenu:addOption(tostring(k) .. " = " .. tostring(v), player, function(pl) Dbg.send(pl, { op = "clearFlag", key = k }) end)
+        local label = string.format("%s (%.2f/%.2f h)", tostring(k), j.progress, j.duration)
+        jobMenu:addOption("Reset " .. label, player, function(pl)
+            CDC.Client.applyOps(pl, { { type = "clearJob", key = k } })
+        end)
+        jobMenu:addOption("Complete " .. label, player, function(pl)
+            CDC.Client.applyOps(pl, { { type = "job", key = k, duration = j.duration, progress = j.duration } })
+        end)
     end
-    if not any then clearMenu:addOption("(no flags)").notAvailable = true end
+    if not any then jobMenu:addOption("(no jobs)").notAvailable = true end
+
+    menu:addOption("Clear met + dead lists", player, function(pl)
+        CDC.Client.applyOps(pl, { { type = "clearPeople" } })
+    end)
+    menu:addOption("Jump to start tag...", player, Dbg.promptJump)
 
     menu:addOption("Dump state to console", player, function(pl)
         local out = {}
@@ -154,7 +175,5 @@ function Dbg.fill(player, context, squares)
         end)
     end
 
-    menu:addOption("Mark intro unseen (this character)", player, function(pl) pl:getModData().CDCIntroSeen = nil end)
-    menu:addOption("Clear uplinks", player, function(pl) Dbg.send(pl, { op = "clearUplinks" }) end)
     menu:addOption("RESET WORLD STATE", player, function(pl) Dbg.send(pl, { op = "reset" }) end)
 end

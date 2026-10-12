@@ -41,7 +41,7 @@ end
 
 local function grantXp(x, y, z, xp)
     if not xp or #xp == 0 then return end
-    local radius = CDC.sandbox("RewardRadius", 10)
+    local radius = CDC.sandbox("RewardRadius", 20)
     for _, p in ipairs(playersNear(x, y, z, radius)) do
         reply(p, "grantXp", { xp = xp })
     end
@@ -49,32 +49,11 @@ end
 
 Srv.handlers = {}
 
--- args: reqId, ops = { {type,key,value} }, xp = { {perk,amount} }, x,y,z
-function Srv.handlers.commit(player, args)
+-- args: ops = { {type, ...} }; see CDC.State.ops
+function Srv.handlers.state(player, args)
     local st = S.get()
-    for _, op in ipairs(args.ops or {}) do
-        if op.type == "setFlag" and st.flags[op.key] ~= nil then
-            reply(player, "commitResult", { reqId = args.reqId, ok = false, reason = "alreadyDone" })
-            return
-        end
-    end
-    for _, op in ipairs(args.ops or {}) do
-        if op.type == "setFlag" then
-            st.flags[op.key] = op.value
-            table.insert(st.log, {
-                flag = op.key, value = op.value,
-                characterName = player:getFullName(), username = player:getUsername(),
-                day = CDC.day(), hours = CDC.hours(), x = args.x, y = args.y,
-            })
-        elseif op.type == "putFlag" then
-            st.flags[op.key] = op.value
-        elseif op.type == "clearFlag" then
-            st.flags[op.key] = nil
-        end
-    end
-    grantXp(args.x, args.y, args.z, args.xp)
+    for _, op in ipairs(args.ops or {}) do S.apply(st, op) end
     sync()
-    reply(player, "commitResult", { reqId = args.reqId, ok = true })
 end
 
 -- args: who, text, color = {r,g,b}
@@ -101,32 +80,12 @@ function Srv.handlers.pickup(player, args)
         reply(player, "pickupResult", { id = args.id, ok = false })
         return
     end
-    if once == "untilDelivered" and def.deliveredFlag and st.flags[def.deliveredFlag] ~= nil then
-        reply(player, "pickupResult", { id = args.id, ok = false })
-        return
-    end
     st.pickups[args.id] = { characterName = player:getFullName(), username = player:getUsername(), day = CDC.day(), count = (taken and taken.count or 0) + 1 }
     sync()
     reply(player, "pickupResult", { id = args.id, ok = true })
 end
 
--- args: x,y,z, site
-function Srv.handlers.uplink(player, args)
-    local st = S.get()
-    st.radios[CDC.squareKey(args.x, args.y, args.z)] = { site = args.site, characterName = player:getFullName(), day = CDC.day() }
-    local sq = getCell():getGridSquare(args.x, args.y, args.z)
-    if sq then
-        for i = 0, sq:getObjects():size() - 1 do
-            local obj = sq:getObjects():get(i)
-            if CDC.isHamRadio(obj) then
-                obj:getModData().CDCUplink = args.site
-                if isServer() then obj:transmitModData() end
-            end
-        end
-    end
-    sync()
-end
-
+-- args: x,y,z, xp = { {perk,amount} }
 function Srv.handlers.reward(player, args)
     grantXp(args.x, args.y, args.z, args.xp)
 end
@@ -137,16 +96,10 @@ function Srv.handlers.debug(player, args)
     local st = S.get()
     if args.op == "forceActive" then
         st.meta.forceActive = not st.meta.forceActive
-    elseif args.op == "setFlag" then
-        st.flags[args.key] = args.value
-    elseif args.op == "clearFlag" then
-        st.flags[args.key] = nil
     elseif args.op == "reset" then
         S.reset()
     elseif args.op == "resetPickup" then
         st.pickups[args.id] = nil
-    elseif args.op == "clearUplinks" then
-        st.radios = {}
     end
     sync()
     reply(player, "debugDone", { op = args.op })

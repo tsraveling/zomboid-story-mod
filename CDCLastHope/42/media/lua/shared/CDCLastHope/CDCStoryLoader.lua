@@ -4,33 +4,6 @@ require "CDCLastHope/story"
 CDC.Story = {}
 local St = CDC.Story
 
-function St.node(id)
-    return CDC.story.nodes[id]
-end
-
--- resolves string-or-function fields
-function St.resolve(v, ctx)
-    if type(v) == "function" then return v(ctx) end
-    return v
-end
-
-function St.text(node, ctx)
-    return tostring(St.resolve(node.text, ctx) or "")
-end
-
-function St.visibleChoices(node, ctx)
-    local out = {}
-    for _, c in ipairs(node.choices or {}) do
-        if c.cond == nil or c.cond(ctx) then table.insert(out, c) end
-    end
-    return out
-end
-
-function St.flagLabel(flag)
-    local labels = CDC.story.flagLabels or {}
-    return labels[flag] or flag
-end
-
 function St.pickup(id)
     for _, p in ipairs(CDC.story.world.pickups or {}) do
         if p.id == id then return p end
@@ -60,24 +33,11 @@ end
 function St.validate()
     local s = CDC.story
     if not s then CDC.log("ERROR: CDC.story missing"); return end
-    s.nodes = s.nodes or {}
-    s.sites = s.sites or {}
-    s.journal = s.journal or {}
     s.world = s.world or {}
     s.world.pickups = s.world.pickups or {}
     s.world.corpseActions = s.world.corpseActions or {}
     s.world.spawns = s.world.spawns or {}
     if not s.freq then CDC.log("ERROR: story.freq missing") end
-    for _, req in ipairs({ "noResponse", "alreadyDone" }) do
-        if not s.nodes[req] then CDC.log("WARN: story.nodes." .. req .. " missing") end
-    end
-    for id, node in pairs(s.nodes) do
-        for i, c in ipairs(node.choices or {}) do
-            if type(c.next) == "string" and not s.nodes[c.next] then
-                CDC.log("WARN: node '" .. id .. "' choice " .. i .. " -> missing node '" .. c.next .. "'")
-            end
-        end
-    end
     local ids = {}
     for _, p in ipairs(s.world.pickups) do
         if ids[p.id] then CDC.log("WARN: duplicate pickup id " .. tostring(p.id)) end

@@ -13,12 +13,15 @@ function CDC.Net.send(player, cmd, args)
     end
 end
 
+-- applies to the local mirror now so later queries see it, then lets the server own it
+function CDC.Client.applyOps(player, ops)
+    local st = CDC.State.get()
+    for _, op in ipairs(ops) do CDC.State.apply(st, op) end
+    CDC.Net.send(player, "state", { ops = ops })
+end
+
 CDC.Client.handlers = {}
 local H = CDC.Client.handlers
-
-function H.commitResult(args)
-    if CDC.Dialogue then CDC.Dialogue.onCommitResult(args) end
-end
 
 function H.pickupResult(args)
     if CDC.Pickup then CDC.Pickup.onResult(args) end
@@ -76,10 +79,25 @@ function F.split(text)
 end
 
 function F.enqueue(args)
+    if args.onlineId ~= nil then F.sayAs(args); return end
     local parts = F.split(args.text)
     for i = 1, math.min(#parts, F.MAX_LINES) do
         table.insert(F.queue, { x = args.x, y = args.y, z = args.z, text = parts[i], color = args.color or CDC.COLOR_CDC })
     end
+end
+
+local function findSpeaker(onlineId)
+    if isClient() then return getPlayerByOnlineID(onlineId) end
+    return getSpecificPlayer(0)
+end
+
+-- player lines float above the speaking player, shown immediately
+function F.sayAs(args)
+    local p = findSpeaker(args.onlineId)
+    if not p then return end
+    local c = args.color or CDC.COLOR_PLAYER
+    local ok = pcall(function() p:Say(args.text, c.r, c.g, c.b, UIFont.Dialogue, 30, "default") end)
+    if not ok then p:Say(args.text) end
 end
 
 local function findRadio(x, y, z)
