@@ -11,4 +11,34 @@ module CDCLastHope
         StaticModel = Beef,
         WorldStaticModel = Beef,
     }
+
+    item VelvetDose
+    {
+        DisplayCategory = FirstAid,
+        ItemType = base:normal,
+        Weight = 0.1,
+        Icon = CDCVelvetDose,
+        StaticModel = PillBottle,
+        WorldStaticModel = PillBottleGround,
+    }
+
+    item ZombieBrain
+    {
+        DisplayCategory = Junk,
+        ItemType = base:normal,
+        Weight = 0.1,
+        Icon = SpecimanJar_Full4,
+        StaticModel = Specimen_Brain,
+        WorldStaticModel = Specimen_Brain,
+    }
+
+    item SoilSample
+    {
+        DisplayCategory = Junk,
+        ItemType = base:normal,
+        Weight = 0.3,
+        Icon = SpecimanJar_Full2,
+        StaticModel = Specimen_Centipedes,
+        WorldStaticModel = Specimen_Centipedes,
+    }
 }

@@ -7,7 +7,10 @@ CDC.Skald = {}
 local K = CDC.Skald
 local S = CDC.State
 
-local MICROSCOPE_SPRITES = { location_community_medical_01_136 = true }
+local MICROSCOPE_SPRITES = {
+    location_community_medical_01_136 = true, location_community_medical_01_137 = true,
+    location_community_medical_01_138 = true, location_community_medical_01_139 = true,
+}
 local COMPUTER_SPRITES = {
     appliances_com_01_72 = true, appliances_com_01_73 = true,
     appliances_com_01_74 = true, appliances_com_01_75 = true,

@@ -242,9 +242,22 @@ EXIT
 --- @region cdc:quest-router
 # summary
 
---- Summary block for everything in progress
-(? get_quest("first") == 0) cdc: "If you were ever interested in helping me out with my research, you know, getting me some fresh zombie meat, that's still on the table."
-(? get_quest("first") == 1) cdc: "Once you have the zombie meat sample, just let me know."
+--- Summary block for everything in progress:
+
+--- FIRST JOB
+@if quest_available("first")
+cdc: "If you were ever interested in helping me out with my research, you know, getting me some fresh zombie meat, that's still on the table."
+@elseif has_started_job("meat")
+cdc: "Whenever you're ready to resume the zombie meat analysis, let me know."
+@elseif get_quest("first") == 1
+cdc: "Once you have the zombie meat sample, just let me know."
+@endif
+
+--- TRI-SAMPLE JOB
+@if quest_available("tri")
+cdc: "We've got some results back from our initial analysis. We think we've got some next steps for you, when you're ready -- we'll need you to collect and analyze three separate samples."
+@endif
+
 cdc: "If you just want to talk, I've got nothing here but time."
 
 # router
@@ -253,6 +266,8 @@ cdc: "So what did you want to talk about?"
 
 > (? get_quest("first") < 100) About the zombie meat ...
   GO quests/first.ska
+> (? quest_available("tri") and get_quest("tri") < 100) About the tri-sample analysis ...
+  GO quests/tri.ska
 > Any other work I should be doing right now?
   -> other_work
 > I want to DEBUG TEST THE API.

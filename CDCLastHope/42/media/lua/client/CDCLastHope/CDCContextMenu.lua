@@ -5,6 +5,7 @@ require "CDCLastHope/CDCDialogue"
 require "CDCLastHope/TimedActions/ISCDCTransmitAction"
 require "CDCLastHope/TimedActions/ISCDCPickupAction"
 require "CDCLastHope/TimedActions/ISCDCCorpseAction"
+require "CDCLastHope/TimedActions/ISCDCGroundAction"
 
 CDC.Menu = {}
 local M = CDC.Menu
@@ -53,6 +54,27 @@ function M.corpse(player, def, body)
     if luautils.walkAdj(player, body:getSquare()) then
         ISTimedActionQueue.add(ISCDCCorpseAction:new(player, def, body))
     end
+end
+
+function M.ground(player, def, square)
+    if luautils.walkAdj(player, square) then
+        ISTimedActionQueue.add(ISCDCGroundAction:new(player, def, square))
+    end
+end
+
+local DEFAULT_GROUND = { dirt = true, sand = true, clay = true }
+
+local function groundOk(def, sq)
+    if sq:getZ() ~= (def.z or 0) then return false end
+    local dx, dy = sq:getX() - def.x, sq:getY() - def.y
+    if dx * dx + dy * dy > def.radius * def.radius then return false end
+    local kind = ISShovelGroundCursor.GetDirtGravelSand(sq)
+    if not kind then return false end
+    if def.ground then
+        for _, g in ipairs(def.ground) do if g == kind then return true end end
+        return false
+    end
+    return DEFAULT_GROUND[kind] == true
 end
 
 function M.addRadioOptions(player, context, radio, active)
@@ -104,6 +126,22 @@ function M.addCorpseOptions(player, context)
     end
 end
 
+function M.addGroundOptions(player, context, squares)
+    local ctx = CDC.Context.new(player, nil)
+    for _, def in ipairs(CDC.story.world.groundActions or {}) do
+        for _, sq in ipairs(squares) do
+            if groundOk(def, sq) and (def.cond == nil or def.cond(ctx, sq)) then
+                local opt = context:addOption(def.label or def.id, player, M.ground, def, sq)
+                if def.requires and not CDC.findTool(player:getInventory(), def.requires) then
+                    opt.notAvailable = true
+                    tooltip(opt, "Requires: " .. tostring(def.requiresLabel or def.requires))
+                end
+                break
+            end
+        end
+    end
+end
+
 function M.onFill(playerNum, context, worldobjects, test)
     if test then return end
     local player = getSpecificPlayer(playerNum)
@@ -117,6 +155,7 @@ function M.onFill(playerNum, context, worldobjects, test)
     if active then
         M.addPickupOptions(player, context, squares)
         M.addCorpseOptions(player, context)
+        M.addGroundOptions(player, context, squares)
     end
     if CDC.Debug then CDC.Debug.fill(player, context, squares) end
 end

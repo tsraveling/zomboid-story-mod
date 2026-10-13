@@ -113,8 +113,21 @@ function CDC.isOnFrequency(obj)
     return math.abs(dd:getChannel() - CDC.story.freq) <= CDC.FREQ_MARGIN
 end
 
--- req: full type ("Base.HuntingKnife") or vanilla tag ("tag:SHARP_KNIFE"); returns first matching item or nil
+-- req: full type ("Base.HuntingKnife"), vanilla tag ("tag:SHARP_KNIFE"), weapon category ("category:AXE"), or a list of any of these; returns first matching item or nil
 function CDC.findTool(inv, req)
+    if type(req) == "table" then
+        for _, r in ipairs(req) do
+            local item = CDC.findTool(inv, r)
+            if item then return item end
+        end
+        return nil
+    end
+    local cat = req:match("^category:(.+)$")
+    if cat then
+        local c = WeaponCategory[cat]
+        if not c then CDC.log("unknown weapon category " .. cat); return nil end
+        return inv:getFirstEvalRecurse(function(item) return item:getScriptItem():containsWeaponCategory(c) end)
+    end
     local tag = req:match("^tag:(.+)$")
     if tag then
         local t = ItemTag[tag]

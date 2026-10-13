@@ -1,1 +1,162 @@
 # start
+
+(? get_quest("tri") == 0) -> intro
+(? get_quest("tri") == 1) -> return
+(? get_quest("tri") == 2) -> comparison
+--- (? has_started_job("meat")) -> resume
+--- (? get_quest("first") == 1) -> meat
+
+# intro
+
+cdc: "Yeah, perfect. So here's what we've got. Apologies, we didn't think we'd ever have a chance to actually investigate anything, so it took us some time to get our databases up and running."
+
+cdc: "In the early days before the world ended, we had two main leads for the origin of the Z strain."
+
+cdc: "First, a military chemical spill that happened just outside March Ridge. We couldn't get through the red tape to find out what the fuck it *was* exactly before we lost contact entirely. We need you to take a shovel and get a soil sample."
+
+cdc: "Second was a drug we kept getting reports about in the weeks before ... you know. We'd received some pretty strange reports about it from Louisville PD, but hadn't gotten around to investigating it yet. Probably nothing but, well, you never know."
+
+cdc: "Finally, and I'm sorry for this, but we need you to get the brain of one of those things. You'll probably need an axe or a saw to get through the skullcase."
+
+cdc: "And lastly, we're going to need you to find a microscope. Clinics, hospitals, labs -- you should be able to find one. Either bring the radio with you or set up the microscope next to the radio. When you have all three samples, we'll walk you through the comparison."
+
+cdc: "Sound doable?"
+
+> I'll see what I can do.
+
+~ set_quest("tri", 1)
+
+cdc: "Great. So to recap:"
+-> review
+
+# return
+
+cdc: "Perfect. So to recap, we're looking for:"
+
+# review
+
+cdc: "Soil sample, drug dose, zombie brain. One microscope to look at them all in."
+
+cdc: "Any questions?"
+
+> How do I get the brain again?
+  -> instruct_brain
+> Where do I go for the soil sample?
+  -> instruct_soil
+> Tell me more about the drug.
+  -> instruct_drug
+> Tell me about the microscope.
+  -> instruct_microscope
+> (? has_item("ZombieBrain") and has_item("VelvetDose") and has_item("SoilSample")) (Zombie Brain, Velvet Dose, Soil Sample) I have all three samples.
+  -> has_samples
+> I think I have what I need.
+  -> back
+
+# instruct_microscope
+
+cdc: "You'll need a microscope in order to perform the side-by side comparison of the three samples."
+
+cdc: "You can often find them in hospitals, labs, health clinics, that kind of thing. Basically find one and set it up right next to your radio (or bring the radio to a lab)."
+
+cdc: "Once you're set up, I can walk you through the comparison process."
+
+> Sounds good.
+  -> review
+
+# instruct_soil
+
+cdc: "So you're going to the site of a military chemical spill, just outside of March Ridge, which is a military housing facility south of Muldraugh."
+
+cdc: "March Ridge has a single main entrance with a security gate. Come out of this, and turn right on the main road -- Kentucky Route 163."
+
+cdc: "You'll come to a crossroads with 31W, running north/south -- head straight across it and keep heading east."
+
+cdc: "After a little while the road will take a sharp turn north, out in the woods. This is where the crash happened. Bring a spade, and dig a soil sample from the inner corner of the road."
+
+> Great, thank you.
+  -> review
+
+# instruct_brain
+
+cdc: "Pretty straightforward. We need a sample of brain tissue -- our theory is that the brain is still being hijacked to serve as a central nerve coordination center, which is why you can shoot them in the head to kill them."
+
+cdc: "Obviously the dead ones will have damaged brains. We just need a sample. Use a saw or axe to open the brainpan and get us as much neural material as you can."
+
+cdc: "Due to the Z strain, it will never go bad, so store it however you like."
+
+cdc: "Just don't accidentally eat it."
+
+cdc: "Obviously."
+
+> Obviously.
+  -> review
+
+# instruct_drug
+
+cdc: "So we had received reports of a drug called Velvet that had hit the street in Louisville and surrounding towns in the months leading up to the Event."
+
+cdc: "Probably nothing, but some of the symptoms were a little too close to the kind of shit we're seeing now with the full-blown Zs."
+
+cdc: "See if you can find us a sample. It was a big problem across the entire Knox region, so basically any police station should have some in evidence."
+
+> Got it.
+  -> review
+
+# has_samples
+
+cdc: "Fucking incredible, {pc_first_name()}. Do you have a microscope set up nearby?"
+
+> (? radio_has_microscope()) (Microscope) Sure do.
+  -> analysis_enter
+> Not yet.
+  cdc: "Ok, no worries. You're doing great so far. Just give us a call when you have one and we'll go from there."
+  -> review
+
+# comparison
+
+cdc: "Okay. Still have everything you need?"
+
+> (? has_item("ZombieBrain") and has_item("VelvetDose") and has_item("SoilSample") and radio_has_microscope()) I have all three samples, and my microscope set up.
+
+# analysis_enter
+
+~ set_quest("tri", 2) --- will come in at comparison after this
+
+cdc: "Ok. You have the three samples, you have your microscope. Ready to {has_started_job("tri") ? "continue" : "begin"} the comparison? It'll take about a hour."
+
+> Let's do it.
+  -> perform_work
+> I actually need a minute.
+  cdc: "Okay, no worries. Just call us up when you're ready and we'll get started."
+  cdc: "CDC, out."
+  EXIT
+
+# perform_work
+
+cdc: "Perfect. Let me walk you through the process ..."
+
+~ do_job("tri", 1.0) --- job takes an hour
+
+You spend an hour carefully placing the samples on slides under Daniel's supervision and staging them into the microscope. You have no context for what you're seeing, but the most disturbing thing is that all three samples seem *alive*.
+
+Not like the bacteria samples you remember from science class in school, but an odd, rhythmically quivering motion that somehow seems as much machine as living.
+
+This effect is entirely unsurprising to Daniel when you're looking at the brain, but his excitement and tension ramp up palpably as you describe the same effect in the military soil sample.
+
+And when you describe the drug -- which is more purple, more slow, but still recognizably a cousin of the other two -- he asks you to check your results four times before disappearing into the background of the call, shouting excitedly.
+
+You're not entirely sure what it means, but this is certainly some kind of breakthrough.
+
+~ reward_xp("Doctor", 80.0)
+~ set_quest("tri", 100)
+
+cdc: "This is incredible, {pc_first_name()}. Somehow the drug and the military toxin are *both* ancestors of the Z strain."
+
+cdc: "We're going to hit the books on our end. Incredible work once again. Hit us up anytime, and hopefully we'll have some next actions for you soon."
+
+cdc: "You might just save all of our asses, {pc_full_name()}. CDC, over and out."
+EXIT
+
+# back
+
+GO cdc.ska -> router

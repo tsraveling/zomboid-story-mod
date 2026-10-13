@@ -7,7 +7,8 @@
     apocalypse      optional { year, month, day } override of the Knox Event date.
     callout         { text }       Loops forever on `freq` once active, airs hourly. String or list of strings.
     world.pickups   { id, x,y,z, sprite=nil, label, item, once="global"|"character"|"none", duration=2, text, cond=fn(ctx,square), condFailText }
-    world.corpseActions { id, label, requires=fullType|"tag:ITEM_TAG"|nil, requiresLabel, consumes=false, gives, duration=3, text, cond=fn(ctx) }  hidden when cond false
+    world.corpseActions { id, label, requires=fullType|"tag:ITEM_TAG"|"category:WEAPON_CATEGORY"|list|nil, requiresLabel, consumes=false, gives, duration=3, text, cond=fn(ctx) }  hidden when cond false
+    world.groundActions { id, label, x,y,z, radius, ground={"dirt","sand","clay","gravel"}, requires, requiresLabel, consumes=false, gives, duration=3, text, cond=fn(ctx,square) }  natural ground within radius; hidden when cond false
     world.spawns    { item, lists={"ClassroomDesk"}, chance=5 }
     items           optional extra item list for debug spawn menu
 
@@ -31,7 +32,7 @@ CDC.story = {
         },
     },
 
-    items = { "CDCLastHope.ZombieMeat", "Base.Mov_Microscope", "Base.Mov_DesktopComputer" },
+    items = { "CDCLastHope.ZombieMeat", "CDCLastHope.VelvetDose", "CDCLastHope.ZombieBrain", "CDCLastHope.SoilSample", "Base.Mov_Microscope", "Base.Mov_DesktopComputer" },
 
     world = {
         pickups = {},
@@ -40,7 +41,27 @@ CDC.story = {
               gives = "CDCLastHope.ZombieMeat", duration = 3,
               cond = function(ctx) return ctx.quest("first") == 1 end,
               text = "PLACEHOLDER: You carve off a chunk of meat." },
+            { id = "brain_saw", label = "Saw brainpan", requires = { "tag:SAW", "tag:SMALL_SAW", "tag:CRUDE_SAW" }, requiresLabel = "a saw",
+              gives = "CDCLastHope.ZombieBrain", duration = 4,
+              cond = function(ctx) return ctx.quest("tri") == 1 end,
+              text = "PLACEHOLDER: You saw through the skull and lift out the brain." },
+            { id = "brain_chop", label = "Chop brainpan", requires = "category:AXE", requiresLabel = "an axe",
+              gives = "CDCLastHope.ZombieBrain", duration = 3,
+              cond = function(ctx) return ctx.quest("tri") == 1 end,
+              text = "PLACEHOLDER: You split the skull open and pry out the brain." },
         },
-        spawns = {},
+        groundActions = {
+            { id = "soil", label = "Dig soil sample", x = 11213, y = 12316, z = 0, radius = 20,
+              requires = "tag:DIG_PLOW", requiresLabel = "a shovel or other digging tool",
+              gives = "CDCLastHope.SoilSample", duration = 4,
+              cond = function(ctx) return ctx.quest("tri") == 1 end,
+              text = "PLACEHOLDER: You dig up a sample of the soil." },
+        },
+        spawns = {
+            { item = "CDCLastHope.VelvetDose", lists = { "PoliceEvidence" }, chance = 30 },
+            { item = "CDCLastHope.VelvetDose", lists = { "DrugShackDrugs" }, chance = 10 },
+            { item = "CDCLastHope.VelvetDose", lists = { "DerelictHouseDrugs" }, chance = 10 },
+            { item = "CDCLastHope.VelvetDose", lists = { "DerelictHouseSquatter" }, chance = 5 },
+        },
     },
 }

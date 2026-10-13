@@ -1,6 +1,6 @@
 # Authoring the story
 
-Conversations are Skald modules in `text/`. World config (frequency, precue, callout, pickups, corpse actions, spawns) lives in `CDCLastHope/42/media/lua/shared/CDCLastHope/story.lua`. Quest journal lines and quest availability are small Lua tables next to it.
+Conversations are Skald modules in `text/`. World config (frequency, precue, callout, pickups, corpse actions, ground actions, spawns) lives in `CDCLastHope/42/media/lua/shared/CDCLastHope/story.lua`. Quest journal lines and quest availability are small Lua tables next to it.
 
 1. Write or edit `.ska` files in `text/`; methods available to scripts are declared in `text/cdc.codex`
 2. Run `./compile.sh` from the repo root; it fails on any Skald parse or validation error
@@ -50,9 +50,10 @@ Conversations are Skald modules in `text/`. World config (frequency, precue, cal
 
 1. Pickup: `{ id, x, y, z, sprite, label, item, once, duration, text, cond = fn(ctx, square), condFailText, goneText }`
 2. `once`: `"global"` (default, one per world), `"character"`, `"none"`
-3. Corpse action: `{ id, label, requires = fullType | "tag:ITEM_TAG", requiresLabel, consumes = bool, gives, duration, text, cond = fn(ctx) }`; hidden when `cond` returns false; tags are vanilla `ItemTag` names, e.g. `tag:SHARP_KNIFE` matches any knife, machete, razor or sharpened stone; `requiresLabel` is the tooltip text when missing
-4. Spawn: `{ item, lists = { ... }, chance }` with list names from `processes/pz-distribution-lists.md`
-5. Find coordinates in-game: debug mode shows x,y,z bottom-left; or right-click, Tile Report
+3. Corpse action: `{ id, label, requires = fullType | "tag:ITEM_TAG" | "category:WEAPON_CATEGORY" | list, requiresLabel, consumes = bool, gives, duration, text, cond = fn(ctx) }`; hidden when `cond` returns false; tags are vanilla `ItemTag` names, e.g. `tag:SHARP_KNIFE` matches any knife, machete, razor or sharpened stone; `category:AXE` matches any axe; a list matches any entry, e.g. `{ "tag:SAW", "tag:SMALL_SAW", "tag:CRUDE_SAW" }`; `requiresLabel` is the tooltip text when missing
+4. Ground action: `{ id, label, x, y, z, radius, ground, requires, requiresLabel, consumes, gives, duration, text, cond = fn(ctx, square) }`; offered on natural ground within `radius` tiles of x,y; `ground` lists allowed kinds from `"dirt"` (includes grass), `"sand"`, `"clay"`, `"gravel"`, default all but gravel; `requires` works as for corpse actions, e.g. `tag:DIG_PLOW` matches shovels, spades, trowels, hoes and pickaxes
+5. Spawn: `{ item, lists = { ... }, chance }` with list names from `processes/pz-distribution-lists.md`
+6. Find coordinates in-game: debug mode shows x,y,z bottom-left; or right-click, Tile Report
 
 ## ctx Reference
 
