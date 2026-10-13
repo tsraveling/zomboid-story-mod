@@ -2124,23 +2124,12 @@ CDCSkaldModules["cdc.ska"] = {
               },
               line = 275,
             },
-            {
-              text = {
-                parts = {
-                  "I want to DEBUG TEST THE API.",
-                },
-              },
-              members = {
-                {
-                  line = 278,
-                  body = {
-                    t = "move",
-                    target = "api_tester",
-                  },
-                },
-              },
-              line = 277,
-            },
+          },
+        },
+        {
+          t = "choices",
+          line = 279,
+          choices = {
             {
               text = {
                 parts = {

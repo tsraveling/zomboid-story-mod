@@ -548,7 +548,7 @@ CDCSkaldModules["quests/tri.ska"] = {
             attribution = "cdc",
             text = {
               parts = {
-                "\"March Ridge has a single main entrance with a security gate. Come out of this, and turn right on the main road -- Kentucky Route 163.\"",
+                "\"March Ridge has a single main entrance with a security gate. Come out of this, and turn right on the main road. It's Fiddler's Trail out of March Ridge, then turns into Kentucky Route 163 after it crosses 31W.\"",
               },
             },
           },
