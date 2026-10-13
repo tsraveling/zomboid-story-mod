@@ -34,7 +34,7 @@ cat > "$VDF" <<VDF
 {
     "appid"           "108600"
     "publishedfileid" "${WORKSHOP_ID:-0}"
-    "contentfolder"   "$STAGE"
+    "contentfolder"   "$STAGE/Contents"
     "previewfile"     "$STAGE/preview.png"
     "visibility"      "${VISIBILITY:-3}"
     "title"           "$TITLE"
