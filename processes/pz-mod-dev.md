@@ -41,6 +41,18 @@ Items are declared in `CDCLastHope/42/media/scripts/items_cdc.txt`. Inventory ic
 
 CAVEAT: Both `textures/Item_CDCPink.png` and `textures/CDCPink.png` are shipped because B42 vanilla dropped the `Item_` prefix but mod loading was not verified. Delete whichever one turns out unused. Custom 3D models need a `model` script block plus FBX/X mesh and texture under `42/media/models_X/`; not covered here.
 
+# Deploying
+
+The mod ships to the multiplayer server through the Steam Workshop; the server pulls the newest version on every restart.
+
+1. One-time: `cp .deploy.env.example .deploy.env` and set `STEAM_USER`; `steamcmd +login <user> +quit` once to cache Steam Guard
+2. `./deploy.sh` compiles, mirrors `CDCLastHope/` into `~/Zomboid/Workshop/CDCLastHope/Contents/mods/`, and uploads via `steamcmd`; optional arg overrides the change note, default `v<modversion> (<sha>)`
+3. The first upload creates the item and writes its id to `.deploy.env` as `WORKSHOP_ID`
+4. Server ini: `WorkshopItems=<id>`, add `CDCLastHope` to `Mods=`; restart the server after every deploy
+5. Versioning: `cog bump --auto` sets `modversion=` in both `mod.info` files via `cog.toml`; deploy after bumping so the change note matches
+
+CAVEAT: Keep visibility unlisted (3) or public (0). Dedicated servers download anonymously and cannot fetch friends-only or private items.
+
 # Research Items
 
 Unverified behaviors with fallbacks already in code. Verify in-game and delete this section when done.

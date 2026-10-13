@@ -1,0 +1,12 @@
+tag_prefix = "v"
+ignore_merge_commits = true
+
+pre_bump_hooks = [
+    "sed -i '' 's/^modversion=.*/modversion={{version}}/' CDCLastHope/mod.info CDCLastHope/42/mod.info",
+]
+
+[commit_types]
+step = { changelog_title = "Steps" }
+
+[changelog]
+path = "CHANGELOG.md"
