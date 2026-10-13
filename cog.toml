@@ -21,6 +21,8 @@ post_package_bump_hooks = []
 
 [commit_types]
 step = { changelog_title = "Steps", bump_patch = true}
+piton = { changelog_title = "Pitons", omit_from_changelog = true }
+draft = { changelog_title = "Drafts", omit_from_changelog = true }
 
 [changelog]
 path = "CHANGELOG.md"
