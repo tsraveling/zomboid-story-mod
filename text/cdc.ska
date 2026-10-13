@@ -256,6 +256,10 @@ cdc: "Once you have the zombie meat sample, just let me know."
 --- TRI-SAMPLE JOB
 @if quest_available("tri")
 cdc: "We've got some results back from our initial analysis. We think we've got some next steps for you, when you're ready -- we'll need you to collect and analyze three separate samples."
+@elseif get_quest("tri") == 1
+cdc: "We need you to collect a sample of Velvet, a zombie brain, and a soil sample from the military chemical spill. And you'll need a microscope."
+@elseif get_quest("tri") == 2
+cdc: "Those samples you collected are ready for analysis."
 @endif
 
 cdc: "If you just want to talk, I've got nothing here but time."
@@ -266,7 +270,7 @@ cdc: "So what did you want to talk about?"
 
 > (? get_quest("first") < 100) About the zombie meat ...
   GO quests/first.ska
-> (? quest_available("tri") and get_quest("tri") < 100) About the tri-sample analysis ...
+> (? quest_active("tri")) About the tri-sample analysis ...
   GO quests/tri.ska
 > Any other work I should be doing right now?
   -> other_work

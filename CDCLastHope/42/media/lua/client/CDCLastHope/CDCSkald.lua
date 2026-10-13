@@ -88,6 +88,7 @@ local Qy = K.queries
 function Qy.check_quest(h, key, stage) return S.quest(st(), key) == stage end
 function Qy.get_quest(h, key) return S.quest(st(), key) end
 function Qy.quest_available(h, key) return CDC.Quests.isAvailable(key) end
+function Qy.quest_active(h, key) return CDC.Quests.isActive(key) end
 
 function Qy.check_skill(h, skill, level)
     local ok, lvl = pcall(function() return h.player:getPerkLevel(Perks.FromString(skill)) end)

@@ -730,7 +730,7 @@ CDCSkaldModules["quests/first.ska"] = {
               },
               text = {
                 parts = {
-                  "Ready.",
+                  "(Zombie Meat) Ready.",
                 },
               },
               members = {},
@@ -860,7 +860,7 @@ CDCSkaldModules["quests/first.ska"] = {
               },
               text = {
                 parts = {
-                  "I have it.",
+                  "(Zombie Meat) I have it.",
                 },
               },
               members = {

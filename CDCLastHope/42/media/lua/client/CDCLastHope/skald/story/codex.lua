@@ -44,6 +44,16 @@ CDCSkaldCodex = {
       },
     },
     {
+      name = "quest_active",
+      ret = "bool",
+      args = {
+        {
+          name = "key",
+          type = "string",
+        },
+      },
+    },
+    {
       name = "has_item",
       ret = "bool",
       args = {
@@ -210,5 +220,6 @@ CDCSkaldCodex = {
     "cdc.ska",
     "cdc_talking.ska",
     "quests/first.ska",
+    "quests/tri.ska",
   },
 }

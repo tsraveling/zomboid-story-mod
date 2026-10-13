@@ -3,8 +3,7 @@
 (? get_quest("tri") == 0) -> intro
 (? get_quest("tri") == 1) -> return
 (? get_quest("tri") == 2) -> comparison
---- (? has_started_job("meat")) -> resume
---- (? get_quest("first") == 1) -> meat
+-> back   --- if we somehow get here when quest is done, just bail.
 
 # intro
 
@@ -16,7 +15,7 @@ cdc: "First, a military chemical spill that happened just outside March Ridge. W
 
 cdc: "Second was a drug we kept getting reports about in the weeks before ... you know. We'd received some pretty strange reports about it from Louisville PD, but hadn't gotten around to investigating it yet. Probably nothing but, well, you never know."
 
-cdc: "Finally, and I'm sorry for this, but we need you to get the brain of one of those things. You'll probably need an axe or a saw to get through the skullcase."
+cdc: "Third, and I'm sorry for this, but we need you to get the brain of one of those things. You'll probably need an axe or a saw to get through the brainpan."
 
 cdc: "And lastly, we're going to need you to find a microscope. Clinics, hospitals, labs -- you should be able to find one. Either bring the radio with you or set up the microscope next to the radio. When you have all three samples, we'll walk you through the comparison."
 
@@ -54,7 +53,7 @@ cdc: "Any questions?"
 
 # instruct_microscope
 
-cdc: "You'll need a microscope in order to perform the side-by side comparison of the three samples."
+cdc: "You'll need a microscope in order to perform the side-by-side comparison of the three samples."
 
 cdc: "You can often find them in hospitals, labs, health clinics, that kind of thing. Basically find one and set it up right next to your radio (or bring the radio to a lab)."
 
@@ -117,12 +116,17 @@ cdc: "Fucking incredible, {pc_first_name()}. Do you have a microscope set up nea
 cdc: "Okay. Still have everything you need?"
 
 > (? has_item("ZombieBrain") and has_item("VelvetDose") and has_item("SoilSample") and radio_has_microscope()) I have all three samples, and my microscope set up.
+  -> analysis_enter
+> Need to collect those, actually.
+  cdc: "No problem. We'll come back to it when you're situated."
+  cdc: "CDC, out."
+  EXIT
 
 # analysis_enter
 
 ~ set_quest("tri", 2) --- will come in at comparison after this
 
-cdc: "Ok. You have the three samples, you have your microscope. Ready to {has_started_job("tri") ? "continue" : "begin"} the comparison? It'll take about a hour."
+cdc: "Ok. You have the three samples, you have your microscope. Ready to {has_started_job("tri") ? "continue" : "begin"} the comparison? It'll take about an hour."
 
 > Let's do it.
   -> perform_work

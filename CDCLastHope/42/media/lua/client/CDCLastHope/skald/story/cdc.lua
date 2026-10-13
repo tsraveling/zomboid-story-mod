@@ -1731,79 +1731,251 @@ CDCSkaldModules["cdc.ska"] = {
       line = 243,
       members = {
         {
-          cond = {
-            type = "and",
-            items = {
-              {
-                t = "atom",
-                a = {
-                  t = "call",
-                  method = "get_quest",
-                  args = {
-                    {
-                      t = "str",
-                      v = "first",
+          t = "chain",
+          blocks = {
+            {
+              cond = {
+                type = "and",
+                items = {
+                  {
+                    t = "atom",
+                    a = {
+                      t = "call",
+                      method = "quest_available",
+                      args = {
+                        {
+                          t = "str",
+                          v = "first",
+                        },
+                      },
+                      line = 0,
+                    },
+                    cmp = "truthy",
+                  },
+                },
+              },
+              line = 248,
+              members = {
+                {
+                  line = 249,
+                  body = {
+                    t = "beat",
+                    attribution = "cdc",
+                    text = {
+                      parts = {
+                        "\"If you were ever interested in helping me out with my research, you know, getting me some fresh zombie meat, that's still on the table.\"",
+                      },
                     },
                   },
-                  line = 0,
-                },
-                cmp = "eq",
-                b = {
-                  t = "int",
-                  v = 0,
                 },
               },
             },
-          },
-          line = 246,
-          body = {
-            t = "beat",
-            attribution = "cdc",
-            text = {
-              parts = {
-                "\"If you were ever interested in helping me out with my research, you know, getting me some fresh zombie meat, that's still on the table.\"",
+            {
+              cond = {
+                type = "and",
+                items = {
+                  {
+                    t = "atom",
+                    a = {
+                      t = "call",
+                      method = "has_started_job",
+                      args = {
+                        {
+                          t = "str",
+                          v = "meat",
+                        },
+                      },
+                      line = 0,
+                    },
+                    cmp = "truthy",
+                  },
+                },
+              },
+              line = 250,
+              members = {
+                {
+                  line = 251,
+                  body = {
+                    t = "beat",
+                    attribution = "cdc",
+                    text = {
+                      parts = {
+                        "\"Whenever you're ready to resume the zombie meat analysis, let me know.\"",
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            {
+              cond = {
+                type = "and",
+                items = {
+                  {
+                    t = "atom",
+                    a = {
+                      t = "call",
+                      method = "get_quest",
+                      args = {
+                        {
+                          t = "str",
+                          v = "first",
+                        },
+                      },
+                      line = 0,
+                    },
+                    cmp = "eq",
+                    b = {
+                      t = "int",
+                      v = 1,
+                    },
+                  },
+                },
+              },
+              line = 252,
+              members = {
+                {
+                  line = 253,
+                  body = {
+                    t = "beat",
+                    attribution = "cdc",
+                    text = {
+                      parts = {
+                        "\"Once you have the zombie meat sample, just let me know.\"",
+                      },
+                    },
+                  },
+                },
               },
             },
           },
         },
         {
-          cond = {
-            type = "and",
-            items = {
-              {
-                t = "atom",
-                a = {
-                  t = "call",
-                  method = "get_quest",
-                  args = {
-                    {
-                      t = "str",
-                      v = "first",
+          t = "chain",
+          blocks = {
+            {
+              cond = {
+                type = "and",
+                items = {
+                  {
+                    t = "atom",
+                    a = {
+                      t = "call",
+                      method = "quest_available",
+                      args = {
+                        {
+                          t = "str",
+                          v = "tri",
+                        },
+                      },
+                      line = 0,
+                    },
+                    cmp = "truthy",
+                  },
+                },
+              },
+              line = 257,
+              members = {
+                {
+                  line = 258,
+                  body = {
+                    t = "beat",
+                    attribution = "cdc",
+                    text = {
+                      parts = {
+                        "\"We've got some results back from our initial analysis. We think we've got some next steps for you, when you're ready -- we'll need you to collect and analyze three separate samples.\"",
+                      },
                     },
                   },
-                  line = 0,
-                },
-                cmp = "eq",
-                b = {
-                  t = "int",
-                  v = 1,
                 },
               },
             },
-          },
-          line = 247,
-          body = {
-            t = "beat",
-            attribution = "cdc",
-            text = {
-              parts = {
-                "\"Once you have the zombie meat sample, just let me know.\"",
+            {
+              cond = {
+                type = "and",
+                items = {
+                  {
+                    t = "atom",
+                    a = {
+                      t = "call",
+                      method = "get_quest",
+                      args = {
+                        {
+                          t = "str",
+                          v = "tri",
+                        },
+                      },
+                      line = 0,
+                    },
+                    cmp = "eq",
+                    b = {
+                      t = "int",
+                      v = 1,
+                    },
+                  },
+                },
+              },
+              line = 259,
+              members = {
+                {
+                  line = 260,
+                  body = {
+                    t = "beat",
+                    attribution = "cdc",
+                    text = {
+                      parts = {
+                        "\"We need you to collect a sample of Velvet, a zombie brain, and a soil sample from the military chemical spill. And you'll need a microscope.\"",
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            {
+              cond = {
+                type = "and",
+                items = {
+                  {
+                    t = "atom",
+                    a = {
+                      t = "call",
+                      method = "get_quest",
+                      args = {
+                        {
+                          t = "str",
+                          v = "tri",
+                        },
+                      },
+                      line = 0,
+                    },
+                    cmp = "eq",
+                    b = {
+                      t = "int",
+                      v = 2,
+                    },
+                  },
+                },
+              },
+              line = 261,
+              members = {
+                {
+                  line = 262,
+                  body = {
+                    t = "beat",
+                    attribution = "cdc",
+                    text = {
+                      parts = {
+                        "\"Those samples you collected are ready for analysis.\"",
+                      },
+                    },
+                  },
+                },
               },
             },
           },
         },
         {
-          line = 248,
+          line = 265,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -1818,10 +1990,10 @@ CDCSkaldModules["cdc.ska"] = {
     },
     {
       tag = "router",
-      line = 250,
+      line = 267,
       members = {
         {
-          line = 252,
+          line = 269,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -1834,7 +2006,7 @@ CDCSkaldModules["cdc.ska"] = {
         },
         {
           t = "choices",
-          line = 254,
+          line = 271,
           choices = {
             {
               cond = {
@@ -1868,7 +2040,7 @@ CDCSkaldModules["cdc.ska"] = {
               },
               members = {
                 {
-                  line = 255,
+                  line = 272,
                   body = {
                     t = "go",
                     module = "quests/first.ska",
@@ -1876,7 +2048,45 @@ CDCSkaldModules["cdc.ska"] = {
                   },
                 },
               },
-              line = 254,
+              line = 271,
+            },
+            {
+              cond = {
+                type = "and",
+                items = {
+                  {
+                    t = "atom",
+                    a = {
+                      t = "call",
+                      method = "quest_active",
+                      args = {
+                        {
+                          t = "str",
+                          v = "tri",
+                        },
+                      },
+                      line = 0,
+                    },
+                    cmp = "truthy",
+                  },
+                },
+              },
+              text = {
+                parts = {
+                  "About the tri-sample analysis ...",
+                },
+              },
+              members = {
+                {
+                  line = 274,
+                  body = {
+                    t = "go",
+                    module = "quests/tri.ska",
+                    start_in = "",
+                  },
+                },
+              },
+              line = 273,
             },
             {
               text = {
@@ -1886,14 +2096,14 @@ CDCSkaldModules["cdc.ska"] = {
               },
               members = {
                 {
-                  line = 257,
+                  line = 276,
                   body = {
                     t = "move",
                     target = "other_work",
                   },
                 },
               },
-              line = 256,
+              line = 275,
             },
             {
               text = {
@@ -1903,14 +2113,14 @@ CDCSkaldModules["cdc.ska"] = {
               },
               members = {
                 {
-                  line = 259,
+                  line = 278,
                   body = {
                     t = "move",
                     target = "api_tester",
                   },
                 },
               },
-              line = 258,
+              line = 277,
             },
             {
               text = {
@@ -1920,7 +2130,7 @@ CDCSkaldModules["cdc.ska"] = {
               },
               members = {
                 {
-                  line = 261,
+                  line = 280,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -1932,13 +2142,13 @@ CDCSkaldModules["cdc.ska"] = {
                   },
                 },
                 {
-                  line = 262,
+                  line = 281,
                   body = {
                     t = "exit",
                   },
                 },
               },
-              line = 260,
+              line = 279,
             },
           },
         },
@@ -1946,7 +2156,7 @@ CDCSkaldModules["cdc.ska"] = {
     },
     {
       tag = "other_work",
-      line = 264,
+      line = 283,
       members = {
         {
           t = "chain",
@@ -1972,10 +2182,10 @@ CDCSkaldModules["cdc.ska"] = {
                   },
                 },
               },
-              line = 266,
+              line = 285,
               members = {
                 {
-                  line = 267,
+                  line = 286,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -1988,7 +2198,7 @@ CDCSkaldModules["cdc.ska"] = {
                 },
                 {
                   t = "choices",
-                  line = 268,
+                  line = 287,
                   choices = {
                     {
                       text = {
@@ -1998,7 +2208,7 @@ CDCSkaldModules["cdc.ska"] = {
                       },
                       members = {
                         {
-                          line = 269,
+                          line = 288,
                           body = {
                             t = "go",
                             module = "quests/first.ska",
@@ -2006,7 +2216,7 @@ CDCSkaldModules["cdc.ska"] = {
                           },
                         },
                       },
-                      line = 268,
+                      line = 287,
                     },
                     {
                       text = {
@@ -2016,24 +2226,24 @@ CDCSkaldModules["cdc.ska"] = {
                       },
                       members = {
                         {
-                          line = 271,
+                          line = 290,
                           body = {
                             t = "move",
                             target = "router",
                           },
                         },
                       },
-                      line = 270,
+                      line = 289,
                     },
                   },
                 },
               },
             },
             {
-              line = 272,
+              line = 291,
               members = {
                 {
-                  line = 273,
+                  line = 292,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -2056,7 +2266,7 @@ CDCSkaldModules["cdc.ska"] = {
                 },
                 {
                   t = "choices",
-                  line = 274,
+                  line = 293,
                   choices = {
                     {
                       text = {
@@ -2066,14 +2276,14 @@ CDCSkaldModules["cdc.ska"] = {
                       },
                       members = {
                         {
-                          line = 275,
+                          line = 294,
                           body = {
                             t = "move",
                             target = "router",
                           },
                         },
                       },
-                      line = 274,
+                      line = 293,
                     },
                   },
                 },
@@ -2085,10 +2295,10 @@ CDCSkaldModules["cdc.ska"] = {
     },
     {
       tag = "api_tester",
-      line = 278,
+      line = 297,
       members = {
         {
-          line = 280,
+          line = 299,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -2100,7 +2310,7 @@ CDCSkaldModules["cdc.ska"] = {
           },
         },
         {
-          line = 282,
+          line = 301,
           body = {
             t = "call",
             method = "reward_xp",
@@ -2117,7 +2327,7 @@ CDCSkaldModules["cdc.ska"] = {
           },
         },
         {
-          line = 283,
+          line = 302,
           body = {
             t = "call",
             method = "reward_xp",
@@ -2134,7 +2344,7 @@ CDCSkaldModules["cdc.ska"] = {
           },
         },
         {
-          line = 285,
+          line = 304,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -2146,7 +2356,7 @@ CDCSkaldModules["cdc.ska"] = {
           },
         },
         {
-          line = 287,
+          line = 306,
           body = {
             t = "move",
             target = "router",

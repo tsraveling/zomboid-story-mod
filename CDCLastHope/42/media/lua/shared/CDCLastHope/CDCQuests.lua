@@ -19,3 +19,9 @@ function Q.isAvailable(key)
   local f = Q.available[key]
   return f ~= nil and CDC.State.quest(CDC.State.get(), key) == 0 and f() == true
 end
+
+-- available, or started and not done
+function Q.isActive(key)
+  local stage = CDC.State.quest(CDC.State.get(), key)
+  return Q.isAvailable(key) or (stage > 0 and stage < 100)
+end

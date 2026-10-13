@@ -8,6 +8,9 @@
   --- true if this quest is available to be started: aka, if prereqs are met, and if the quest has been built.
   quest_available(key string) bool
 
+  --- true if the quest is available or in progress
+  quest_active(key string) bool
+
   --- checks if user has at least one of the given item in their inventory.
   has_item(item string) bool
 
