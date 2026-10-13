@@ -1,12 +1,31 @@
+from_latest_tag = true
 tag_prefix = "v"
-ignore_merge_commits = true
-
+ignore_merge_commits = false
+ignore_fixup_commits = true
+disable_changelog = false
+disable_bump_commit = false
+generate_mono_repository_global_tag = true
+generate_mono_repository_package_tags = true
+branch_whitelist = []
+skip_ci = "[skip ci]"
+skip_untracked = false
 pre_bump_hooks = [
-    "sed -i '' 's/^modversion=.*/modversion={{version}}/' CDCLastHope/mod.info CDCLastHope/42/mod.info",
+    "sed -i.bak 's|^modversion=.*|modversion={{version}}|' CDCLastHope/mod.info CDCLastHope/42/mod.info && rm -f CDCLastHope/mod.info.bak CDCLastHope/42/mod.info.bak",
+    "git add CDCLastHope/mod.info CDCLastHope/42/mod.info",
 ]
+post_bump_hooks = []
+pre_package_bump_hooks = []
+post_package_bump_hooks = []
+
+[git_hooks]
 
 [commit_types]
-step = { changelog_title = "Steps" }
+step = { changelog_title = "Steps", bump_patch = true}
 
 [changelog]
 path = "CHANGELOG.md"
+authors = []
+
+[bump_profiles]
+
+[packages]
