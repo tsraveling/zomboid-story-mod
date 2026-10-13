@@ -247,7 +247,7 @@ EXIT
 --- FIRST JOB
 @if quest_available("first")
 cdc: "If you were ever interested in helping me out with my research, you know, getting me some fresh zombie meat, that's still on the table."
-@elseif has_started_job("meat")
+@elseif has_started_job("meat") and get_quest("first") == 1
 cdc: "Whenever you're ready to resume the zombie meat analysis, let me know."
 @elseif get_quest("first") == 1
 cdc: "Once you have the zombie meat sample, just let me know."
@@ -255,7 +255,7 @@ cdc: "Once you have the zombie meat sample, just let me know."
 
 --- TRI-SAMPLE JOB
 @if quest_available("tri")
-cdc: "We've got some results back from our initial analysis. We think we've got some next steps for you, when you're ready -- we'll need you to collect and analyze three separate samples."
+cdc: "We've got some results back from our initial analysis. We have next steps for you, when you're ready -- we'll need you to collect and analyze three separate samples."
 @elseif get_quest("tri") == 1
 cdc: "We need you to collect a sample of Velvet, a zombie brain, and a soil sample from the military chemical spill. And you'll need a microscope."
 @elseif get_quest("tri") == 2
@@ -274,8 +274,8 @@ cdc: "So what did you want to talk about?"
   GO quests/tri.ska
 > Any other work I should be doing right now?
   -> other_work
-> I want to DEBUG TEST THE API.
-  -> api_tester
+--- > I want to DEBUG TEST THE API.
+---   -> api_tester
 > I think that's all for now!
   cdc: "All right, talk to you next time. CDC, over and out."
   EXIT

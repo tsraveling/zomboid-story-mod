@@ -59,6 +59,7 @@ CDC.story = {
         },
         spawns = {
             { item = "CDCLastHope.VelvetDose", lists = { "PoliceEvidence" }, chance = 30 },
+            { item = "CDCLastHope.VelvetDose", lists = { "PoliceDesk" }, chance = 35 },
             { item = "CDCLastHope.VelvetDose", lists = { "DrugShackDrugs" }, chance = 10 },
             { item = "CDCLastHope.VelvetDose", lists = { "DerelictHouseDrugs" }, chance = 10 },
             { item = "CDCLastHope.VelvetDose", lists = { "DerelictHouseSquatter" }, chance = 5 },

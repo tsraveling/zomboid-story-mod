@@ -174,11 +174,12 @@ function ISCDCDialogue:refreshLog()
     local function line(l)
         local c = l.color or CDC.COLOR_CDC
         local prefix = (l.who and l.who ~= "") and (clean(l.who) .. ": ") or ""
+        if #out > 0 then table.insert(out, "<LINE> ") end
         table.insert(out, rgb(c) .. prefix .. clean(l.text) .. " <LINE> ")
     end
     for _, l in ipairs(hist or {}) do line(l) end
     if self.lines and #self.lines > 0 then
-        if #hist > 0 then table.insert(out, "<RGB:0.5,0.5,0.5> --- <LINE> ") end
+        if #hist > 0 then table.insert(out, "<LINE> <RGB:0.5,0.5,0.5> --- <LINE> ") end
         for _, l in ipairs(self.lines) do line(l) end
     end
     if #out == 0 then table.insert(out, "<RGB:0.5,0.5,0.5> (no transmissions logged) ") end

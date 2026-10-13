@@ -17,7 +17,7 @@ module CDCLastHope
         DisplayCategory = FirstAid,
         ItemType = base:normal,
         Weight = 0.1,
-        Icon = CDCVelvetDose,
+        Icon = PillsPainkiller,
         StaticModel = PillBottle,
         WorldStaticModel = PillBottleGround,
     }

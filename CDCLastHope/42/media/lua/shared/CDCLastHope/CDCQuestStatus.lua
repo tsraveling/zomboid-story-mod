@@ -1,11 +1,11 @@
 require "CDCLastHope/CDCState"
 
--- journal line items keyed by quest, then stage; stages without an entry show nothing
+-- journal line items keyed by quest, then stage; stages without an entry show nothing; an entry can be a string or a list of strings
 -- lines = active objectives, completed = finished-quest entries
 CDC.QuestStatus = {}
 local QS = CDC.QuestStatus
 
-QS.order = { "first" }
+QS.order = { "first", "tri" }
 
 QS.lines = {
   first = {
@@ -13,11 +13,12 @@ QS.lines = {
     [1] = "Get some zombie meat and then call the CDC.",
   },
   tri = {
-    [1] =
-        "Get a zombie brain using a saw or axe.\n" +
-        "Get a soil sample from the northward turn of Route 163 that is due east of the crossroads with 61W.\n" +
-        "Get a sample of Velvet from a police evidence lockup.\n" +
-        "Find a microscope in a clinic, hospital, or lab.\n",
+    [1] = {
+      "Get a zombie brain using a saw or axe.",
+      "Get a soil sample from the northward turn of Route 163 that is due east of the crossroads with 31W.",
+      "Get a sample of Velvet from a police evidence lockup.",
+      "Find a microscope in a clinic, hospital, or lab.",
+    },
     [2] = "Set up the microscope near the radio and contact CDC to run comparison on the three samples."
   },
 }
@@ -37,7 +38,11 @@ local function collect(st, map)
   local out = {}
   for _, key in ipairs(QS.order) do
     local line = (map[key] or {})[CDC.State.quest(st, key)]
-    if line then table.insert(out, line) end
+    if type(line) == "table" then
+      for _, l in ipairs(line) do table.insert(out, l) end
+    elseif line then
+      table.insert(out, line)
+    end
   end
   return out
 end

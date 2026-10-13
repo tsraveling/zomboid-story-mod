@@ -1789,6 +1789,25 @@ CDCSkaldModules["cdc.ska"] = {
                     },
                     cmp = "truthy",
                   },
+                  {
+                    t = "atom",
+                    a = {
+                      t = "call",
+                      method = "get_quest",
+                      args = {
+                        {
+                          t = "str",
+                          v = "first",
+                        },
+                      },
+                      line = 0,
+                    },
+                    cmp = "eq",
+                    b = {
+                      t = "int",
+                      v = 1,
+                    },
+                  },
                 },
               },
               line = 250,
@@ -1883,7 +1902,7 @@ CDCSkaldModules["cdc.ska"] = {
                     attribution = "cdc",
                     text = {
                       parts = {
-                        "\"We've got some results back from our initial analysis. We think we've got some next steps for you, when you're ready -- we'll need you to collect and analyze three separate samples.\"",
+                        "\"We've got some results back from our initial analysis. We have next steps for you, when you're ready -- we'll need you to collect and analyze three separate samples.\"",
                       },
                     },
                   },

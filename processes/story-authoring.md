@@ -36,7 +36,7 @@ Conversations are Skald modules in `text/`. World config (frequency, precue, cal
 
 ## Quest Status
 
-1. `CDCLastHope/42/media/lua/shared/CDCLastHope/CDCQuestStatus.lua`: `QS.lines[questKey][stage] = "journal line"`
+1. `CDCLastHope/42/media/lua/shared/CDCLastHope/CDCQuestStatus.lua`: `QS.lines[questKey][stage] = "journal line"` or a list of lines, each shown as its own bullet
 2. Add the quest key to `QS.order`; stages without a line show nothing
 3. `QS.completed[questKey][stage] = "entry"` lists the quest under Completed Quests when it reaches that stage
 
