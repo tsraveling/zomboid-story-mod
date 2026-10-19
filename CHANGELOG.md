@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.1.1 - 2026-10-19
+#### Bug Fixes
+- fixes item config for servers - (75e5a71) - Tim Raveling
+#### Miscellaneous Chores
+- deploy script fix - (fe48da7) - Tim Raveling
+- added some additional semver types - (18b3d5f) - Tim Raveling
+- cog config bump - (137f9d4) - Tim Raveling
+
+- - -
+
 ## v0.1.0 - 2026-10-13
 #### Steps
 - first draft of tri quest done. - (3a4c2dd) - Tim Raveling
