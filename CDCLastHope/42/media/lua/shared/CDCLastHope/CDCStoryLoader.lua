@@ -18,6 +18,13 @@ function St.corpseAction(id)
     return nil
 end
 
+function St.groundAction(id)
+    for _, g in ipairs(CDC.story.world.groundActions or {}) do
+        if g.id == id then return g end
+    end
+    return nil
+end
+
 -- every item the story references; used by debug spawn menu
 function St.items()
     local seen, out = {}, {}
@@ -25,6 +32,7 @@ function St.items()
     for _, t in ipairs(CDC.story.items or {}) do add(t) end
     for _, p in ipairs(CDC.story.world.pickups or {}) do add(p.item) end
     for _, c in ipairs(CDC.story.world.corpseActions or {}) do add(c.gives) end
+    for _, g in ipairs(CDC.story.world.groundActions or {}) do add(g.gives) end
     for _, s in ipairs(CDC.story.world.spawns or {}) do add(s.item) end
     table.sort(out)
     return out

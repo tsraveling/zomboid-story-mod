@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Compiles the story, stages the mod in ~/Zomboid/Workshop, and uploads it to the Steam Workshop via steamcmd.
+# Compiles the story, stages the mod in .deploy/stage, and uploads it to the Steam Workshop via steamcmd.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 ENV="$ROOT/.deploy.env"
-STAGE="$HOME/Zomboid/Workshop/CDCLastHope"
+STAGE="$ROOT/.deploy/stage"
 VDF="$ROOT/.deploy/workshop.vdf"
 TITLE="CDC Last Hope"
 
@@ -56,4 +56,4 @@ if [[ -z "${WORKSHOP_ID:-}" ]]; then
     fi
 fi
 
-echo "done. restart the server to pull the update."
+echo "done. restart the server to pull the update; ./mode.sh workshop to test against it."

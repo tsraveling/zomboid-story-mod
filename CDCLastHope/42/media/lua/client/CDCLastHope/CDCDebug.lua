@@ -160,7 +160,7 @@ function Dbg.fill(player, context, squares)
     local spawnMenu = ISContextMenu:getNew(context)
     menu:addSubMenu(spawnOpt, spawnMenu)
     for _, t in ipairs(CDC.Story.items()) do
-        spawnMenu:addOption(t, player, function(pl) pl:getInventory():AddItem(t) end)
+        spawnMenu:addOption(t, player, function(pl) Dbg.send(pl, { op = "spawn", item = t }) end)
     end
 
     local pkOpt = menu:addOption("Reset pickup")

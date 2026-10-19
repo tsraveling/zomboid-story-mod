@@ -21,6 +21,14 @@ QS.lines = {
     },
     [2] = "Set up the microscope near the radio and contact CDC to run comparison on the three samples."
   },
+  junkie = {
+    [1] =
+    "Go to the Muldraugh police department morgue and retrieve the corpse from the bottom leftmost body locker on the north wall. Take a sample.",
+    [2] = "Perform a microscopic analysis on the sample while on the radio with the CDC."
+  },
+  march = {
+    -- STUB: march ridge scientist quest
+  }
 }
 
 QS.completed = {

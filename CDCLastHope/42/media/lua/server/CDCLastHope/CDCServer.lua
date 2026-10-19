@@ -59,6 +59,21 @@ local function grantXp(x, y, z, xp)
     end
 end
 
+-- inventory is server-owned in MP; client-side adds/removes are ghosts
+local function giveItem(player, fullType)
+    local inv = player:getInventory()
+    local item = inv:AddItem(fullType)
+    if item then sendAddItemToContainer(inv, item) end
+    return item
+end
+
+local function takeItem(item)
+    local c = item:getContainer()
+    if not c then return end
+    c:Remove(item)
+    sendRemoveItemFromContainer(c, item)
+end
+
 Srv.handlers = {}
 
 -- args: ops = { {type, ...} }; see CDC.State.ops
@@ -85,7 +100,7 @@ function Srv.handlers.floatText(player, args)
     end
 end
 
--- args: id, x,y,z ; client spawns the item on ok
+-- args: id, x,y,z
 function Srv.handlers.pickup(player, args)
     local def = CDC.Story.pickup(args.id)
     if not def then return end
@@ -98,7 +113,22 @@ function Srv.handlers.pickup(player, args)
     end
     st.pickups[args.id] = { characterName = player:getFullName(), username = player:getUsername(), day = CDC.day(), count = (taken and taken.count or 0) + 1 }
     sync()
+    if def.item then giveItem(player, def.item) end
     reply(player, "pickupResult", { id = args.id, ok = true })
+end
+
+-- corpse/ground action finished; args: kind = "corpse"|"ground", id
+function Srv.handlers.grant(player, args)
+    local def
+    if args.kind == "corpse" then def = CDC.Story.corpseAction(args.id)
+    elseif args.kind == "ground" then def = CDC.Story.groundAction(args.id) end
+    if not def then return end
+    if def.requires then
+        local tool = CDC.findTool(player:getInventory(), def.requires)
+        if not tool then return end
+        if def.consumes then takeItem(tool) end
+    end
+    if def.gives then giveItem(player, def.gives) end
 end
 
 -- args: x,y,z, xp = { {perk,amount} }
@@ -116,6 +146,8 @@ function Srv.handlers.debug(player, args)
         S.reset()
     elseif args.op == "resetPickup" then
         st.pickups[args.id] = nil
+    elseif args.op == "spawn" then
+        giveItem(player, args.item)
     end
     sync()
     reply(player, "debugDone", { op = args.op })

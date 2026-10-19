@@ -18,12 +18,7 @@ function ISCDCGroundAction:start()
 end
 
 function ISCDCGroundAction:perform()
-    local inv = self.character:getInventory()
-    if self.def.requires and self.def.consumes then
-        local tool = CDC.findTool(inv, self.def.requires)
-        if tool then inv:Remove(tool) end
-    end
-    if self.def.gives then inv:AddItem(self.def.gives) end
+    CDC.Net.send(self.character, "grant", { kind = "ground", id = self.def.id })
     CDC.Modal.show(self.character, self.def.text)
     ISBaseTimedAction.perform(self)
 end

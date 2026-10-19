@@ -28,7 +28,6 @@ function P.onResult(args)
     CDC.Modal.show(p.player, p.def.goneText or "Nothing here anymore.")
     return
   end
-  p.player:getInventory():AddItem(p.def.item)
   if (p.def.once or "global") == "character" then
     local md = p.player:getModData()
     md.CDCPickups = md.CDCPickups or {}

@@ -262,6 +262,11 @@ cdc: "We need you to collect a sample of Velvet, a zombie brain, and a soil samp
 cdc: "Those samples you collected are ready for analysis."
 @endif
 
+--- JUNKIE JOB
+@if quest_available("junkie")
+cdc: "Based on your findings with the samples from last time, we've got a good lead for you to pursue, whenever you're ready -- a local junkie we know ended up in the Muldraugh police department's morgue after ODing on Velvet *before* the virus got out."
+@endif
+
 cdc: "If you just want to talk, I've got nothing here but time."
 
 # router
@@ -272,6 +277,10 @@ cdc: "So what did you want to talk about?"
   GO quests/first.ska
 > (? quest_active("tri")) About the tri-sample analysis ...
   GO quests/tri.ska
+> (? quest_active("junkie")) About the Velvet overdose victim ...
+  GO quests/junkie.ska
+> I have some other questions.
+  GO cdc_talking.ska
 > Any other work I should be doing right now?
   -> other_work
 --- > I want to DEBUG TEST THE API.
