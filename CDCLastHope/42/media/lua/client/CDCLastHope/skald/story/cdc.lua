@@ -1994,7 +1994,49 @@ CDCSkaldModules["cdc.ska"] = {
           },
         },
         {
-          line = 265,
+          t = "chain",
+          blocks = {
+            {
+              cond = {
+                type = "and",
+                items = {
+                  {
+                    t = "atom",
+                    a = {
+                      t = "call",
+                      method = "quest_available",
+                      args = {
+                        {
+                          t = "str",
+                          v = "junkie",
+                        },
+                      },
+                      line = 0,
+                    },
+                    cmp = "truthy",
+                  },
+                },
+              },
+              line = 266,
+              members = {
+                {
+                  line = 267,
+                  body = {
+                    t = "beat",
+                    attribution = "cdc",
+                    text = {
+                      parts = {
+                        "\"Based on your findings with the samples from last time, we've got a good lead for you to pursue, whenever you're ready -- a local junkie we know ended up in the Muldraugh police department's morgue after ODing on Velvet *before* the virus got out.\"",
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        {
+          line = 270,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -2009,10 +2051,10 @@ CDCSkaldModules["cdc.ska"] = {
     },
     {
       tag = "router",
-      line = 267,
+      line = 272,
       members = {
         {
-          line = 269,
+          line = 274,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -2025,7 +2067,7 @@ CDCSkaldModules["cdc.ska"] = {
         },
         {
           t = "choices",
-          line = 271,
+          line = 276,
           choices = {
             {
               cond = {
@@ -2059,7 +2101,7 @@ CDCSkaldModules["cdc.ska"] = {
               },
               members = {
                 {
-                  line = 272,
+                  line = 277,
                   body = {
                     t = "go",
                     module = "quests/first.ska",
@@ -2067,7 +2109,7 @@ CDCSkaldModules["cdc.ska"] = {
                   },
                 },
               },
-              line = 271,
+              line = 276,
             },
             {
               cond = {
@@ -2097,7 +2139,7 @@ CDCSkaldModules["cdc.ska"] = {
               },
               members = {
                 {
-                  line = 274,
+                  line = 279,
                   body = {
                     t = "go",
                     module = "quests/tri.ska",
@@ -2105,7 +2147,63 @@ CDCSkaldModules["cdc.ska"] = {
                   },
                 },
               },
-              line = 273,
+              line = 278,
+            },
+            {
+              cond = {
+                type = "and",
+                items = {
+                  {
+                    t = "atom",
+                    a = {
+                      t = "call",
+                      method = "quest_active",
+                      args = {
+                        {
+                          t = "str",
+                          v = "junkie",
+                        },
+                      },
+                      line = 0,
+                    },
+                    cmp = "truthy",
+                  },
+                },
+              },
+              text = {
+                parts = {
+                  "About the Velvet overdose victim ...",
+                },
+              },
+              members = {
+                {
+                  line = 281,
+                  body = {
+                    t = "go",
+                    module = "quests/junkie.ska",
+                    start_in = "",
+                  },
+                },
+              },
+              line = 280,
+            },
+            {
+              text = {
+                parts = {
+                  "I have some other questions.",
+                },
+              },
+              members = {
+                {
+                  line = 283,
+                  body = {
+                    t = "go",
+                    module = "cdc_talking.ska",
+                    start_in = "",
+                  },
+                },
+              },
+              line = 282,
             },
             {
               text = {
@@ -2115,20 +2213,20 @@ CDCSkaldModules["cdc.ska"] = {
               },
               members = {
                 {
-                  line = 276,
+                  line = 285,
                   body = {
                     t = "move",
                     target = "other_work",
                   },
                 },
               },
-              line = 275,
+              line = 284,
             },
           },
         },
         {
           t = "choices",
-          line = 279,
+          line = 288,
           choices = {
             {
               text = {
@@ -2138,7 +2236,7 @@ CDCSkaldModules["cdc.ska"] = {
               },
               members = {
                 {
-                  line = 280,
+                  line = 289,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -2150,13 +2248,13 @@ CDCSkaldModules["cdc.ska"] = {
                   },
                 },
                 {
-                  line = 281,
+                  line = 290,
                   body = {
                     t = "exit",
                   },
                 },
               },
-              line = 279,
+              line = 288,
             },
           },
         },
@@ -2164,7 +2262,7 @@ CDCSkaldModules["cdc.ska"] = {
     },
     {
       tag = "other_work",
-      line = 283,
+      line = 292,
       members = {
         {
           t = "chain",
@@ -2190,10 +2288,10 @@ CDCSkaldModules["cdc.ska"] = {
                   },
                 },
               },
-              line = 285,
+              line = 294,
               members = {
                 {
-                  line = 286,
+                  line = 295,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -2206,7 +2304,7 @@ CDCSkaldModules["cdc.ska"] = {
                 },
                 {
                   t = "choices",
-                  line = 287,
+                  line = 296,
                   choices = {
                     {
                       text = {
@@ -2216,7 +2314,7 @@ CDCSkaldModules["cdc.ska"] = {
                       },
                       members = {
                         {
-                          line = 288,
+                          line = 297,
                           body = {
                             t = "go",
                             module = "quests/first.ska",
@@ -2224,7 +2322,7 @@ CDCSkaldModules["cdc.ska"] = {
                           },
                         },
                       },
-                      line = 287,
+                      line = 296,
                     },
                     {
                       text = {
@@ -2234,24 +2332,24 @@ CDCSkaldModules["cdc.ska"] = {
                       },
                       members = {
                         {
-                          line = 290,
+                          line = 299,
                           body = {
                             t = "move",
                             target = "router",
                           },
                         },
                       },
-                      line = 289,
+                      line = 298,
                     },
                   },
                 },
               },
             },
             {
-              line = 291,
+              line = 300,
               members = {
                 {
-                  line = 292,
+                  line = 301,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -2274,7 +2372,7 @@ CDCSkaldModules["cdc.ska"] = {
                 },
                 {
                   t = "choices",
-                  line = 293,
+                  line = 302,
                   choices = {
                     {
                       text = {
@@ -2284,14 +2382,14 @@ CDCSkaldModules["cdc.ska"] = {
                       },
                       members = {
                         {
-                          line = 294,
+                          line = 303,
                           body = {
                             t = "move",
                             target = "router",
                           },
                         },
                       },
-                      line = 293,
+                      line = 302,
                     },
                   },
                 },
@@ -2303,10 +2401,10 @@ CDCSkaldModules["cdc.ska"] = {
     },
     {
       tag = "api_tester",
-      line = 297,
+      line = 306,
       members = {
         {
-          line = 299,
+          line = 308,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -2318,7 +2416,7 @@ CDCSkaldModules["cdc.ska"] = {
           },
         },
         {
-          line = 301,
+          line = 310,
           body = {
             t = "call",
             method = "reward_xp",
@@ -2335,7 +2433,7 @@ CDCSkaldModules["cdc.ska"] = {
           },
         },
         {
-          line = 302,
+          line = 311,
           body = {
             t = "call",
             method = "reward_xp",
@@ -2352,7 +2450,7 @@ CDCSkaldModules["cdc.ska"] = {
           },
         },
         {
-          line = 304,
+          line = 313,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -2364,7 +2462,7 @@ CDCSkaldModules["cdc.ska"] = {
           },
         },
         {
-          line = 306,
+          line = 315,
           body = {
             t = "move",
             target = "router",

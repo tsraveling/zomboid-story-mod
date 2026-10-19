@@ -50,6 +50,7 @@ function St.validate()
     for _, p in ipairs(s.world.pickups) do
         if ids[p.id] then CDC.log("WARN: duplicate pickup id " .. tostring(p.id)) end
         ids[p.id] = true
+        if not p.tiles then p.tiles = { { p.x, p.y, p.z or 0 } } end
     end
     CDC.log("story loaded: " .. tostring(#s.world.pickups) .. " pickups, freq " .. tostring(s.freq))
 end

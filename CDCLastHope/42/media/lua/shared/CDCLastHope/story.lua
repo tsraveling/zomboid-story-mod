@@ -6,7 +6,7 @@
     precue          { day, text }  Day counted from the apocalypse date by calendar (default 1993-07-09, so 25 = Aug 3), not nights survived. Nothing works before it; dead vanilla stations carry `text`.
     apocalypse      optional { year, month, day } override of the Knox Event date.
     callout         { text }       Loops forever on `freq` once active, airs hourly. String or list of strings.
-    world.pickups   { id, x,y,z, sprite=nil, label, item, once="global"|"character"|"none", duration=2, text, cond=fn(ctx,square), condFailText }
+    world.pickups   { id, x,y,z | tiles={{x,y,z},...}, sprite=nil|name|{names}, label, item, once="global"|"character"|"none", duration=2, text, cond=fn(ctx,square), condFailText }  hidden when cond false unless condFailText (then grayed)
     world.corpseActions { id, label, requires=fullType|"tag:ITEM_TAG"|"category:WEAPON_CATEGORY"|list|nil, requiresLabel, consumes=false, gives, duration=3, text, cond=fn(ctx) }  hidden when cond false
     world.groundActions { id, label, x,y,z, radius, ground={"dirt","sand","clay","gravel"}, requires, requiresLabel, consumes=false, gives, duration=3, text, cond=fn(ctx,square) }  natural ground within radius; hidden when cond false
     world.spawns    { item, lists={"ClassroomDesk"}, chance=5 }
@@ -36,7 +36,19 @@ CDC.story = {
   items = { "CDCLastHope.ZombieMeat", "CDCLastHope.VelvetDose", "CDCLastHope.ZombieBrain", "CDCLastHope.SoilSample", "Base.Mov_Microscope", "Base.Mov_DesktopComputer" },
 
   world = {
-    pickups = {},
+    pickups = {
+      {
+        id = "velvet_desk",
+        label = "Retrieve Velvet Sample",
+        tiles = { { 8074, 11723, 0 }, { 8075, 11723, 0 } },
+        item = "CDCLastHope.VelvetDose",
+        once = "none",
+        cond = function(ctx)
+          local q = ctx.quest("tri"); return q == 1 or q == 2
+        end,
+        text = "PLACEHOLDER: You find a dose of Velvet in the desk and bag it as a sample.",
+      },
+    },
     corpseActions = {
       {
         id = "meat",

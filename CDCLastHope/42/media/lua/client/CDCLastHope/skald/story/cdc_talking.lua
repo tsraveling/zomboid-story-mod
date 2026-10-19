@@ -30,12 +30,21 @@ CDCSkaldModules["cdc_talking.ska"] = {
             {
               text = {
                 parts = {
+                  "Tell me about yourself.",
+                },
+              },
+              members = {},
+              line = 5,
+            },
+            {
+              text = {
+                parts = {
                   "That's all for now.",
                 },
               },
               members = {
                 {
-                  line = 6,
+                  line = 7,
                   body = {
                     t = "go",
                     module = "cdc.ska",
@@ -43,8 +52,712 @@ CDCSkaldModules["cdc_talking.ska"] = {
                   },
                 },
               },
-              line = 5,
+              line = 6,
             },
+          },
+        },
+      },
+    },
+    {
+      tag = "talk_daniel",
+      line = 11,
+      members = {
+        {
+          line = 13,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Honestly, I guess I'm lucky.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 15,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"I mean as lucky as anyone can be.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 17,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"My partner works here, he's a computer tech on the mainframe. The day this shit started was supposed to be his day off, he was supposed to be home ...\"",
+              },
+            },
+          },
+        },
+        {
+          line = 19,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"But the other guy called in sick. So Jay came in to take care of it.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 21,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"And now we sleep in a tiny bed in a tiny concrete room, but we're both here, we're both alive.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 23,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"The rest of my family ...\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 25,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "Yeah.",
+                },
+              },
+              members = {},
+              line = 25,
+            },
+          },
+        },
+        {
+          line = 27,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Yeah.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 28,
+          body = {
+            t = "move",
+            target = "daniel_hub",
+          },
+        },
+      },
+    },
+    {
+      tag = "daniel_hub",
+      line = 30,
+      members = {
+        {
+          line = 32,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Anything else about me?\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 34,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "What's it like in the Vault?",
+                },
+              },
+              members = {
+                {
+                  line = 35,
+                  body = {
+                    t = "move",
+                    target = "daniel_hub.vault",
+                  },
+                },
+              },
+              line = 34,
+            },
+            {
+              text = {
+                parts = {
+                  "What happened to you guys in Atlanta?",
+                },
+              },
+              members = {
+                {
+                  line = 37,
+                  body = {
+                    t = "move",
+                    target = "daniel_hub.atlanta",
+                  },
+                },
+              },
+              line = 36,
+            },
+            {
+              text = {
+                parts = {
+                  "I had some other questions ...",
+                },
+              },
+              members = {
+                {
+                  line = 39,
+                  body = {
+                    t = "move",
+                    target = "start",
+                  },
+                },
+              },
+              line = 38,
+            },
+          },
+        },
+      },
+    },
+    {
+      tag = "daniel_hub.vault",
+      line = 41,
+      members = {
+        {
+          line = 43,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"It's weird. Crowded, but really functional. They built this place well.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 45,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"We've got about twelve floors available to us, starting where we are, a good ten floors down already. Top two are labs and offices. We'd actually kind of been going through a crisis of faith before we contacted you, because *above* that is the main lab complex -- and those are completely overrun. Thousands of the fuckers. I swear to god I can hear them moaning through the blast doors sometimes.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 47,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"",
+                {
+                  t = "insert",
+                  rv = {
+                    t = "call",
+                    method = "pc_first_name",
+                    args = {},
+                    line = 0,
+                  },
+                },
+                ", we're fully trapped down here. We're powered by a nuclear RTG that will last a hundred years or more, we have water and oxygen cycling, greenhouses, warehouses of canned food -- and before we talked to you, we had literally nothing to survive *for*.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 49,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"There are maybe eight hundred people down here, some of the best minds in the nation. And now every single one of us is rooting for you.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 51,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"No pressure or anything.\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 53,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "Yeah. Okay.",
+                },
+              },
+              members = {
+                {
+                  line = 54,
+                  body = {
+                    t = "move",
+                    target = "daniel_hub",
+                  },
+                },
+              },
+              line = 53,
+            },
+          },
+        },
+      },
+    },
+    {
+      tag = "daniel_hub.atlanta",
+      line = 56,
+      members = {
+        {
+          line = 58,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"I mean. Shit.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 60,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Those first couple of weeks after *your* world ended, *our* world kept on going, albeit with more and more disturbing rumors trickling out of the forums and the internet.\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 62,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "The inter what?",
+                },
+              },
+              members = {},
+              line = 62,
+            },
+          },
+        },
+        {
+          line = 64,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Sorry. It's a DARPA thing originally, a lot of us academics communicate on it. Computer networks, that kind of thing. More free information than what you got on tv and in newspapers.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 66,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Gone now. I feel like it would have been a big deal for everyone one day. Maybe even almost as big as telephones.\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 68,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "If you say so.",
+                },
+              },
+              members = {},
+              line = 68,
+            },
+          },
+        },
+        {
+          line = 70,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Yeah, yeah. Guess we'll never know now. Anyway, we started getting these rumors of people coming off of flights from Kentucky, passing out, and suddenly waking up and turning violent.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 72,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Then we started getting flooded with calls from all over the country. Twelve hours after that everything was just on fire.\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 74,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "Jesus.",
+                },
+              },
+              members = {},
+              line = 74,
+            },
+          },
+        },
+        {
+          line = 76,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Yeah. We were working overtime at the CDC, but didn't even think about the vault until it was almost too late. Until we realized what we were dealing with.\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 78,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "Good thing you made it on time.",
+                },
+              },
+              members = {},
+              line = 78,
+            },
+          },
+        },
+        {
+          line = 80,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"We almost didn't. There were several thousand of us in the building when the street outside swarmed. We barred the doors and headed for the Vault, but a few of us were wounded ...\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 82,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "Bitten.",
+                },
+              },
+              members = {},
+              line = 82,
+            },
+          },
+        },
+        {
+          line = 86,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Yeah. We didn't know what that meant at the time. And it was spreading *fast*. I swear only a few people were sick when we went in. But something bad happened. Everyone in the room with the wounded people turned within hours, and they got out ...\" ",
+              },
+            },
+          },
+        },
+        {
+          line = 88,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Before we even knew what was happening half of all of us who were there, mostly in the upper labs, had turned. I was down on level 5. We managed to close the blast doors, but ...\"",
+              },
+            },
+          },
+        },
+        {
+          line = 90,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Can I tell you something?\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 92,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "Sure.",
+                },
+              },
+              members = {},
+              line = 92,
+            },
+          },
+        },
+        {
+          line = 94,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"I *know* not all of them had turned up there, and some of them were definitely trying to get down to safety. We signed their death warrants.\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 96,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "This ... is a time of some really hard choices.",
+                },
+              },
+              members = {},
+              line = 96,
+            },
+          },
+        },
+        {
+          line = 98,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Yeah. I can't even imagine what you've been dealing with out there.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 100,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Anyway. We had some samples from a couple we'd managed to kill early on. We had data from our cameras and backups. We fortunately have *deep* backups of police and FBI databases.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 102,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"All of this data, and then just ... nothing. No way to get out. We've been in communication via radio with towns across the country, but one by one they've been going silent.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 104,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"There are still a couple stations in northern Canada, Iceland, a couple of islands in the Caribbean. There are still people alive in the world.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 106,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"But you're the first contact we've had from the eastern half of this country in weeks.\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 108,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "Jesus.",
+                },
+              },
+              members = {},
+              line = 108,
+            },
+            {
+              text = {
+                parts = {
+                  "Fuck.",
+                },
+              },
+              members = {},
+              line = 109,
+            },
+            {
+              text = {
+                parts = {
+                  "Shit.",
+                },
+              },
+              members = {},
+              line = 110,
+            },
+          },
+        },
+        {
+          line = 112,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"My sentiments exactly.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 114,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Anyway. We're fine. We have a routine. We have a little garden and enough food. We're ... safe.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 116,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"And now thanks to you, we're working again. We have some direction.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 118,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Thank you.\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 120,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "You're welcome.",
+                },
+              },
+              members = {},
+              line = 120,
+            },
+          },
+        },
+        {
+          line = 122,
+          body = {
+            t = "move",
+            target = "daniel_hub",
           },
         },
       },

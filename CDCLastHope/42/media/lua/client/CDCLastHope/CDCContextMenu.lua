@@ -84,27 +84,38 @@ function M.addRadioOptions(player, context, radio, active)
     context:addOption("View transmission log", player, function(pl, r) CDC.Dialogue.open(pl, r, true) end, radio)
 end
 
+local function onTile(def, sq)
+    for _, t in ipairs(def.tiles) do
+        if sq:getX() == t[1] and sq:getY() == t[2] and sq:getZ() == t[3] then return true end
+    end
+    return false
+end
+
 function M.addPickupOptions(player, context, squares)
     for _, def in ipairs(CDC.story.world.pickups) do
         for _, sq in ipairs(squares) do
-            if sq:getX() == def.x and sq:getY() == def.y and sq:getZ() == def.z then
+            if onTile(def, sq) then
                 local spriteOk = true
                 if def.sprite then
+                    local names = type(def.sprite) == "table" and def.sprite or { def.sprite }
                     spriteOk = false
                     for i = 0, sq:getObjects():size() - 1 do
                         local o = sq:getObjects():get(i)
-                        if o:getSprite() and o:getSprite():getName() == def.sprite then spriteOk = true end
-                    end
-                end
-                if spriteOk and CDC.Pickup.available(def, player) then
-                    local opt = context:addOption(def.label or ("Take " .. tostring(def.item)), player, M.pickup, def, sq)
-                    if def.cond then
-                        local ctx = CDC.Context.new(player, nil)
-                        if not def.cond(ctx, sq) then
-                            opt.notAvailable = true
-                            if def.condFailText then tooltip(opt, def.condFailText) end
+                        local name = o:getSprite() and o:getSprite():getName()
+                        for _, n in ipairs(names) do
+                            if name == n then spriteOk = true end
                         end
                     end
+                end
+                local condOk = def.cond == nil or def.cond(CDC.Context.new(player, nil), sq)
+                -- failing cond hides the option unless condFailText is set
+                if spriteOk and CDC.Pickup.available(def, player) and (condOk or def.condFailText) then
+                    local opt = context:addOption(def.label or ("Take " .. tostring(def.item)), player, M.pickup, def, sq)
+                    if not condOk then
+                        opt.notAvailable = true
+                        tooltip(opt, def.condFailText)
+                    end
+                    break
                 end
             end
         end

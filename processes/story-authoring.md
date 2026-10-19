@@ -48,7 +48,7 @@ Conversations are Skald modules in `text/`. World config (frequency, precue, cal
 
 ## World Content
 
-1. Pickup: `{ id, x, y, z, sprite, label, item, once, duration, text, cond = fn(ctx, square), condFailText, goneText }`
+1. Pickup: `{ id, x, y, z, tiles, sprite, label, item, once, duration, text, cond = fn(ctx, square), condFailText, goneText }`; hidden when `cond` returns false, unless `condFailText` is set, in which case it shows grayed out with that tooltip; `tiles = { { x, y, z }, ... }` replaces x, y, z for objects spanning several tiles (e.g. a two-tile desk), offered once per right-click; `sprite` can be a name or a list of names
 2. `once`: `"global"` (default, one per world), `"character"`, `"none"`
 3. Corpse action: `{ id, label, requires = fullType | "tag:ITEM_TAG" | "category:WEAPON_CATEGORY" | list, requiresLabel, consumes = bool, gives, duration, text, cond = fn(ctx) }`; hidden when `cond` returns false; tags are vanilla `ItemTag` names, e.g. `tag:SHARP_KNIFE` matches any knife, machete, razor or sharpened stone; `category:AXE` matches any axe; a list matches any entry, e.g. `{ "tag:SAW", "tag:SMALL_SAW", "tag:CRUDE_SAW" }`; `requiresLabel` is the tooltip text when missing
 4. Ground action: `{ id, label, x, y, z, radius, ground, requires, requiresLabel, consumes, gives, duration, text, cond = fn(ctx, square) }`; offered on natural ground within `radius` tiles of x,y; `ground` lists allowed kinds from `"dirt"` (includes grass), `"sand"`, `"clay"`, `"gravel"`, default all but gravel; `requires` works as for corpse actions, e.g. `tag:DIG_PLOW` matches shovels, spades, trowels, hoes and pickaxes
