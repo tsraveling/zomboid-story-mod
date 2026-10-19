@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.1.2 - 2026-10-19
+#### Bug Fixes
+- added velvet pickup to rosewood pd - (e4f9f34) - Tim Raveling
+
+- - -
+
 ## v0.1.1 - 2026-10-19
 #### Bug Fixes
 - fixes item config for servers - (75e5a71) - Tim Raveling

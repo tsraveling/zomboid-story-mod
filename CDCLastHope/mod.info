@@ -2,5 +2,5 @@ name=CDC Last Hope
 id=CDCLastHope
 description=Contact the CDC Knox Event Response Team by ham radio. Multiplayer story framework.
 poster=poster.png
-modversion=0.1.1
+modversion=0.1.2
 versionMin=42.0.0
