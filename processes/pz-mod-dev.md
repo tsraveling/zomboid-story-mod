@@ -49,7 +49,7 @@ The mod ships to the multiplayer server through the Steam Workshop; the server p
 2. `./deploy.sh` compiles, mirrors `CDCLastHope/` into `.deploy/stage/Contents/mods/`, and uploads via `steamcmd`; optional arg overrides the change note, default `v<modversion> (<sha>)`
 3. The first upload creates the item and writes its id to `.deploy.env` as `WORKSHOP_ID`
 4. Server ini: `WorkshopItems=<id>`, add `CDCLastHope` to `Mods=`; restart the server after every deploy
-5. To test the deployed build, `./mode.sh workshop` removes the local symlink so the game uses the subscribed Steam copy; `./mode.sh local` switches back, `./mode.sh status` shows the active mode, the Steam copy's timestamp, and which path the last run loaded
+5. To test the deployed build, `./mode.sh workshop` removes the local symlink so the game uses the subscribed Steam copy; `./mode.sh local` switches back and moves the Steam copy into `.deploy/workshop-hidden` (the game otherwise loads it over the symlink; `workshop` restores it), `./mode.sh status` shows the active mode, the Steam copy's timestamp, and which path the last run loaded
 6. Versioning: `cog bump --auto` sets `modversion=` in both `mod.info` files via `cog.toml`; deploy after bumping so the change note matches
 
 CAVEAT: Never stage under `~/Zomboid/Workshop`; PZ loads mods from there and the stale copy shadows both modes.

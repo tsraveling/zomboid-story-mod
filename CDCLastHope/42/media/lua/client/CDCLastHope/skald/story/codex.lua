@@ -220,6 +220,7 @@ CDCSkaldCodex = {
     "cdc.ska",
     "cdc_talking.ska",
     "quests/first.ska",
+    "quests/junkie.ska",
     "quests/tri.ska",
   },
 }

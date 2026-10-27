@@ -100,7 +100,7 @@ function Srv.handlers.floatText(player, args)
     end
 end
 
--- args: id, x,y,z
+-- args: id
 function Srv.handlers.pickup(player, args)
     local def = CDC.Story.pickup(args.id)
     if not def then return end

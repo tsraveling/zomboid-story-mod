@@ -17,7 +17,7 @@ end
 
 function P.request(player, def)
   P.pending[def.id] = { player = player, def = def }
-  CDC.Net.send(player, "pickup", { id = def.id, x = def.x, y = def.y, z = def.z })
+  CDC.Net.send(player, "pickup", { id = def.id })
 end
 
 function P.onResult(args)
