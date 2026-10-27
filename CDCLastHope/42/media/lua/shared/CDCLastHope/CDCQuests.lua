@@ -5,10 +5,11 @@ require "CDCLastHope/CDCState"
 CDC.Quests = {}
 local Q = CDC.Quests
 
--- @region quests:availability
+-- @region codex:quest_available
 Q.available = {
   first = function() return true end,
   tri = function() return Q.isDone("first") end,
+  junkie = function() return Q.isDone("tri") end,
 }
 
 function Q.isDone(key)

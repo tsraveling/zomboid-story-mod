@@ -3,3 +3,76 @@
 --- backstory and setup
 --- go to the Muldraugh PD
 --- analysis
+
+# tri_results
+
+cdc: "So we've gone over the three samples you analyzed for us in detail."
+
+cdc: "We are now confident in saying that the drug velvet and the military substance are *both* ancestors of the z strain -- although from your descriptions, there's something very odd about the military one."
+
+cdc: "And based on your dissection of the brain, we know that whatever this stuff is, the Knox Zone is where it started."
+
+> We didn't know that from the zombie meat?
+
+cdc: "There's something different about how the z strain manifests in the brain. It acts more ... neurologically. We saw that here in Atlanta as well."
+
+cdc: "Basically the patterns come through stronger in the brain matter, as you yourself no doubt witnessed."
+
+cdc: "What you saw in your observations just confirms that the Z you have there is more 'dynamic' in a way that indicates that whatever cross-pollination happened to cause all of this is *somehow still happening*."
+
+> Oh. Fuck.
+
+cdc: "Exactly."
+
+> Ok, so tell me about the junkie.
+  -> intro
+
+# intro
+
+cdc: "We have a report in our database that came in from Muldraugh PD just a few days before the Event started there in the Knox Zone. A local junkie had apparently overdosed on Velvet, but somehow wasn't dead ..."
+
+cdc: "Or at least, didn't *seem* to be dead."
+
+cdc: "Apparently there were some *death-like symptoms*."
+
+cdc: "But the body was still animate, although the person was catatonic and never became responsive."
+
+cdc: "Our theory is that this is a rare 'pure' pre-Z strain -- a partially animate corpse, but one that lacks all of the aggression and intent of the actual Z strain."
+
+cdc: "We're pretty sure the body is still in the morgue of the Muldraugh Police Department. We're hoping the examination notes are down there too."
+
+> Got it.
+
+cdc: "Based on our records, the morgue is in the basement. Check the body coolers until you find the right one. Young white male in a yellow shirt, based on the report the police faxed over. Might look like a zombie, but won't be animate."
+
+cdc: "Take a meat sample (bring a knife) and a brain sample (hatchet or saw). Then get them back to the microscope and give us a call."
+
+cdc: "The Chief Examiner's office is likely going to be adjoining the morgue -- just search desks, cabinets, etc. until you find something on this case."
+
+> I'll get it done.
+
+cdc: "Excellent."
+
+cdc: "In that case, as always, may the old gods protect you."
+
+cdc: "I'll be waiting for your call."
+
+cdc: "Daniel Chidi, CDC. Over and out."
+EXIT
+
+# return
+
+cdc: "What do you need?"
+
+> Where do I find the overdose victim's body?
+  cdc: "Based on our records, the morgue is in the basement. Check the body coolers until you find the right one. Young white male in a yellow shirt, based on the report the police faxed over. Might look like a zombie, but won't be animate."
+  cdc: "Take a meat sample (bring a knife) and a brain sample (hatchet or saw). Then get them back to the microscope and give us a call."
+  -> return
+> Where would the Chief Examiner's office be?
+  cdc: "The Chief Examiner's office is likely going to be adjoining the morgue -- just search desks, cabinets, etc. until you find something on this case."
+  -> return
+> I need both the samples and the notes?
+  cdc: "If at all possible, yes. The notes might have critical information on what this looked like up front. If we can compare that with what we've observed in the Z strain, we might be able to nail down more accurately what's happening on a cellular level."
+  -> return
+> That's all for now.
+  GO cdc.ska -> router

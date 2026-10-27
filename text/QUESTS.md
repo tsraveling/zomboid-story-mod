@@ -161,6 +161,11 @@ Not sure how to wrap this one into it.
 
 Get to the lab at the top. Get the harddrives. Transmit.
 
+## Airport
+
+TBD
+
+
 # Side Quests
 
 Side quests will "speed up the process" thus likely saving lives, but aren't needed beyond the core components. They are rewarded with special skill VHS tapes.
@@ -186,3 +191,7 @@ Unlocked by the mob boss quest
 
 - `meat` -- the zombie meat analysis job
 - `tri` -- the tri sample comparison job
+
+# Cool Mechanics
+
+- **Proximity Device**. CDC walks you through how to mod a walkie talkie to hone in on a transmitter. It says, out loud, distance to target. Zombies can hear it.
