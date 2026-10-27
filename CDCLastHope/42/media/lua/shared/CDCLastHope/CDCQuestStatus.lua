@@ -16,7 +16,7 @@ QS.lines = {
     [1] = {
       "Get a zombie brain using a saw or axe.",
       "Get a soil sample from the northward turn of Route 163 that is due east of the crossroads with 31W.",
-      "Get a sample of Velvet from a police evidence lockup.",
+      "Get a sample of Velvet from a police evidence lockup. The police captain's desk at the Rosewood PD certainly has some (right click menu).",
       "Find a microscope in a clinic, hospital, or lab.",
     },
     [2] = "Set up the microscope near the radio and contact CDC to run comparison on the three samples."
