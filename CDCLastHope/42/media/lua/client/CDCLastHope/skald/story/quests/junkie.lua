@@ -73,14 +73,45 @@ CDCSkaldModules["quests/junkie.ska"] = {
             target = "return",
           },
         },
+        {
+          cond = {
+            type = "and",
+            items = {
+              {
+                t = "atom",
+                a = {
+                  t = "call",
+                  method = "get_quest",
+                  args = {
+                    {
+                      t = "str",
+                      v = "junkie",
+                    },
+                  },
+                  line = 0,
+                },
+                cmp = "eq",
+                b = {
+                  t = "int",
+                  v = 2,
+                },
+              },
+            },
+          },
+          line = 5,
+          body = {
+            t = "move",
+            target = "resume",
+          },
+        },
       },
     },
     {
       tag = "tri_results",
-      line = 6,
+      line = 7,
       members = {
         {
-          line = 8,
+          line = 9,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -92,7 +123,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 10,
+          line = 11,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -104,7 +135,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 12,
+          line = 13,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -117,7 +148,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
         },
         {
           t = "choices",
-          line = 14,
+          line = 15,
           choices = {
             {
               text = {
@@ -126,12 +157,12 @@ CDCSkaldModules["quests/junkie.ska"] = {
                 },
               },
               members = {},
-              line = 14,
+              line = 15,
             },
           },
         },
         {
-          line = 16,
+          line = 17,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -143,7 +174,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 18,
+          line = 19,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -155,7 +186,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 20,
+          line = 21,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -168,7 +199,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
         },
         {
           t = "choices",
-          line = 22,
+          line = 23,
           choices = {
             {
               text = {
@@ -177,12 +208,12 @@ CDCSkaldModules["quests/junkie.ska"] = {
                 },
               },
               members = {},
-              line = 22,
+              line = 23,
             },
           },
         },
         {
-          line = 24,
+          line = 25,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -195,7 +226,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
         },
         {
           t = "choices",
-          line = 26,
+          line = 27,
           choices = {
             {
               text = {
@@ -205,14 +236,14 @@ CDCSkaldModules["quests/junkie.ska"] = {
               },
               members = {
                 {
-                  line = 27,
+                  line = 28,
                   body = {
                     t = "move",
                     target = "intro",
                   },
                 },
               },
-              line = 26,
+              line = 27,
             },
           },
         },
@@ -220,10 +251,10 @@ CDCSkaldModules["quests/junkie.ska"] = {
     },
     {
       tag = "intro",
-      line = 29,
+      line = 30,
       members = {
         {
-          line = 31,
+          line = 32,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -235,7 +266,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 33,
+          line = 34,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -247,7 +278,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 35,
+          line = 36,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -259,7 +290,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 37,
+          line = 38,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -271,7 +302,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 39,
+          line = 40,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -283,7 +314,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 41,
+          line = 42,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -296,7 +327,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
         },
         {
           t = "choices",
-          line = 43,
+          line = 44,
           choices = {
             {
               text = {
@@ -305,12 +336,12 @@ CDCSkaldModules["quests/junkie.ska"] = {
                 },
               },
               members = {},
-              line = 43,
+              line = 44,
             },
           },
         },
         {
-          line = 45,
+          line = 46,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -322,7 +353,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 47,
+          line = 48,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -334,7 +365,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 49,
+          line = 50,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -347,7 +378,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
         },
         {
           t = "choices",
-          line = 51,
+          line = 52,
           choices = {
             {
               text = {
@@ -356,12 +387,12 @@ CDCSkaldModules["quests/junkie.ska"] = {
                 },
               },
               members = {},
-              line = 51,
+              line = 52,
             },
           },
         },
         {
-          line = 53,
+          line = 54,
           body = {
             t = "call",
             method = "set_quest",
@@ -378,7 +409,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 55,
+          line = 56,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -390,7 +421,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 57,
+          line = 58,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -402,7 +433,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 59,
+          line = 60,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -414,7 +445,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 61,
+          line = 62,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -426,7 +457,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 62,
+          line = 63,
           body = {
             t = "exit",
           },
@@ -435,10 +466,10 @@ CDCSkaldModules["quests/junkie.ska"] = {
     },
     {
       tag = "return",
-      line = 64,
+      line = 65,
       members = {
         {
-          line = 66,
+          line = 67,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -451,7 +482,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
         },
         {
           t = "choices",
-          line = 68,
+          line = 69,
           choices = {
             {
               text = {
@@ -461,7 +492,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
               },
               members = {
                 {
-                  line = 69,
+                  line = 70,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -473,7 +504,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
                   },
                 },
                 {
-                  line = 70,
+                  line = 71,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -485,14 +516,14 @@ CDCSkaldModules["quests/junkie.ska"] = {
                   },
                 },
                 {
-                  line = 71,
+                  line = 72,
                   body = {
                     t = "move",
                     target = "return",
                   },
                 },
               },
-              line = 68,
+              line = 69,
             },
             {
               text = {
@@ -502,7 +533,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
               },
               members = {
                 {
-                  line = 73,
+                  line = 74,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -514,14 +545,14 @@ CDCSkaldModules["quests/junkie.ska"] = {
                   },
                 },
                 {
-                  line = 74,
+                  line = 75,
                   body = {
                     t = "move",
                     target = "return",
                   },
                 },
               },
-              line = 72,
+              line = 73,
             },
             {
               text = {
@@ -531,7 +562,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
               },
               members = {
                 {
-                  line = 76,
+                  line = 77,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -543,14 +574,81 @@ CDCSkaldModules["quests/junkie.ska"] = {
                   },
                 },
                 {
-                  line = 77,
+                  line = 78,
                   body = {
                     t = "move",
                     target = "return",
                   },
                 },
               },
-              line = 75,
+              line = 76,
+            },
+            {
+              cond = {
+                type = "and",
+                items = {
+                  {
+                    t = "atom",
+                    a = {
+                      t = "call",
+                      method = "has_item",
+                      args = {
+                        {
+                          t = "str",
+                          v = "ODVictimMeat",
+                        },
+                      },
+                      line = 0,
+                    },
+                    cmp = "truthy",
+                  },
+                  {
+                    t = "atom",
+                    a = {
+                      t = "call",
+                      method = "has_item",
+                      args = {
+                        {
+                          t = "str",
+                          v = "ODVictimBrain",
+                        },
+                      },
+                      line = 0,
+                    },
+                    cmp = "truthy",
+                  },
+                  {
+                    t = "atom",
+                    a = {
+                      t = "call",
+                      method = "has_item",
+                      args = {
+                        {
+                          t = "str",
+                          v = "MedicalExaminerNotes",
+                        },
+                      },
+                      line = 0,
+                    },
+                    cmp = "truthy",
+                  },
+                },
+              },
+              text = {
+                parts = {
+                  "I have the samples and the notes!",
+                },
+              },
+              members = {
+                {
+                  line = 80,
+                  body = {
+                    t = "move",
+                    target = "process",
+                  },
+                },
+              },
+              line = 79,
             },
             {
               text = {
@@ -560,7 +658,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
               },
               members = {
                 {
-                  line = 79,
+                  line = 82,
                   body = {
                     t = "go",
                     module = "cdc.ska",
@@ -568,8 +666,415 @@ CDCSkaldModules["quests/junkie.ska"] = {
                   },
                 },
               },
-              line = 78,
+              line = 81,
             },
+          },
+        },
+      },
+    },
+    {
+      tag = "resume",
+      line = 84,
+      members = {
+        {
+          line = 86,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Ready to resume the analysis?\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 88,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "Yep.",
+                },
+              },
+              members = {
+                {
+                  line = 89,
+                  body = {
+                    t = "move",
+                    target = "perform_work",
+                  },
+                },
+              },
+              line = 88,
+            },
+          },
+        },
+      },
+    },
+    {
+      tag = "process",
+      line = 91,
+      members = {
+        {
+          line = 93,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Excellent. And a microscope nearby?\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 95,
+          choices = {
+            {
+              cond = {
+                type = "and",
+                items = {
+                  {
+                    t = "atom",
+                    a = {
+                      t = "call",
+                      method = "radio_has_microscope",
+                      args = {},
+                      line = 0,
+                    },
+                    cmp = "truthy",
+                  },
+                },
+              },
+              text = {
+                parts = {
+                  "Yep.",
+                },
+              },
+              members = {
+                {
+                  line = 96,
+                  body = {
+                    t = "move",
+                    target = "proc_continue",
+                  },
+                },
+              },
+              line = 95,
+            },
+            {
+              text = {
+                parts = {
+                  "Whoops. Not yet.",
+                },
+              },
+              members = {
+                {
+                  line = 98,
+                  body = {
+                    t = "move",
+                    target = "return",
+                  },
+                },
+              },
+              line = 97,
+            },
+          },
+        },
+      },
+    },
+    {
+      tag = "proc_continue",
+      line = 100,
+      members = {
+        {
+          line = 102,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Great. Let's get started ...\"",
+              },
+            },
+          },
+        },
+        {
+          line = 103,
+          body = {
+            t = "call",
+            method = "set_quest",
+            args = {
+              {
+                t = "str",
+                v = "junkie",
+              },
+              {
+                t = "int",
+                v = 2,
+              },
+            },
+          },
+        },
+        {
+          line = 104,
+          body = {
+            t = "move",
+            target = "perform_work",
+          },
+        },
+      },
+    },
+    {
+      tag = "perform_work",
+      line = 106,
+      members = {
+        {
+          line = 108,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Perfect. Let's start with the samples ...\"",
+              },
+            },
+          },
+        },
+        {
+          line = 110,
+          body = {
+            t = "call",
+            method = "do_job",
+            args = {
+              {
+                t = "str",
+                v = "junkie",
+              },
+              {
+                t = "float",
+                v = 0.170000002,
+              },
+            },
+          },
+        },
+        {
+          line = 112,
+          body = {
+            t = "beat",
+            attribution = "",
+            text = {
+              parts = {
+                "You examine both the muscle and brain samples under the microscope, describing what you see to Daniel and answering his questions.",
+              },
+            },
+          },
+        },
+        {
+          line = 114,
+          body = {
+            t = "beat",
+            attribution = "",
+            text = {
+              parts = {
+                "There is movement, a pulse like the regular zombie samples, but much, much slower, like a sleeping heartbeat.",
+              },
+            },
+          },
+        },
+        {
+          line = 116,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Damn. Okay. So this is clearly the same *kind* of thing as the Z strain, but lacking all of the animative properties.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 118,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"In other words, it's almost like a dead body in a zombie coma.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 120,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Not one that, you know. Is trying to eat you.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 122,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"And the notes?\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 124,
+          choices = {
+            {
+              text = {
+                parts = {
+                  ":read out the notes:",
+                },
+              },
+              members = {},
+              line = 124,
+            },
+          },
+        },
+        {
+          line = 126,
+          body = {
+            t = "beat",
+            attribution = "",
+            text = {
+              parts = {
+                "Daniel pays special attention when you go through the dense, scientific details on the last page. You can hear the rustling of other people there, too, gathered around the station on Daniel's end.",
+              },
+            },
+          },
+        },
+        {
+          line = 128,
+          body = {
+            t = "beat",
+            attribution = "",
+            text = {
+              parts = {
+                "Your heart sparks; it seems possible that you are finally doing something useful. Something beyond this short, brutal survival.",
+              },
+            },
+          },
+        },
+        {
+          line = 130,
+          body = {
+            t = "call",
+            method = "set_quest",
+            args = {
+              {
+                t = "str",
+                v = "junkie",
+              },
+              {
+                t = "int",
+                v = 100,
+              },
+            },
+          },
+        },
+        {
+          line = 132,
+          body = {
+            t = "beat",
+            attribution = "",
+            text = {
+              parts = {
+                "When you finish there's a moment of silence.",
+              },
+            },
+          },
+        },
+        {
+          line = 134,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Okay.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 136,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"This is the first time we actually have some real origin information on this sucker.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 138,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"We're going to get to work on this, ",
+                {
+                  t = "insert",
+                  rv = {
+                    t = "call",
+                    method = "pc_first_name",
+                    args = {},
+                    line = 0,
+                  },
+                },
+                ".\"",
+              },
+            },
+          },
+        },
+        {
+          line = 140,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Great fucking work as always.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 142,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Daniel Chidi at CDC, over and out.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 143,
+          body = {
+            t = "exit",
           },
         },
       },

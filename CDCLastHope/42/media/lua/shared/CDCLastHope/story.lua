@@ -49,7 +49,8 @@ CDC.story = {
         cond = function(ctx)
           local q = ctx.quest("tri"); return q == 1 or q == 2
         end,
-        text = "PLACEHOLDER: You find a dose of Velvet in the desk and bag it as a sample.",
+        text =
+        "You rummage through the desk until you find the leather case full of contraband. Dozens of tiny glass vials, the contents and unsettling deep purple. You pocket one of these.",
       },
     },
     corpseActions = {
@@ -103,7 +104,8 @@ CDC.story = {
         cond = function(ctx)
           local q = ctx.quest("junkie"); return q >= 1 and q < 100
         end,
-        text = "PLACEHOLDER: You cut a muscle sample from the overdose victim.",
+        text =
+        "Despite the similarities in the unnaturally preserved dead flesh to that of the living dead outside, it still feels like you're cutting into an actual person. You try to do it as quickly and respectfully as possible.",
       },
       {
         id = "od_brain_saw",
@@ -116,7 +118,8 @@ CDC.story = {
         cond = function(ctx)
           local q = ctx.quest("junkie"); return q >= 1 and q < 100
         end,
-        text = "PLACEHOLDER: You saw open the overdose victim's skull and take a sample.",
+        text =
+        "Saying a silent apology to the poor soul lying before you, you clench your jaw and place the saw against his temple, and begin to work. The brainpan opens with a wet sucking sound, and you carefully take a sample.",
       },
       {
         id = "od_brain_chop",
@@ -129,7 +132,8 @@ CDC.story = {
         cond = function(ctx)
           local q = ctx.quest("junkie"); return q >= 1 and q < 100
         end,
-        text = "PLACEHOLDER: You chop open the overdose victim's skull and take a sample.",
+        text =
+        "There is no respectful way to open someone's head with an axe, so you place the blade against their temple and say a quick apology.\n\nThe skull cracks after a few precise blows, and you carefully take a sample of the gray brain matter that lies underneath.",
       },
     },
     groundActions = {
@@ -178,7 +182,7 @@ CDC.story = {
         at = { 10633, 10403, -1 },
         corpse = "od",
         text =
-        "PLACEHOLDER: The drawer slides out heavy. The body on it is a young man, and it slides off onto the floor as the tray reaches its stop.",
+        "The locker table slides out smoothly a foot or so, then jams. This police station wasn't in the best shape before the apocalypse; now, like the rest of the world, it's going to seed.\n\nYou carefully lift out the dead body inside, bracing for the smell of decay ... but there's nothing. The young man is unnaturally preserved, and not *quite* motionless in death. You have to double check his pulse to convince yourself, finally, that he's not just sleeping.",
         outfit = "Generic01",
         female = false,
         skin = 0,

@@ -2,6 +2,7 @@
 
 (? get_quest("junkie") == 0) -> tri_results
 (? get_quest("junkie") == 1) -> return
+(? get_quest("junkie") == 2) -> resume
 
 # tri_results
 
@@ -66,7 +67,7 @@ EXIT
 cdc: "What do you need?"
 
 > Where do I find the overdose victim's body?
-  cdc: "Based on our records, the morgue is in the basement. Check the body coolers until you find the right one. Young white male in a yellow shirt, based on the report the police faxed over. Might look like a zombie, but won't be animate."
+  cdc: "Based on our records, the morgue is in the basement. Check the body coolers until you find the right one. Young white male, based on the report the police faxed over. Might look like a zombie, but won't be animate."
   cdc: "Take a meat sample (bring a knife) and a brain sample (hatchet or saw). Then get them back to the microscope and give us a call."
   -> return
 > Where would the Chief Examiner's office be?
@@ -75,5 +76,70 @@ cdc: "What do you need?"
 > I need both the samples and the notes?
   cdc: "If at all possible, yes. The notes might have critical information on what this looked like up front. If we can compare that with what we've observed in the Z strain, we might be able to nail down more accurately what's happening on a cellular level."
   -> return
+> (? has_item("ODVictimMeat") and has_item("ODVictimBrain") and has_item("MedicalExaminerNotes")) I have the samples and the notes!
+  -> process
 > That's all for now.
   GO cdc.ska -> router
+
+# resume
+
+cdc: "Ready to resume the analysis?"
+
+> Yep.
+  -> perform_work
+
+# process
+
+cdc: "Excellent. And a microscope nearby?"
+
+> (? radio_has_microscope()) Yep.
+  -> proc_continue
+> Whoops. Not yet.
+  -> return
+
+# proc_continue
+
+cdc: "Great. Let's get started ..."
+~ set_quest("junkie", 2)
+-> perform_work
+
+# perform_work
+
+cdc: "Perfect. Let's start with the samples ..."
+
+~ do_job("junkie", 0.17) --- job takes ten min, bc boring otherwise
+
+You examine both the muscle and brain samples under the microscope, describing what you see to Daniel and answering his questions.
+
+There is movement, a pulse like the regular zombie samples, but much, much slower, like a sleeping heartbeat.
+
+cdc: "Damn. Okay. So this is clearly the same *kind* of thing as the Z strain, but lacking all of the animative properties."
+
+cdc: "In other words, it's almost like a dead body in a zombie coma."
+
+cdc: "Not one that, you know. Is trying to eat you."
+
+cdc: "And the notes?"
+
+> :read out the notes:
+
+Daniel pays special attention when you go through the dense, scientific details on the last page. You can hear the rustling of other people there, too, gathered around the station on Daniel's end.
+
+Your heart sparks; it seems possible that you are finally doing something useful. Something beyond this short, brutal survival.
+
+~ set_quest("junkie", 100)
+
+When you finish there's a moment of silence.
+
+cdc: "Okay."
+
+cdc: "This is the first time we actually have some real origin information on this sucker."
+
+cdc: "We're going to get to work on this, {pc_first_name()}."
+
+cdc: "Great fucking work as always."
+
+cdc: "Daniel Chidi at CDC, over and out."
+EXIT
+
+

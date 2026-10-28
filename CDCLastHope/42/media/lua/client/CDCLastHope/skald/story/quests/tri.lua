@@ -1058,7 +1058,7 @@ CDCSkaldModules["quests/tri.ska"] = {
                     },
                   },
                 },
-                " the comparison? It'll take about an hour.\"",
+                " the comparison?",
               },
             },
           },
@@ -1156,7 +1156,7 @@ CDCSkaldModules["quests/tri.ska"] = {
               },
               {
                 t = "float",
-                v = 1.0,
+                v = 0.170000002,
               },
             },
           },
@@ -1168,7 +1168,7 @@ CDCSkaldModules["quests/tri.ska"] = {
             attribution = "",
             text = {
               parts = {
-                "You spend an hour carefully placing the samples on slides under Daniel's supervision and staging them into the microscope. You have no context for what you're seeing, but the most disturbing thing is that all three samples seem *alive*.",
+                "You carefully place the samples on slides under Daniel's supervision and staging them into the microscope. You have no context for what you're seeing, but the most disturbing thing is that all three samples seem *alive*.",
               },
             },
           },

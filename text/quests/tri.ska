@@ -126,7 +126,7 @@ cdc: "Okay. Still have everything you need?"
 
 ~ set_quest("tri", 2) --- will come in at comparison after this
 
-cdc: "Ok. You have the three samples, you have your microscope. Ready to {has_started_job("tri") ? "continue" : "begin"} the comparison? It'll take about an hour."
+cdc: "Ok. You have the three samples, you have your microscope. Ready to {has_started_job("tri") ? "continue" : "begin"} the comparison?
 
 > Let's do it.
   -> perform_work
@@ -139,9 +139,9 @@ cdc: "Ok. You have the three samples, you have your microscope. Ready to {has_st
 
 cdc: "Perfect. Let me walk you through the process ..."
 
-~ do_job("tri", 1.0) --- job takes an hour
+~ do_job("tri", 0.17) --- job takes ten min, bc boring otherwise
 
-You spend an hour carefully placing the samples on slides under Daniel's supervision and staging them into the microscope. You have no context for what you're seeing, but the most disturbing thing is that all three samples seem *alive*.
+You carefully place the samples on slides under Daniel's supervision and staging them into the microscope. You have no context for what you're seeing, but the most disturbing thing is that all three samples seem *alive*.
 
 Not like the bacteria samples you remember from science class in school, but an odd, rhythmically quivering motion that somehow seems as much machine as living.
 

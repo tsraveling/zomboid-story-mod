@@ -15,7 +15,7 @@ module CDCLastHope
 
     item ODVictimMeat
     {
-        DisplayName = Overdose Victim Meat,
+        DisplayName = Overdose Victim Muscle Sample,
         DisplayCategory = Junk,
         ItemType = base:normal,
         Weight = 0.3,
@@ -48,7 +48,7 @@ module CDCLastHope
 
     item ODVictimBrain
     {
-        DisplayName = Overdose Victim Brain,
+        DisplayName = Overdose Victim Brain Sample,
         DisplayCategory = Junk,
         ItemType = base:normal,
         Weight = 0.1,

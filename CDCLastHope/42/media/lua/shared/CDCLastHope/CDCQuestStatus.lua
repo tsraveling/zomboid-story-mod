@@ -35,8 +35,9 @@ QS.lines = {
   },
   junkie = {
     [1] =
-    "Go to the Muldraugh police department morgue and retrieve the corpse from the bottom leftmost body locker on the north wall. Take a sample.",
-    [2] = "Perform a microscopic analysis on the sample while on the radio with the CDC."
+    "Go to the Muldraugh police department and retrieve the corpse from one of the body lockers in the morgue in the basement. Bring a knife, and a saw or axe, to take muscle and brain samples.",
+    [2] =
+    "Perform a microscopic analysis on the sample while on the radio with the CDC, and transmit the contents of the medical examiner's notes."
   },
   march = {
     -- STUB: march ridge scientist quest
@@ -53,7 +54,8 @@ QS.completed = {
     "Helped the CDC compare samples of Velvet, the military chemical spill, and a zombie brain, thus establishing that the Z strain has *two* common ancestors in the Knox Event zone."
   },
   junkie = {
-    [100] = "PLACEHOLDER: Recovered a sample from the Muldraugh overdose victim and analyzed it for the CDC.",
+    [100] =
+    "Recovered the medical examiner's notes and some biosamples from a Velvet overdose victim, giving us valuable insight into the chemical origin of the Z strain.",
   }
 }
 

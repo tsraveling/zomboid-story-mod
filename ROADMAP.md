@@ -11,9 +11,12 @@ Sample the junkie corpse and retrieve ME records
 - [x] Add junkie meat and junkie brain items
 - [x] Add ME notes item
 - [x] Right click interactions on morgue lockers
-- [ ] Zombie spawn with narrative text
-- [ ] Junkie corpse spawn
-- [ ] Seed notes item upon arrival at PD
+- [x] Zombie spawn with narrative text
+- [x] Junkie corpse spawn
+- [x] Seed notes item upon arrival at PD
+- [x] Fix PLACEHOLDERS
+- [x] cdc.ska ingress for states 1 and 2
+- [ ] Quest status values for 1 and 2
 - [ ] Test and wrap
 
 # March Ridge Scientist
