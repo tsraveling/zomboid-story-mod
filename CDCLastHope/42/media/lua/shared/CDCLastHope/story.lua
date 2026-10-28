@@ -9,7 +9,7 @@
     world.pickups   { id, x,y,z | tiles={{x,y,z},...}, sprite=nil|name|{names}, label, item, once="global"|"character"|"none", duration=2, text, cond=fn(ctx,square), condFailText }  hidden when cond false unless condFailText (then grayed)
     world.corpseActions { id, label, corpse=nil|"od", requires=fullType|"tag:ITEM_TAG"|"category:WEAPON_CATEGORY"|list|nil, requiresLabel, consumes=false, gives, duration=3, text, cond=fn(ctx) }  hidden when cond false; corpse must match the body's CDCCorpse flag, nil for ordinary zombies
     world.groundActions { id, label, x,y,z, radius, ground={"dirt","sand","clay","gravel"}, requires, requiresLabel, consumes=false, gives, duration=3, text, cond=fn(ctx,square) }  natural ground within radius; hidden when cond false
-    world.lockers   { id, tiles={{x,y,z},...}, label="Check locker", kind=nil|"zombie"|"corpse", duration=2, text, emptyText }  always offered; a kind fires once then reads empty forever. zombie: outfit, female, skin=0..4, gives={{item,condition,ammo}}. corpse: at={x,y,z}, corpse="od", outfit, skin, wears={{item,tint={r,g,b}}}
+    world.lockers   { id, tiles={{x,y,z},...}, label="Check locker", kind=nil|"zombie"|"corpse", duration=2, text, emptyText }  always offered; a kind fires once then reads empty forever. zombie: outfit, female, skin=0..4, gives={{item,condition,ammo}} in its inventory, drops={{...}} on the floor beside it (weapons will not stay in a zombie). corpse: at={x,y,z}, corpse="od", outfit, skin, wears={{item,tint={r,g,b}}}
     world.placements { id, x,y,z, item, container="desk" }  Dropped into that container once, the first time the chunk streams in near a player. container omitted = first container on the square.
     world.readables { id, item, label="Read", text }  Read option on the item in inventory; shows text in a modal instead of the vanilla reading action
     world.spawns    { item, lists={"ClassroomDesk"}, chance=5 }
@@ -159,10 +159,12 @@ CDC.story = {
         outfit = "ArmyCamoGreen",
         female = true,
         skin = 4,
-        gives = {
+        drops = {
           { item = "Base.AssaultRifle", condition = 8 },
-          { item = "Base.556Clip",      ammo = 30 },
-          { item = "Base.556Clip",      ammo = 11 },
+        },
+        gives = {
+          { item = "Base.556Clip", ammo = 30 },
+          { item = "Base.556Clip", ammo = 11 },
         },
       },
       {
@@ -175,6 +177,8 @@ CDC.story = {
         kind = "corpse",
         at = { 10633, 10403, -1 },
         corpse = "od",
+        text =
+        "PLACEHOLDER: The drawer slides out heavy. The body on it is a young man, and it slides off onto the floor as the tray reaches its stop.",
         outfit = "Generic01",
         female = false,
         skin = 0,

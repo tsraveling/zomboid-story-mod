@@ -5,7 +5,19 @@ require "CDCLastHope/CDCState"
 CDC.QuestStatus = {}
 local QS = CDC.QuestStatus
 
-QS.order = { "first", "tri" }
+QS.order = { "first", "tri", "junkie" }
+
+-- @region quests:names
+-- shown in "Quest started"; falls back to the key
+QS.names = {
+  first = "Zombie Meat",
+  tri = "Triple Sample",
+  junkie = "The Overdose Victim",
+}
+
+function QS.name(key)
+  return QS.names[key] or tostring(key)
+end
 
 QS.lines = {
   first = {
@@ -39,6 +51,9 @@ QS.completed = {
   tri = {
     [100] =
     "Helped the CDC compare samples of Velvet, the military chemical spill, and a zombie brain, thus establishing that the Z strain has *two* common ancestors in the Knox Event zone."
+  },
+  junkie = {
+    [100] = "PLACEHOLDER: Recovered a sample from the Muldraugh overdose victim and analyzed it for the CDC.",
   }
 }
 

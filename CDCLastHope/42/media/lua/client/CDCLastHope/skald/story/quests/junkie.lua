@@ -10,14 +10,77 @@ CDCSkaldModules["quests/junkie.ska"] = {
     {
       tag = "start",
       line = 1,
-      members = {},
+      members = {
+        {
+          cond = {
+            type = "and",
+            items = {
+              {
+                t = "atom",
+                a = {
+                  t = "call",
+                  method = "get_quest",
+                  args = {
+                    {
+                      t = "str",
+                      v = "junkie",
+                    },
+                  },
+                  line = 0,
+                },
+                cmp = "eq",
+                b = {
+                  t = "int",
+                  v = 0,
+                },
+              },
+            },
+          },
+          line = 3,
+          body = {
+            t = "move",
+            target = "tri_results",
+          },
+        },
+        {
+          cond = {
+            type = "and",
+            items = {
+              {
+                t = "atom",
+                a = {
+                  t = "call",
+                  method = "get_quest",
+                  args = {
+                    {
+                      t = "str",
+                      v = "junkie",
+                    },
+                  },
+                  line = 0,
+                },
+                cmp = "eq",
+                b = {
+                  t = "int",
+                  v = 1,
+                },
+              },
+            },
+          },
+          line = 4,
+          body = {
+            t = "move",
+            target = "return",
+          },
+        },
+      },
     },
     {
       tag = "tri_results",
-      line = 7,
+      line = 6,
       members = {
         {
-          line = 9,
+          line = 8,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -29,7 +92,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 11,
+          line = 10,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -41,7 +104,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 13,
+          line = 12,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -54,7 +117,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
         },
         {
           t = "choices",
-          line = 15,
+          line = 14,
           choices = {
             {
               text = {
@@ -63,12 +126,12 @@ CDCSkaldModules["quests/junkie.ska"] = {
                 },
               },
               members = {},
-              line = 15,
+              line = 14,
             },
           },
         },
         {
-          line = 17,
+          line = 16,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -80,7 +143,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 19,
+          line = 18,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -92,7 +155,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 21,
+          line = 20,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -105,7 +168,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
         },
         {
           t = "choices",
-          line = 23,
+          line = 22,
           choices = {
             {
               text = {
@@ -114,12 +177,12 @@ CDCSkaldModules["quests/junkie.ska"] = {
                 },
               },
               members = {},
-              line = 23,
+              line = 22,
             },
           },
         },
         {
-          line = 25,
+          line = 24,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -132,7 +195,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
         },
         {
           t = "choices",
-          line = 27,
+          line = 26,
           choices = {
             {
               text = {
@@ -142,14 +205,14 @@ CDCSkaldModules["quests/junkie.ska"] = {
               },
               members = {
                 {
-                  line = 28,
+                  line = 27,
                   body = {
                     t = "move",
                     target = "intro",
                   },
                 },
               },
-              line = 27,
+              line = 26,
             },
           },
         },
@@ -157,10 +220,10 @@ CDCSkaldModules["quests/junkie.ska"] = {
     },
     {
       tag = "intro",
-      line = 30,
+      line = 29,
       members = {
         {
-          line = 32,
+          line = 31,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -172,7 +235,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 34,
+          line = 33,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -184,7 +247,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 36,
+          line = 35,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -196,7 +259,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 38,
+          line = 37,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -208,7 +271,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 40,
+          line = 39,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -220,7 +283,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 42,
+          line = 41,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -233,7 +296,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
         },
         {
           t = "choices",
-          line = 44,
+          line = 43,
           choices = {
             {
               text = {
@@ -242,12 +305,12 @@ CDCSkaldModules["quests/junkie.ska"] = {
                 },
               },
               members = {},
-              line = 44,
+              line = 43,
             },
           },
         },
         {
-          line = 46,
+          line = 45,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -259,7 +322,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 48,
+          line = 47,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -271,7 +334,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 50,
+          line = 49,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -284,7 +347,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
         },
         {
           t = "choices",
-          line = 52,
+          line = 51,
           choices = {
             {
               text = {
@@ -293,12 +356,29 @@ CDCSkaldModules["quests/junkie.ska"] = {
                 },
               },
               members = {},
-              line = 52,
+              line = 51,
             },
           },
         },
         {
-          line = 54,
+          line = 53,
+          body = {
+            t = "call",
+            method = "set_quest",
+            args = {
+              {
+                t = "str",
+                v = "junkie",
+              },
+              {
+                t = "int",
+                v = 1,
+              },
+            },
+          },
+        },
+        {
+          line = 55,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -310,7 +390,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 56,
+          line = 57,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -322,7 +402,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 58,
+          line = 59,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -334,7 +414,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 60,
+          line = 61,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -346,7 +426,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 61,
+          line = 62,
           body = {
             t = "exit",
           },
@@ -355,10 +435,10 @@ CDCSkaldModules["quests/junkie.ska"] = {
     },
     {
       tag = "return",
-      line = 63,
+      line = 64,
       members = {
         {
-          line = 65,
+          line = 66,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -371,7 +451,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
         },
         {
           t = "choices",
-          line = 67,
+          line = 68,
           choices = {
             {
               text = {
@@ -381,7 +461,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
               },
               members = {
                 {
-                  line = 68,
+                  line = 69,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -393,7 +473,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
                   },
                 },
                 {
-                  line = 69,
+                  line = 70,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -405,14 +485,14 @@ CDCSkaldModules["quests/junkie.ska"] = {
                   },
                 },
                 {
-                  line = 70,
+                  line = 71,
                   body = {
                     t = "move",
                     target = "return",
                   },
                 },
               },
-              line = 67,
+              line = 68,
             },
             {
               text = {
@@ -422,7 +502,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
               },
               members = {
                 {
-                  line = 72,
+                  line = 73,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -434,14 +514,14 @@ CDCSkaldModules["quests/junkie.ska"] = {
                   },
                 },
                 {
-                  line = 73,
+                  line = 74,
                   body = {
                     t = "move",
                     target = "return",
                   },
                 },
               },
-              line = 71,
+              line = 72,
             },
             {
               text = {
@@ -451,7 +531,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
               },
               members = {
                 {
-                  line = 75,
+                  line = 76,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -463,14 +543,14 @@ CDCSkaldModules["quests/junkie.ska"] = {
                   },
                 },
                 {
-                  line = 76,
+                  line = 77,
                   body = {
                     t = "move",
                     target = "return",
                   },
                 },
               },
-              line = 74,
+              line = 75,
             },
             {
               text = {
@@ -480,7 +560,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
               },
               members = {
                 {
-                  line = 78,
+                  line = 79,
                   body = {
                     t = "go",
                     module = "cdc.ska",
@@ -488,7 +568,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
                   },
                 },
               },
-              line = 77,
+              line = 78,
             },
           },
         },

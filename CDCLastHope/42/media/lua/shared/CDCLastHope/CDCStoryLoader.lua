@@ -58,6 +58,7 @@ function St.items()
     for _, p in ipairs(CDC.story.world.placements or {}) do add(p.item) end
     for _, l in ipairs(CDC.story.world.lockers or {}) do
         for _, g in ipairs(l.gives or {}) do add(g.item) end
+        for _, d in ipairs(l.drops or {}) do add(d.item) end
     end
     for _, s in ipairs(CDC.story.world.spawns or {}) do add(s.item) end
     table.sort(out)

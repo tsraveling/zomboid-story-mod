@@ -50,6 +50,8 @@ cdc: "The Chief Examiner's office is likely going to be adjoining the morgue -- 
 
 > I'll get it done.
 
+~ set_quest("junkie", 1)
+
 cdc: "Excellent."
 
 cdc: "In that case, as always, may the old gods protect you."

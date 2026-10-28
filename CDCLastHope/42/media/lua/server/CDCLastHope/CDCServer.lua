@@ -152,16 +152,22 @@ function Srv.handlers.place(player, args)
     local sq = getCell() and getCell():getGridSquare(def.x, def.y, z)
     if not sq then
         CDC.log("placement " .. tostring(args.id) .. ": square not loaded server-side")
+        reply(player, "placeResult", { id = args.id, ok = false, reason = "square" })
         return
     end
     local cont = findContainer(sq, def.container)
     if not cont then
         CDC.log("placement " .. tostring(args.id) .. ": no " .. tostring(def.container or "container") ..
             " at " .. CDC.squareKey(def.x, def.y, z))
+        reply(player, "placeResult", { id = args.id, ok = false, reason = "container" })
         return
     end
     local item = cont:AddItem(def.item)
-    if not item then return end
+    if not item then
+        CDC.log("placement " .. tostring(args.id) .. ": could not add " .. tostring(def.item))
+        reply(player, "placeResult", { id = args.id, ok = false, reason = "item" })
+        return
+    end
     sendAddItemToContainer(cont, item)
     st.placed[args.id] = { day = CDC.day() }
     sync()
@@ -174,8 +180,10 @@ function Srv.handlers.locker(player, args)
     if not def then return end
     local st = S.get()
     st.lockers = st.lockers or {}
-    local fired = false
-    if def.kind and not st.lockers[args.id] then
+    local used = st.lockers[args.id] ~= nil
+    if used and def.kind == "corpse" and CDC.Spawn.corpseMissing(def) then used = false end
+    local fired, reason = false, "empty"
+    if def.kind and not used then
         if def.kind == "zombie" then
             fired = CDC.Spawn.zombie(def, player)
         elseif def.kind == "corpse" then
@@ -186,14 +194,29 @@ function Srv.handlers.locker(player, args)
         if fired then
             st.lockers[args.id] = { day = CDC.day() }
             sync()
+            reason = "fired"
+        else
+            reason = "failed"
         end
     end
-    reply(player, "lockerResult", { id = args.id, fired = fired })
+    reply(player, "lockerResult", { id = args.id, fired = fired, reason = reason })
 end
 
 -- args: x,y,z, xp = { {perk,amount} }
 function Srv.handlers.reward(player, args)
     grantXp(args.x, args.y, args.z, args.xp)
+end
+
+-- quest started or completed; halo goes to everyone online. args: text
+function Srv.handlers.questNotice(player, args)
+    if not isServer() then
+        reply(player, "questHalo", { text = args.text })
+        return
+    end
+    local list = getOnlinePlayers()
+    for i = 0, list:size() - 1 do
+        reply(list:get(i), "questHalo", { text = args.text })
+    end
 end
 
 -- args: op, key, value, id
@@ -223,11 +246,12 @@ function Srv.handle(player, cmd, args)
     h(player, args or {})
 end
 
-local function onClientCommand(module, cmd, player, args)
-    if module ~= CDC.NET_MODULE then return end
-    Srv.handle(player, cmd, args)
-end
-Events.OnClientCommand.Add(onClientCommand)
+CDC.bind("server", function()
+    Events.OnClientCommand.Add(function(module, cmd, player, args)
+        if module ~= CDC.NET_MODULE then return end
+        CDC.Server.handle(player, cmd, args)
+    end)
 
--- make sure the table exists server-side on world load
-Events.OnInitGlobalModData.Add(function() S.get() end)
+    -- make sure the table exists server-side on world load
+    Events.OnInitGlobalModData.Add(function() CDC.State.get() end)
+end)

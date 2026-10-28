@@ -221,5 +221,11 @@ function M.onFill(playerNum, context, worldobjects, test)
     if CDC.Debug then CDC.Debug.fill(player, context, squares) end
 end
 
-Events.OnFillWorldObjectContextMenu.Add(M.onFill)
-Events.OnFillInventoryObjectContextMenu.Add(M.onFillInventory)
+CDC.bind("menu", function()
+    Events.OnFillWorldObjectContextMenu.Add(function(pn, context, objs, test)
+        CDC.Menu.onFill(pn, context, objs, test)
+    end)
+    Events.OnFillInventoryObjectContextMenu.Add(function(pn, context, items)
+        CDC.Menu.onFillInventory(pn, context, items)
+    end)
+end)

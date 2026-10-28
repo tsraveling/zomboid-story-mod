@@ -57,5 +57,7 @@ table.insert(DynamicRadio.channels, {
     airCounterMultiplier = 1.0,
 })
 
-Events.OnLoadRadioScripts.Add(R.OnLoadRadioScripts)
-Events.EveryHours.Add(R.pushPrecue)
+CDC.bind("radio", function()
+    Events.OnLoadRadioScripts.Add(function(...) CDC.Radio.OnLoadRadioScripts(...) end)
+    Events.EveryHours.Add(function() CDC.Radio.pushPrecue() end)
+end)
