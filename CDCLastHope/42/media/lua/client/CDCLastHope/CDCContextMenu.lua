@@ -7,6 +7,7 @@ require "CDCLastHope/TimedActions/ISCDCTransmitAction"
 require "CDCLastHope/TimedActions/ISCDCPickupAction"
 require "CDCLastHope/TimedActions/ISCDCCorpseAction"
 require "CDCLastHope/TimedActions/ISCDCGroundAction"
+require "CDCLastHope/TimedActions/ISCDCLockerAction"
 
 CDC.Menu = {}
 local M = CDC.Menu
@@ -60,6 +61,12 @@ end
 function M.ground(player, def, square)
     if luautils.walkAdj(player, square) then
         ISTimedActionQueue.add(ISCDCGroundAction:new(player, def, square))
+    end
+end
+
+function M.locker(player, def, square)
+    if luautils.walkAdj(player, square) then
+        ISTimedActionQueue.add(ISCDCLockerAction:new(player, def, square))
     end
 end
 
@@ -123,12 +130,25 @@ function M.addPickupOptions(player, context, squares)
     end
 end
 
+-- not gated on isActive: the morgue is searchable whatever the story is doing
+function M.addLockerOptions(player, context, squares)
+    for _, def in ipairs(CDC.story.world.lockers or {}) do
+        for _, sq in ipairs(squares) do
+            if onTile(def, sq) then
+                context:addOption(def.label or "Check locker", player, M.locker, def, sq)
+                break
+            end
+        end
+    end
+end
+
 function M.addCorpseOptions(player, context)
     local body = ISWorldObjectContextMenu.fetchVars and ISWorldObjectContextMenu.fetchVars.body
     if not body or body:isAnimal() then return end
+    local flag = body:getModData().CDCCorpse
     local ctx = CDC.Context.new(player, nil)
     for _, def in ipairs(CDC.story.world.corpseActions) do
-        if def.cond == nil or def.cond(ctx) then
+        if def.corpse == flag and (def.cond == nil or def.cond(ctx)) then
             local opt = context:addOption(def.label or def.id, player, M.corpse, def, body)
             if def.requires and not CDC.findTool(player:getInventory(), def.requires) then
                 opt.notAvailable = true
@@ -192,6 +212,7 @@ function M.onFill(playerNum, context, worldobjects, test)
     for _, radio in ipairs(hamRadiosOn(squares)) do
         M.addRadioOptions(player, context, radio, active)
     end
+    M.addLockerOptions(player, context, squares)
     if active then
         M.addPickupOptions(player, context, squares)
         M.addCorpseOptions(player, context)

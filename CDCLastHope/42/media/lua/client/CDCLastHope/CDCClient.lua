@@ -1,5 +1,6 @@
 if isServer() then return end
 require "CDCLastHope/CDCStoryLoader"
+require "CDCLastHope/CDCModal"
 
 CDC.Client = {}
 CDC.Net = {}
@@ -26,6 +27,17 @@ local H = CDC.Client.handlers
 
 function H.pickupResult(args)
     if CDC.Pickup then CDC.Pickup.onResult(args) end
+end
+
+function H.lockerResult(args)
+    local p = getSpecificPlayer(0)
+    if not p then return end
+    local def = CDC.Story.locker(args.id)
+    if args.fired then
+        if def and def.text then CDC.Modal.show(p, def.text) end
+        return
+    end
+    HaloTextHelper.addText(p, (def and def.emptyText) or "This locker is empty.")
 end
 
 -- skill-up arrow over the local player, same as vanilla VHS gains

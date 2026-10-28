@@ -1,4 +1,5 @@
 require "CDCLastHope/CDCStoryLoader"
+require "CDCLastHope/CDCSpawn"
 
 -- runs on dedicated/host server and in SP (client lua calls handle() directly when not isClient())
 CDC.Server = {}
@@ -167,6 +168,29 @@ function Srv.handlers.place(player, args)
     if CDC.isDebug() then CDC.log("placed " .. tostring(def.item) .. " in " .. cont:getType()) end
 end
 
+-- a locker was checked; fires its kind once, then reads empty forever. args: id
+function Srv.handlers.locker(player, args)
+    local def = CDC.Story.locker(args.id)
+    if not def then return end
+    local st = S.get()
+    st.lockers = st.lockers or {}
+    local fired = false
+    if def.kind and not st.lockers[args.id] then
+        if def.kind == "zombie" then
+            fired = CDC.Spawn.zombie(def, player)
+        elseif def.kind == "corpse" then
+            fired = CDC.Spawn.corpse(def)
+        else
+            CDC.log("locker " .. tostring(args.id) .. ": unknown kind " .. tostring(def.kind))
+        end
+        if fired then
+            st.lockers[args.id] = { day = CDC.day() }
+            sync()
+        end
+    end
+    reply(player, "lockerResult", { id = args.id, fired = fired })
+end
+
 -- args: x,y,z, xp = { {perk,amount} }
 function Srv.handlers.reward(player, args)
     grantXp(args.x, args.y, args.z, args.xp)
@@ -184,6 +208,8 @@ function Srv.handlers.debug(player, args)
         st.pickups[args.id] = nil
     elseif args.op == "resetPlacement" then
         st.placed[args.id] = nil
+    elseif args.op == "resetLocker" then
+        st.lockers[args.id] = nil
     elseif args.op == "spawn" then
         giveItem(player, args.item)
     end

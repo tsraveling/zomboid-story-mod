@@ -25,6 +25,13 @@ function St.groundAction(id)
     return nil
 end
 
+function St.locker(id)
+    for _, l in ipairs(CDC.story.world.lockers or {}) do
+        if l.id == id then return l end
+    end
+    return nil
+end
+
 function St.placement(id)
     for _, p in ipairs(CDC.story.world.placements or {}) do
         if p.id == id then return p end
@@ -49,6 +56,9 @@ function St.items()
     for _, g in ipairs(CDC.story.world.groundActions or {}) do add(g.gives) end
     for _, r in ipairs(CDC.story.world.readables or {}) do add(r.item) end
     for _, p in ipairs(CDC.story.world.placements or {}) do add(p.item) end
+    for _, l in ipairs(CDC.story.world.lockers or {}) do
+        for _, g in ipairs(l.gives or {}) do add(g.item) end
+    end
     for _, s in ipairs(CDC.story.world.spawns or {}) do add(s.item) end
     table.sort(out)
     return out
@@ -62,6 +72,7 @@ function St.validate()
     s.world.corpseActions = s.world.corpseActions or {}
     s.world.readables = s.world.readables or {}
     s.world.placements = s.world.placements or {}
+    s.world.lockers = s.world.lockers or {}
     s.world.spawns = s.world.spawns or {}
     if not s.freq then CDC.log("ERROR: story.freq missing") end
     local ids = {}
