@@ -8,7 +8,7 @@ Timeline: None
 
 Sample the junkie corpse and retrieve ME records
 
-- [ ] Add junkie meat and junkie brain items
+- [x] Add junkie meat and junkie brain items
 - [ ] Add ME notes item
 - [ ] Right click interactions on morgue lockers
 - [ ] Zombie spawn with narrative text

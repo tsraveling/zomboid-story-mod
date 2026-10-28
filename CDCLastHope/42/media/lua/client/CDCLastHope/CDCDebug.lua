@@ -175,5 +175,16 @@ function Dbg.fill(player, context, squares)
         end)
     end
 
+    local plOpt = menu:addOption("Reset placement")
+    local plMenu = ISContextMenu:getNew(context)
+    menu:addSubMenu(plOpt, plMenu)
+    for _, p in ipairs(CDC.story.world.placements) do
+        local done = (st.placed or {})[p.id] and " [placed]" or ""
+        plMenu:addOption(p.id .. done, player, function(pl)
+            Dbg.send(pl, { op = "resetPlacement", id = p.id })
+        end)
+    end
+    if #CDC.story.world.placements == 0 then plMenu:addOption("(none)").notAvailable = true end
+
     menu:addOption("RESET WORLD STATE", player, function(pl) Dbg.send(pl, { op = "reset" }) end)
 end

@@ -5,10 +5,10 @@ local S = CDC.State
 
 -- met[1] / dead entries: { first, last }; met[1] is the character CDC spoke to most recently
 local function blank()
-    return { quests = {}, jobs = {}, met = {}, dead = {}, pickups = {}, txlog = {}, meta = { forceActive = false, seq = 0 } }
+    return { quests = {}, jobs = {}, met = {}, dead = {}, pickups = {}, placed = {}, txlog = {}, meta = { forceActive = false, seq = 0 } }
 end
 
-local SCHEMA = 2
+local SCHEMA = 3
 
 -- v1 kept quest stages as flags ("quest_first" = 1)
 local function migrate(d)

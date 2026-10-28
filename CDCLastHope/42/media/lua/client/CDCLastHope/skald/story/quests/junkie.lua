@@ -12,5 +12,487 @@ CDCSkaldModules["quests/junkie.ska"] = {
       line = 1,
       members = {},
     },
+    {
+      tag = "tri_results",
+      line = 7,
+      members = {
+        {
+          line = 9,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"So we've gone over the three samples you analyzed for us in detail.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 11,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"We are now confident in saying that the drug velvet and the military substance are *both* ancestors of the z strain -- although from your descriptions, there's something very odd about the military one.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 13,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"And based on your dissection of the brain, we know that whatever this stuff is, the Knox Zone is where it started.\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 15,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "We didn't know that from the zombie meat?",
+                },
+              },
+              members = {},
+              line = 15,
+            },
+          },
+        },
+        {
+          line = 17,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"There's something different about how the z strain manifests in the brain. It acts more ... neurologically. We saw that here in Atlanta as well.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 19,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Basically the patterns come through stronger in the brain matter, as you yourself no doubt witnessed.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 21,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"What you saw in your observations just confirms that the Z you have there is more 'dynamic' in a way that indicates that whatever cross-pollination happened to cause all of this is *somehow still happening*.\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 23,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "Oh. Fuck.",
+                },
+              },
+              members = {},
+              line = 23,
+            },
+          },
+        },
+        {
+          line = 25,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Exactly.\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 27,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "Ok, so tell me about the junkie.",
+                },
+              },
+              members = {
+                {
+                  line = 28,
+                  body = {
+                    t = "move",
+                    target = "intro",
+                  },
+                },
+              },
+              line = 27,
+            },
+          },
+        },
+      },
+    },
+    {
+      tag = "intro",
+      line = 30,
+      members = {
+        {
+          line = 32,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"We have a report in our database that came in from Muldraugh PD just a few days before the Event started there in the Knox Zone. A local junkie had apparently overdosed on Velvet, but somehow wasn't dead ...\"",
+              },
+            },
+          },
+        },
+        {
+          line = 34,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Or at least, didn't *seem* to be dead.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 36,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Apparently there were some *death-like symptoms*.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 38,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"But the body was still animate, although the person was catatonic and never became responsive.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 40,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Our theory is that this is a rare 'pure' pre-Z strain -- a partially animate corpse, but one that lacks all of the aggression and intent of the actual Z strain.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 42,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"We're pretty sure the body is still in the morgue of the Muldraugh Police Department. We're hoping the examination notes are down there too.\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 44,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "Got it.",
+                },
+              },
+              members = {},
+              line = 44,
+            },
+          },
+        },
+        {
+          line = 46,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Based on our records, the morgue is in the basement. Check the body coolers until you find the right one. Young white male in a yellow shirt, based on the report the police faxed over. Might look like a zombie, but won't be animate.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 48,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Take a meat sample (bring a knife) and a brain sample (hatchet or saw). Then get them back to the microscope and give us a call.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 50,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"The Chief Examiner's office is likely going to be adjoining the morgue -- just search desks, cabinets, etc. until you find something on this case.\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 52,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "I'll get it done.",
+                },
+              },
+              members = {},
+              line = 52,
+            },
+          },
+        },
+        {
+          line = 54,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Excellent.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 56,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"In that case, as always, may the old gods protect you.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 58,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"I'll be waiting for your call.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 60,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Daniel Chidi, CDC. Over and out.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 61,
+          body = {
+            t = "exit",
+          },
+        },
+      },
+    },
+    {
+      tag = "return",
+      line = 63,
+      members = {
+        {
+          line = 65,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"What do you need?\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 67,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "Where do I find the overdose victim's body?",
+                },
+              },
+              members = {
+                {
+                  line = 68,
+                  body = {
+                    t = "beat",
+                    attribution = "cdc",
+                    text = {
+                      parts = {
+                        "\"Based on our records, the morgue is in the basement. Check the body coolers until you find the right one. Young white male in a yellow shirt, based on the report the police faxed over. Might look like a zombie, but won't be animate.\"",
+                      },
+                    },
+                  },
+                },
+                {
+                  line = 69,
+                  body = {
+                    t = "beat",
+                    attribution = "cdc",
+                    text = {
+                      parts = {
+                        "\"Take a meat sample (bring a knife) and a brain sample (hatchet or saw). Then get them back to the microscope and give us a call.\"",
+                      },
+                    },
+                  },
+                },
+                {
+                  line = 70,
+                  body = {
+                    t = "move",
+                    target = "return",
+                  },
+                },
+              },
+              line = 67,
+            },
+            {
+              text = {
+                parts = {
+                  "Where would the Chief Examiner's office be?",
+                },
+              },
+              members = {
+                {
+                  line = 72,
+                  body = {
+                    t = "beat",
+                    attribution = "cdc",
+                    text = {
+                      parts = {
+                        "\"The Chief Examiner's office is likely going to be adjoining the morgue -- just search desks, cabinets, etc. until you find something on this case.\"",
+                      },
+                    },
+                  },
+                },
+                {
+                  line = 73,
+                  body = {
+                    t = "move",
+                    target = "return",
+                  },
+                },
+              },
+              line = 71,
+            },
+            {
+              text = {
+                parts = {
+                  "I need both the samples and the notes?",
+                },
+              },
+              members = {
+                {
+                  line = 75,
+                  body = {
+                    t = "beat",
+                    attribution = "cdc",
+                    text = {
+                      parts = {
+                        "\"If at all possible, yes. The notes might have critical information on what this looked like up front. If we can compare that with what we've observed in the Z strain, we might be able to nail down more accurately what's happening on a cellular level.\"",
+                      },
+                    },
+                  },
+                },
+                {
+                  line = 76,
+                  body = {
+                    t = "move",
+                    target = "return",
+                  },
+                },
+              },
+              line = 74,
+            },
+            {
+              text = {
+                parts = {
+                  "That's all for now.",
+                },
+              },
+              members = {
+                {
+                  line = 78,
+                  body = {
+                    t = "go",
+                    module = "cdc.ska",
+                    start_in = "router",
+                  },
+                },
+              },
+              line = 77,
+            },
+          },
+        },
+      },
+    },
   },
 }

@@ -1,8 +1,7 @@
 # start
 
---- backstory and setup
---- go to the Muldraugh PD
---- analysis
+(? get_quest("junkie") == 0) -> tri_results
+(? get_quest("junkie") == 1) -> return
 
 # tri_results
 

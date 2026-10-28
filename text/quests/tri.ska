@@ -48,7 +48,7 @@ cdc: "Any questions?"
   -> instruct_microscope
 > (? has_item("ZombieBrain") and has_item("VelvetDose") and has_item("SoilSample")) (Zombie Brain, Velvet Dose, Soil Sample) I have all three samples.
   -> has_samples
-> I think I have what I need.
+> I think that's all for now.
   -> back
 
 # instruct_microscope

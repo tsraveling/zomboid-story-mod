@@ -67,6 +67,15 @@ local function giveItem(player, fullType)
     return item
 end
 
+local function findContainer(sq, wanted)
+    local objs = sq:getObjects()
+    for i = 0, objs:size() - 1 do
+        local c = objs:get(i):getContainer()
+        if c and (not wanted or c:getType() == wanted) then return c end
+    end
+    return nil
+end
+
 local function takeItem(item)
     local c = item:getContainer()
     if not c then return end
@@ -131,6 +140,33 @@ function Srv.handlers.grant(player, args)
     if def.gives then giveItem(player, def.gives) end
 end
 
+-- a chunk holding a placement just loaded; args: id
+function Srv.handlers.place(player, args)
+    local def = CDC.Story.placement(args.id)
+    if not def then return end
+    local st = S.get()
+    st.placed = st.placed or {}
+    if st.placed[args.id] then return end
+    local z = def.z or 0
+    local sq = getCell() and getCell():getGridSquare(def.x, def.y, z)
+    if not sq then
+        CDC.log("placement " .. tostring(args.id) .. ": square not loaded server-side")
+        return
+    end
+    local cont = findContainer(sq, def.container)
+    if not cont then
+        CDC.log("placement " .. tostring(args.id) .. ": no " .. tostring(def.container or "container") ..
+            " at " .. CDC.squareKey(def.x, def.y, z))
+        return
+    end
+    local item = cont:AddItem(def.item)
+    if not item then return end
+    sendAddItemToContainer(cont, item)
+    st.placed[args.id] = { day = CDC.day() }
+    sync()
+    if CDC.isDebug() then CDC.log("placed " .. tostring(def.item) .. " in " .. cont:getType()) end
+end
+
 -- args: x,y,z, xp = { {perk,amount} }
 function Srv.handlers.reward(player, args)
     grantXp(args.x, args.y, args.z, args.xp)
@@ -146,6 +182,8 @@ function Srv.handlers.debug(player, args)
         S.reset()
     elseif args.op == "resetPickup" then
         st.pickups[args.id] = nil
+    elseif args.op == "resetPlacement" then
+        st.placed[args.id] = nil
     elseif args.op == "spawn" then
         giveItem(player, args.item)
     end
