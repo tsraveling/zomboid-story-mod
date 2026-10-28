@@ -9,6 +9,7 @@
     world.pickups   { id, x,y,z | tiles={{x,y,z},...}, sprite=nil|name|{names}, label, item, once="global"|"character"|"none", duration=2, text, cond=fn(ctx,square), condFailText }  hidden when cond false unless condFailText (then grayed)
     world.corpseActions { id, label, requires=fullType|"tag:ITEM_TAG"|"category:WEAPON_CATEGORY"|list|nil, requiresLabel, consumes=false, gives, duration=3, text, cond=fn(ctx) }  hidden when cond false
     world.groundActions { id, label, x,y,z, radius, ground={"dirt","sand","clay","gravel"}, requires, requiresLabel, consumes=false, gives, duration=3, text, cond=fn(ctx,square) }  natural ground within radius; hidden when cond false
+    world.readables { id, item, label="Read", text }  Read option on the item in inventory; shows text in a modal instead of the vanilla reading action
     world.spawns    { item, lists={"ClassroomDesk"}, chance=5 }
     items           optional extra item list for debug spawn menu
 
@@ -106,6 +107,14 @@ CDC.story = {
         end,
         text =
         "The grass here is wilted and listless, a visible discoloration in the entire area. You lay aside a patch of sod to get to the soil underneath. The whole area has an unsettling, sickly-sweet odor. You try not to touch the soil as you store it in a container for later study."
+      },
+    },
+    readables = {
+      {
+        id = "me_notes",
+        item = "CDCLastHope.MedicalExaminerNotes",
+        text =
+        "PLACEHOLDER: ME notes stuff",
       },
     },
     spawns = {

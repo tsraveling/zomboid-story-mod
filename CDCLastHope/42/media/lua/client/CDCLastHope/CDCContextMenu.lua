@@ -2,6 +2,7 @@ if isServer() then return end
 require "CDCLastHope/CDCClient"
 require "CDCLastHope/CDCWorld"
 require "CDCLastHope/CDCDialogue"
+require "CDCLastHope/CDCModal"
 require "CDCLastHope/TimedActions/ISCDCTransmitAction"
 require "CDCLastHope/TimedActions/ISCDCPickupAction"
 require "CDCLastHope/TimedActions/ISCDCCorpseAction"
@@ -153,6 +154,34 @@ function M.addGroundOptions(player, context, squares)
     end
 end
 
+function M.read(player, def)
+    CDC.Modal.show(player, def.text)
+end
+
+-- entries are either an item or a stack table
+local function selectedItems(items)
+    local out = {}
+    for _, v in ipairs(items) do
+        if not instanceof(v, "InventoryItem") then v = v.items and v.items[1] end
+        if v then table.insert(out, v) end
+    end
+    return out
+end
+
+function M.onFillInventory(playerNum, context, items)
+    local player = getSpecificPlayer(playerNum)
+    if not player then return end
+    local seen = {}
+    for _, item in ipairs(selectedItems(items)) do
+        local full = item:getFullType()
+        if not seen[full] then
+            seen[full] = true
+            local def = CDC.Story.readable(full)
+            if def then context:addOption(def.label or "Read", player, M.read, def) end
+        end
+    end
+end
+
 function M.onFill(playerNum, context, worldobjects, test)
     if test then return end
     local player = getSpecificPlayer(playerNum)
@@ -172,3 +201,4 @@ function M.onFill(playerNum, context, worldobjects, test)
 end
 
 Events.OnFillWorldObjectContextMenu.Add(M.onFill)
+Events.OnFillInventoryObjectContextMenu.Add(M.onFillInventory)
