@@ -265,6 +265,10 @@ cdc: "Those samples you collected are ready for analysis."
 --- JUNKIE JOB
 @if quest_available("junkie")
 cdc: "Based on your findings with the samples from last time, we've got a good lead for you to pursue, whenever you're ready -- a local junkie we know ended up in the Muldraugh police department's morgue after ODing on Velvet *before* the virus got out."
+@elseif get_quest("junkie") == 1
+cdc: "We need you to collect a brain and muscle sample from the Velvet overdose victim in the basement morgue of the Muldraugh Police Department. And to find the ME's notes while you're down there."
+@elseif get_quest("junkie") == 2
+cdc: "We're ready to finish the analysis of the overdose victim's samples whenever you are."
 @endif
 
 cdc: "If you just want to talk, I've got nothing here but time."
@@ -283,11 +287,12 @@ cdc: "So what did you want to talk about?"
   GO cdc_talking.ska
 > Any other work I should be doing right now?
   -> other_work
---- > I want to DEBUG TEST THE API.
----   -> api_tester
 > I think that's all for now!
   cdc: "All right, talk to you next time. CDC, over and out."
   EXIT
+
+--- > I want to DEBUG TEST THE API.
+---   -> api_tester
 
 # other_work
 

@@ -1,5 +1,6 @@
 if isServer() then return end
 require "CDCLastHope/CDCStoryLoader"
+require "CDCLastHope/CDCModal"
 
 CDC.Client = {}
 CDC.Net = {}
@@ -28,6 +29,32 @@ function H.pickupResult(args)
     if CDC.Pickup then CDC.Pickup.onResult(args) end
 end
 
+function H.questHalo(args)
+    local p = getSpecificPlayer(0)
+    if not p then return end
+    HaloTextHelper.addGoodText(p, args.text)
+end
+
+function H.placeResult(args)
+    if CDC.Placement then CDC.Placement.onResult(args) end
+end
+
+function H.lockerResult(args)
+    local p = getSpecificPlayer(0)
+    if not p then return end
+    local def = CDC.Story.locker(args.id)
+    if args.fired then
+        if def and def.text then CDC.Modal.show(p, def.text) end
+        return
+    end
+    -- a failed spawn leaves the locker unused; saying "empty" would stop the retry
+    if args.reason == "failed" then
+        CDC.log("locker " .. tostring(args.id) .. ": spawn failed, still unused")
+        return
+    end
+    HaloTextHelper.addText(p, (def and def.emptyText) or "This locker is empty.")
+end
+
 -- skill-up arrow over the local player, same as vanilla VHS gains
 function H.xpHalo(args)
     local p = getSpecificPlayer(0)
@@ -53,19 +80,21 @@ function CDC.Client.onServerCommand(cmd, args)
     if h then h(args or {}) end
 end
 
-Events.OnServerCommand.Add(function(module, cmd, args)
-    if module ~= CDC.NET_MODULE then return end
-    CDC.Client.onServerCommand(cmd, args)
-end)
+CDC.bind("client", function()
+    Events.OnServerCommand.Add(function(module, cmd, args)
+        if module ~= CDC.NET_MODULE then return end
+        CDC.Client.onServerCommand(cmd, args)
+    end)
 
-Events.OnReceiveGlobalModData.Add(function(key, data)
-    if key == CDC.MODDATA_KEY and type(data) == "table" then
-        ModData.add(key, data)
-    end
-end)
+    Events.OnReceiveGlobalModData.Add(function(key, data)
+        if key == CDC.MODDATA_KEY and type(data) == "table" then
+            ModData.add(key, data)
+        end
+    end)
 
-Events.OnGameStart.Add(function()
-    if isClient() then ModData.request(CDC.MODDATA_KEY) end
+    Events.OnGameStart.Add(function()
+        if isClient() then ModData.request(CDC.MODDATA_KEY) end
+    end)
 end)
 
 -- floating text above the radio for bystanders

@@ -10,7 +10,1141 @@ CDCSkaldModules["quests/junkie.ska"] = {
     {
       tag = "start",
       line = 1,
-      members = {},
+      members = {
+        {
+          cond = {
+            type = "and",
+            items = {
+              {
+                t = "atom",
+                a = {
+                  t = "call",
+                  method = "get_quest",
+                  args = {
+                    {
+                      t = "str",
+                      v = "junkie",
+                    },
+                  },
+                  line = 0,
+                },
+                cmp = "eq",
+                b = {
+                  t = "int",
+                  v = 0,
+                },
+              },
+            },
+          },
+          line = 3,
+          body = {
+            t = "move",
+            target = "tri_results",
+          },
+        },
+        {
+          cond = {
+            type = "and",
+            items = {
+              {
+                t = "atom",
+                a = {
+                  t = "call",
+                  method = "get_quest",
+                  args = {
+                    {
+                      t = "str",
+                      v = "junkie",
+                    },
+                  },
+                  line = 0,
+                },
+                cmp = "eq",
+                b = {
+                  t = "int",
+                  v = 1,
+                },
+              },
+            },
+          },
+          line = 4,
+          body = {
+            t = "move",
+            target = "return",
+          },
+        },
+        {
+          cond = {
+            type = "and",
+            items = {
+              {
+                t = "atom",
+                a = {
+                  t = "call",
+                  method = "get_quest",
+                  args = {
+                    {
+                      t = "str",
+                      v = "junkie",
+                    },
+                  },
+                  line = 0,
+                },
+                cmp = "eq",
+                b = {
+                  t = "int",
+                  v = 2,
+                },
+              },
+            },
+          },
+          line = 5,
+          body = {
+            t = "move",
+            target = "resume",
+          },
+        },
+        {
+          line = 6,
+          body = {
+            t = "move",
+            target = "back",
+          },
+        },
+      },
+    },
+    {
+      tag = "tri_results",
+      line = 8,
+      members = {
+        {
+          line = 10,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"So we've gone over the three samples you analyzed for us in detail.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 12,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"We are now confident in saying that the drug velvet and the military substance are *both* ancestors of the z strain -- although from your descriptions, there's something very odd about the military one.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 14,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"And based on your dissection of the brain, we know that whatever this stuff is, the Knox Zone is where it started.\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 16,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "We didn't know that from the zombie meat?",
+                },
+              },
+              members = {},
+              line = 16,
+            },
+          },
+        },
+        {
+          line = 18,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"There's something different about how the z strain manifests in the brain. It acts more ... neurologically. We saw that here in Atlanta as well.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 20,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Basically the patterns come through stronger in the brain matter, as you yourself no doubt witnessed.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 22,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"What you saw in your observations just confirms that the Z you have there is more 'dynamic' in a way that indicates that whatever cross-pollination happened to cause all of this is *somehow still happening*.\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 24,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "Oh. Fuck.",
+                },
+              },
+              members = {},
+              line = 24,
+            },
+          },
+        },
+        {
+          line = 26,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Exactly.\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 28,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "Ok, so tell me about the junkie.",
+                },
+              },
+              members = {
+                {
+                  line = 29,
+                  body = {
+                    t = "move",
+                    target = "intro",
+                  },
+                },
+              },
+              line = 28,
+            },
+          },
+        },
+      },
+    },
+    {
+      tag = "intro",
+      line = 31,
+      members = {
+        {
+          line = 33,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"We have a report in our database that came in from Muldraugh PD just a few days before the Event started there in the Knox Zone. A local junkie had apparently overdosed on Velvet, but somehow wasn't dead ...\"",
+              },
+            },
+          },
+        },
+        {
+          line = 35,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Or at least, didn't *seem* to be dead.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 37,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Apparently there were some *death-like symptoms*.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 39,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"But the body was still animate, although the person was catatonic and never became responsive.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 41,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Our theory is that this is a rare 'pure' pre-Z strain -- a partially animate corpse, but one that lacks all of the aggression and intent of the actual Z strain.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 43,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"We're pretty sure the body is still in the morgue of the Muldraugh Police Department. We're hoping the examination notes are down there too.\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 45,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "Got it.",
+                },
+              },
+              members = {},
+              line = 45,
+            },
+          },
+        },
+        {
+          line = 47,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Based on our records, the morgue is in the basement. Check the body coolers until you find the right one. Young white male in a yellow shirt, based on the report the police faxed over. Might look like a zombie, but won't be animate.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 49,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Take a meat sample (bring a knife) and a brain sample (hatchet or saw). Then get them back to the microscope and give us a call.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 51,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"The Chief Examiner's office is likely going to be adjoining the morgue -- just search desks, cabinets, etc. until you find something on this case.\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 53,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "I'll get it done.",
+                },
+              },
+              members = {},
+              line = 53,
+            },
+          },
+        },
+        {
+          line = 55,
+          body = {
+            t = "call",
+            method = "set_quest",
+            args = {
+              {
+                t = "str",
+                v = "junkie",
+              },
+              {
+                t = "int",
+                v = 1,
+              },
+            },
+          },
+        },
+        {
+          line = 57,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Excellent.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 59,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"In that case, as always, may the old gods protect you.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 61,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"I'll be waiting for your call.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 63,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Daniel Chidi, CDC. Over and out.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 64,
+          body = {
+            t = "exit",
+          },
+        },
+      },
+    },
+    {
+      tag = "return",
+      line = 66,
+      members = {
+        {
+          line = 68,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"What do you need?\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 70,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "Where do I find the overdose victim's body?",
+                },
+              },
+              members = {
+                {
+                  line = 71,
+                  body = {
+                    t = "beat",
+                    attribution = "cdc",
+                    text = {
+                      parts = {
+                        "\"Based on our records, the morgue is in the basement. Check the body coolers until you find the right one. Young white male, based on the report the police faxed over. Might look like a zombie, but won't be animate.\"",
+                      },
+                    },
+                  },
+                },
+                {
+                  line = 72,
+                  body = {
+                    t = "beat",
+                    attribution = "cdc",
+                    text = {
+                      parts = {
+                        "\"Take a meat sample (bring a knife) and a brain sample (hatchet or saw). Then get them back to the microscope and give us a call.\"",
+                      },
+                    },
+                  },
+                },
+                {
+                  line = 73,
+                  body = {
+                    t = "move",
+                    target = "return",
+                  },
+                },
+              },
+              line = 70,
+            },
+            {
+              text = {
+                parts = {
+                  "Where would the Chief Examiner's office be?",
+                },
+              },
+              members = {
+                {
+                  line = 75,
+                  body = {
+                    t = "beat",
+                    attribution = "cdc",
+                    text = {
+                      parts = {
+                        "\"The Chief Examiner's office is likely going to be adjoining the morgue -- just search desks, cabinets, etc. until you find something on this case.\"",
+                      },
+                    },
+                  },
+                },
+                {
+                  line = 76,
+                  body = {
+                    t = "move",
+                    target = "return",
+                  },
+                },
+              },
+              line = 74,
+            },
+            {
+              text = {
+                parts = {
+                  "I need both the samples and the notes?",
+                },
+              },
+              members = {
+                {
+                  line = 78,
+                  body = {
+                    t = "beat",
+                    attribution = "cdc",
+                    text = {
+                      parts = {
+                        "\"If at all possible, yes. The notes might have critical information on what this looked like up front. If we can compare that with what we've observed in the Z strain, we might be able to nail down more accurately what's happening on a cellular level.\"",
+                      },
+                    },
+                  },
+                },
+                {
+                  line = 79,
+                  body = {
+                    t = "move",
+                    target = "return",
+                  },
+                },
+              },
+              line = 77,
+            },
+            {
+              cond = {
+                type = "and",
+                items = {
+                  {
+                    t = "atom",
+                    a = {
+                      t = "call",
+                      method = "has_item",
+                      args = {
+                        {
+                          t = "str",
+                          v = "ODVictimMeat",
+                        },
+                      },
+                      line = 0,
+                    },
+                    cmp = "truthy",
+                  },
+                  {
+                    t = "atom",
+                    a = {
+                      t = "call",
+                      method = "has_item",
+                      args = {
+                        {
+                          t = "str",
+                          v = "ODVictimBrain",
+                        },
+                      },
+                      line = 0,
+                    },
+                    cmp = "truthy",
+                  },
+                  {
+                    t = "atom",
+                    a = {
+                      t = "call",
+                      method = "has_item",
+                      args = {
+                        {
+                          t = "str",
+                          v = "MedicalExaminerNotes",
+                        },
+                      },
+                      line = 0,
+                    },
+                    cmp = "truthy",
+                  },
+                },
+              },
+              text = {
+                parts = {
+                  "I have the samples and the notes!",
+                },
+              },
+              members = {
+                {
+                  line = 81,
+                  body = {
+                    t = "move",
+                    target = "process",
+                  },
+                },
+              },
+              line = 80,
+            },
+            {
+              text = {
+                parts = {
+                  "That's all for now.",
+                },
+              },
+              members = {
+                {
+                  line = 83,
+                  body = {
+                    t = "go",
+                    module = "cdc.ska",
+                    start_in = "router",
+                  },
+                },
+              },
+              line = 82,
+            },
+          },
+        },
+      },
+    },
+    {
+      tag = "resume",
+      line = 85,
+      members = {
+        {
+          line = 87,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Ready to resume the analysis?\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 89,
+          choices = {
+            {
+              text = {
+                parts = {
+                  "Yep.",
+                },
+              },
+              members = {
+                {
+                  line = 90,
+                  body = {
+                    t = "move",
+                    target = "perform_work",
+                  },
+                },
+              },
+              line = 89,
+            },
+          },
+        },
+      },
+    },
+    {
+      tag = "process",
+      line = 92,
+      members = {
+        {
+          line = 94,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Excellent. And a microscope nearby?\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 96,
+          choices = {
+            {
+              cond = {
+                type = "and",
+                items = {
+                  {
+                    t = "atom",
+                    a = {
+                      t = "call",
+                      method = "radio_has_microscope",
+                      args = {},
+                      line = 0,
+                    },
+                    cmp = "truthy",
+                  },
+                },
+              },
+              text = {
+                parts = {
+                  "Yep.",
+                },
+              },
+              members = {
+                {
+                  line = 97,
+                  body = {
+                    t = "move",
+                    target = "proc_continue",
+                  },
+                },
+              },
+              line = 96,
+            },
+            {
+              text = {
+                parts = {
+                  "Whoops. Not yet.",
+                },
+              },
+              members = {
+                {
+                  line = 99,
+                  body = {
+                    t = "move",
+                    target = "return",
+                  },
+                },
+              },
+              line = 98,
+            },
+          },
+        },
+      },
+    },
+    {
+      tag = "proc_continue",
+      line = 101,
+      members = {
+        {
+          line = 103,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Great. Let's get started ...\"",
+              },
+            },
+          },
+        },
+        {
+          line = 104,
+          body = {
+            t = "call",
+            method = "set_quest",
+            args = {
+              {
+                t = "str",
+                v = "junkie",
+              },
+              {
+                t = "int",
+                v = 2,
+              },
+            },
+          },
+        },
+        {
+          line = 105,
+          body = {
+            t = "move",
+            target = "perform_work",
+          },
+        },
+      },
+    },
+    {
+      tag = "perform_work",
+      line = 107,
+      members = {
+        {
+          line = 109,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Perfect. Let's start with the samples ...\"",
+              },
+            },
+          },
+        },
+        {
+          line = 111,
+          body = {
+            t = "call",
+            method = "do_job",
+            args = {
+              {
+                t = "str",
+                v = "junkie",
+              },
+              {
+                t = "float",
+                v = 0.170000002,
+              },
+            },
+          },
+        },
+        {
+          line = 113,
+          body = {
+            t = "beat",
+            attribution = "",
+            text = {
+              parts = {
+                "You examine both the muscle and brain samples under the microscope, describing what you see to Daniel and answering his questions.",
+              },
+            },
+          },
+        },
+        {
+          line = 115,
+          body = {
+            t = "beat",
+            attribution = "",
+            text = {
+              parts = {
+                "There is movement, a pulse like the regular zombie samples, but much, much slower, like a sleeping heartbeat.",
+              },
+            },
+          },
+        },
+        {
+          line = 117,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Damn. Okay. So this is clearly the same *kind* of thing as the Z strain, but lacking all of the animative properties.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 119,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"In other words, it's almost like a dead body in a zombie coma.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 121,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Not one that, you know. Is trying to eat you.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 123,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"And the notes?\"",
+              },
+            },
+          },
+        },
+        {
+          t = "choices",
+          line = 125,
+          choices = {
+            {
+              text = {
+                parts = {
+                  ":read out the notes:",
+                },
+              },
+              members = {},
+              line = 125,
+            },
+          },
+        },
+        {
+          line = 127,
+          body = {
+            t = "beat",
+            attribution = "",
+            text = {
+              parts = {
+                "Daniel pays special attention when you go through the dense, scientific details on the last page. You can hear the rustling of other people there, too, gathered around the station on Daniel's end.",
+              },
+            },
+          },
+        },
+        {
+          line = 129,
+          body = {
+            t = "beat",
+            attribution = "",
+            text = {
+              parts = {
+                "Your heart sparks; it seems possible that you are finally doing something useful. Something beyond this short, brutal survival.",
+              },
+            },
+          },
+        },
+        {
+          line = 131,
+          body = {
+            t = "call",
+            method = "set_quest",
+            args = {
+              {
+                t = "str",
+                v = "junkie",
+              },
+              {
+                t = "int",
+                v = 100,
+              },
+            },
+          },
+        },
+        {
+          line = 133,
+          body = {
+            t = "beat",
+            attribution = "",
+            text = {
+              parts = {
+                "Working with the radio and the equipment is also starting to become second nature. You feel much more comfortable with them than you did at the start of all of this.",
+              },
+            },
+          },
+        },
+        {
+          line = 135,
+          body = {
+            t = "call",
+            method = "reward_xp",
+            args = {
+              {
+                t = "str",
+                v = "Electricity",
+              },
+              {
+                t = "float",
+                v = 80.0,
+              },
+            },
+          },
+        },
+        {
+          line = 136,
+          body = {
+            t = "call",
+            method = "reward_xp",
+            args = {
+              {
+                t = "str",
+                v = "Maintenance",
+              },
+              {
+                t = "float",
+                v = 80.0,
+              },
+            },
+          },
+        },
+        {
+          line = 138,
+          body = {
+            t = "beat",
+            attribution = "",
+            text = {
+              parts = {
+                "When you finish there's a moment of silence.",
+              },
+            },
+          },
+        },
+        {
+          line = 140,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Okay.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 142,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"This is the first time we actually have some real origin information on this sucker.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 144,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"We're going to get to work on this, ",
+                {
+                  t = "insert",
+                  rv = {
+                    t = "call",
+                    method = "pc_first_name",
+                    args = {},
+                    line = 0,
+                  },
+                },
+                ".\"",
+              },
+            },
+          },
+        },
+        {
+          line = 146,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Great fucking work as always.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 148,
+          body = {
+            t = "beat",
+            attribution = "cdc",
+            text = {
+              parts = {
+                "\"Daniel Chidi at CDC, over and out.\"",
+              },
+            },
+          },
+        },
+        {
+          line = 149,
+          body = {
+            t = "exit",
+          },
+        },
+      },
+    },
+    {
+      tag = "back",
+      line = 151,
+      members = {
+        {
+          line = 153,
+          body = {
+            t = "go",
+            module = "cdc.ska",
+            start_in = "router",
+          },
+        },
+      },
     },
   },
 }

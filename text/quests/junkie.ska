@@ -1,5 +1,153 @@
 # start
 
---- backstory and setup
---- go to the Muldraugh PD
---- analysis
+(? get_quest("junkie") == 0) -> tri_results
+(? get_quest("junkie") == 1) -> return
+(? get_quest("junkie") == 2) -> resume
+-> back
+
+# tri_results
+
+cdc: "So we've gone over the three samples you analyzed for us in detail."
+
+cdc: "We are now confident in saying that the drug velvet and the military substance are *both* ancestors of the z strain -- although from your descriptions, there's something very odd about the military one."
+
+cdc: "And based on your dissection of the brain, we know that whatever this stuff is, the Knox Zone is where it started."
+
+> We didn't know that from the zombie meat?
+
+cdc: "There's something different about how the z strain manifests in the brain. It acts more ... neurologically. We saw that here in Atlanta as well."
+
+cdc: "Basically the patterns come through stronger in the brain matter, as you yourself no doubt witnessed."
+
+cdc: "What you saw in your observations just confirms that the Z you have there is more 'dynamic' in a way that indicates that whatever cross-pollination happened to cause all of this is *somehow still happening*."
+
+> Oh. Fuck.
+
+cdc: "Exactly."
+
+> Ok, so tell me about the junkie.
+  -> intro
+
+# intro
+
+cdc: "We have a report in our database that came in from Muldraugh PD just a few days before the Event started there in the Knox Zone. A local junkie had apparently overdosed on Velvet, but somehow wasn't dead ..."
+
+cdc: "Or at least, didn't *seem* to be dead."
+
+cdc: "Apparently there were some *death-like symptoms*."
+
+cdc: "But the body was still animate, although the person was catatonic and never became responsive."
+
+cdc: "Our theory is that this is a rare 'pure' pre-Z strain -- a partially animate corpse, but one that lacks all of the aggression and intent of the actual Z strain."
+
+cdc: "We're pretty sure the body is still in the morgue of the Muldraugh Police Department. We're hoping the examination notes are down there too."
+
+> Got it.
+
+cdc: "Based on our records, the morgue is in the basement. Check the body coolers until you find the right one. Young white male in a yellow shirt, based on the report the police faxed over. Might look like a zombie, but won't be animate."
+
+cdc: "Take a meat sample (bring a knife) and a brain sample (hatchet or saw). Then get them back to the microscope and give us a call."
+
+cdc: "The Chief Examiner's office is likely going to be adjoining the morgue -- just search desks, cabinets, etc. until you find something on this case."
+
+> I'll get it done.
+
+~ set_quest("junkie", 1)
+
+cdc: "Excellent."
+
+cdc: "In that case, as always, may the old gods protect you."
+
+cdc: "I'll be waiting for your call."
+
+cdc: "Daniel Chidi, CDC. Over and out."
+EXIT
+
+# return
+
+cdc: "What do you need?"
+
+> Where do I find the overdose victim's body?
+  cdc: "Based on our records, the morgue is in the basement. Check the body coolers until you find the right one. Young white male, based on the report the police faxed over. Might look like a zombie, but won't be animate."
+  cdc: "Take a meat sample (bring a knife) and a brain sample (hatchet or saw). Then get them back to the microscope and give us a call."
+  -> return
+> Where would the Chief Examiner's office be?
+  cdc: "The Chief Examiner's office is likely going to be adjoining the morgue -- just search desks, cabinets, etc. until you find something on this case."
+  -> return
+> I need both the samples and the notes?
+  cdc: "If at all possible, yes. The notes might have critical information on what this looked like up front. If we can compare that with what we've observed in the Z strain, we might be able to nail down more accurately what's happening on a cellular level."
+  -> return
+> (? has_item("ODVictimMeat") and has_item("ODVictimBrain") and has_item("MedicalExaminerNotes")) I have the samples and the notes!
+  -> process
+> That's all for now.
+  GO cdc.ska -> router
+
+# resume
+
+cdc: "Ready to resume the analysis?"
+
+> Yep.
+  -> perform_work
+
+# process
+
+cdc: "Excellent. And a microscope nearby?"
+
+> (? radio_has_microscope()) Yep.
+  -> proc_continue
+> Whoops. Not yet.
+  -> return
+
+# proc_continue
+
+cdc: "Great. Let's get started ..."
+~ set_quest("junkie", 2)
+-> perform_work
+
+# perform_work
+
+cdc: "Perfect. Let's start with the samples ..."
+
+~ do_job("junkie", 0.17) --- job takes ten min, bc boring otherwise
+
+You examine both the muscle and brain samples under the microscope, describing what you see to Daniel and answering his questions.
+
+There is movement, a pulse like the regular zombie samples, but much, much slower, like a sleeping heartbeat.
+
+cdc: "Damn. Okay. So this is clearly the same *kind* of thing as the Z strain, but lacking all of the animative properties."
+
+cdc: "In other words, it's almost like a dead body in a zombie coma."
+
+cdc: "Not one that, you know. Is trying to eat you."
+
+cdc: "And the notes?"
+
+> :read out the notes:
+
+Daniel pays special attention when you go through the dense, scientific details on the last page. You can hear the rustling of other people there, too, gathered around the station on Daniel's end.
+
+Your heart sparks; it seems possible that you are finally doing something useful. Something beyond this short, brutal survival.
+
+~ set_quest("junkie", 100)
+
+Working with the radio and the equipment is also starting to become second nature. You feel much more comfortable with them than you did at the start of all of this.
+
+~ reward_xp("Electricity", 80.0)
+~ reward_xp("Maintenance", 80.0)
+
+When you finish there's a moment of silence.
+
+cdc: "Okay."
+
+cdc: "This is the first time we actually have some real origin information on this sucker."
+
+cdc: "We're going to get to work on this, {pc_first_name()}."
+
+cdc: "Great fucking work as always."
+
+cdc: "Daniel Chidi at CDC, over and out."
+EXIT
+
+# back
+
+GO cdc.ska -> router

@@ -4,6 +4,18 @@ module CDCLastHope
 
     item ZombieMeat
     {
+        DisplayName = Zombie Meat,
+        DisplayCategory = Junk,
+        ItemType = base:normal,
+        Weight = 0.3,
+        Icon = BeefLoin,
+        StaticModel = Beef,
+        WorldStaticModel = Beef,
+    }
+
+    item ODVictimMeat
+    {
+        DisplayName = Overdose Victim Muscle Sample,
         DisplayCategory = Junk,
         ItemType = base:normal,
         Weight = 0.3,
@@ -14,6 +26,7 @@ module CDCLastHope
 
     item VelvetDose
     {
+        DisplayName = Velvet Dose,
         DisplayCategory = FirstAid,
         ItemType = base:normal,
         Weight = 0.1,
@@ -24,6 +37,7 @@ module CDCLastHope
 
     item ZombieBrain
     {
+        DisplayName = Zombie Brain,
         DisplayCategory = Junk,
         ItemType = base:normal,
         Weight = 0.1,
@@ -32,8 +46,31 @@ module CDCLastHope
         WorldStaticModel = Specimen_Brain,
     }
 
+    item ODVictimBrain
+    {
+        DisplayName = Overdose Victim Brain Sample,
+        DisplayCategory = Junk,
+        ItemType = base:normal,
+        Weight = 0.1,
+        Icon = SpecimanJar_Full4,
+        StaticModel = Specimen_Brain,
+        WorldStaticModel = Specimen_Brain,
+    }
+
+    item MedicalExaminerNotes
+    {
+        DisplayName = Muldraugh Medical Examiner Notes,
+        DisplayCategory = Literature,
+        ItemType = base:normal,
+        Weight = 1.0,
+        Icon = Book3,
+        StaticModel = BookLightGreen,
+        WorldStaticModel = BookLightGreen_Ground,
+    }
+
     item SoilSample
     {
+        DisplayName = Soil Sample,
         DisplayCategory = Junk,
         ItemType = base:normal,
         Weight = 0.3,

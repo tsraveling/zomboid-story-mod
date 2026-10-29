@@ -442,7 +442,7 @@ CDCSkaldModules["quests/tri.ska"] = {
             {
               text = {
                 parts = {
-                  "I think I have what I need.",
+                  "I think that's all for now.",
                 },
               },
               members = {
@@ -1058,7 +1058,7 @@ CDCSkaldModules["quests/tri.ska"] = {
                     },
                   },
                 },
-                " the comparison? It'll take about an hour.\"",
+                " the comparison?",
               },
             },
           },
@@ -1156,7 +1156,7 @@ CDCSkaldModules["quests/tri.ska"] = {
               },
               {
                 t = "float",
-                v = 1.0,
+                v = 0.170000002,
               },
             },
           },
@@ -1168,7 +1168,7 @@ CDCSkaldModules["quests/tri.ska"] = {
             attribution = "",
             text = {
               parts = {
-                "You spend an hour carefully placing the samples on slides under Daniel's supervision and staging them into the microscope. You have no context for what you're seeing, but the most disturbing thing is that all three samples seem *alive*.",
+                "You carefully place the samples on slides under Daniel's supervision and staging them into the microscope. You have no context for what you're seeing, but the most disturbing thing is that all three samples seem *alive*.",
               },
             },
           },
@@ -1216,13 +1216,37 @@ CDCSkaldModules["quests/tri.ska"] = {
             attribution = "",
             text = {
               parts = {
-                "You're not entirely sure what it means, but this is certainly some kind of breakthrough.",
+                "The thin slices of brain are the most unsettling. Clearly still active, with strange signal pulses running through it. Echoes of both of the other samples, but somehow more \"living\".",
               },
             },
           },
         },
         {
           line = 154,
+          body = {
+            t = "beat",
+            attribution = "",
+            text = {
+              parts = {
+                "Even compared to the zombie meat, the brain tissue under the scope seems almost to be boiling.",
+              },
+            },
+          },
+        },
+        {
+          line = 156,
+          body = {
+            t = "beat",
+            attribution = "",
+            text = {
+              parts = {
+                "You're not entirely sure what it means, but this is certainly some kind of breakthrough.",
+              },
+            },
+          },
+        },
+        {
+          line = 158,
           body = {
             t = "call",
             method = "reward_xp",
@@ -1239,7 +1263,7 @@ CDCSkaldModules["quests/tri.ska"] = {
           },
         },
         {
-          line = 155,
+          line = 159,
           body = {
             t = "call",
             method = "set_quest",
@@ -1256,7 +1280,7 @@ CDCSkaldModules["quests/tri.ska"] = {
           },
         },
         {
-          line = 157,
+          line = 161,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -1278,7 +1302,7 @@ CDCSkaldModules["quests/tri.ska"] = {
           },
         },
         {
-          line = 159,
+          line = 163,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -1290,7 +1314,7 @@ CDCSkaldModules["quests/tri.ska"] = {
           },
         },
         {
-          line = 161,
+          line = 165,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -1312,7 +1336,7 @@ CDCSkaldModules["quests/tri.ska"] = {
           },
         },
         {
-          line = 162,
+          line = 166,
           body = {
             t = "exit",
           },
@@ -1321,10 +1345,10 @@ CDCSkaldModules["quests/tri.ska"] = {
     },
     {
       tag = "back",
-      line = 164,
+      line = 168,
       members = {
         {
-          line = 166,
+          line = 170,
           body = {
             t = "go",
             module = "cdc.ska",

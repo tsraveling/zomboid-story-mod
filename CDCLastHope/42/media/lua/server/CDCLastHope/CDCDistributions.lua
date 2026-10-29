@@ -14,4 +14,6 @@ local function inject()
     end
 end
 
-Events.OnPreDistributionMerge.Add(inject)
+CDC.bind("distributions", function()
+    Events.OnPreDistributionMerge.Add(inject)
+end)

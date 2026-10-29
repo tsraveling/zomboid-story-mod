@@ -175,5 +175,31 @@ function Dbg.fill(player, context, squares)
         end)
     end
 
+    local plOpt = menu:addOption("Reset placement")
+    local plMenu = ISContextMenu:getNew(context)
+    menu:addSubMenu(plOpt, plMenu)
+    for _, p in ipairs(CDC.story.world.placements) do
+        local done = (st.placed or {})[p.id] and " [placed]" or ""
+        plMenu:addOption(p.id .. done, player, function(pl)
+            Dbg.send(pl, { op = "resetPlacement", id = p.id })
+            if CDC.Placement then
+                CDC.Placement.tries[p.id] = nil
+                CDC.Placement.asks[p.id] = nil
+            end
+        end)
+    end
+    if #CDC.story.world.placements == 0 then plMenu:addOption("(none)").notAvailable = true end
+
+    local lkOpt = menu:addOption("Reset locker")
+    local lkMenu = ISContextMenu:getNew(context)
+    menu:addSubMenu(lkOpt, lkMenu)
+    for _, l in ipairs(CDC.story.world.lockers) do
+        local used = (st.lockers or {})[l.id] and " [used]" or ""
+        lkMenu:addOption(l.id .. used, player, function(pl)
+            Dbg.send(pl, { op = "resetLocker", id = l.id })
+        end)
+    end
+    if #CDC.story.world.lockers == 0 then lkMenu:addOption("(none)").notAvailable = true end
+
     menu:addOption("RESET WORLD STATE", player, function(pl) Dbg.send(pl, { op = "reset" }) end)
 end

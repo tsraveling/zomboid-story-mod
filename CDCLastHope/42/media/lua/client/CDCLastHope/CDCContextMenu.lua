@@ -2,10 +2,12 @@ if isServer() then return end
 require "CDCLastHope/CDCClient"
 require "CDCLastHope/CDCWorld"
 require "CDCLastHope/CDCDialogue"
+require "CDCLastHope/CDCModal"
 require "CDCLastHope/TimedActions/ISCDCTransmitAction"
 require "CDCLastHope/TimedActions/ISCDCPickupAction"
 require "CDCLastHope/TimedActions/ISCDCCorpseAction"
 require "CDCLastHope/TimedActions/ISCDCGroundAction"
+require "CDCLastHope/TimedActions/ISCDCLockerAction"
 
 CDC.Menu = {}
 local M = CDC.Menu
@@ -59,6 +61,12 @@ end
 function M.ground(player, def, square)
     if luautils.walkAdj(player, square) then
         ISTimedActionQueue.add(ISCDCGroundAction:new(player, def, square))
+    end
+end
+
+function M.locker(player, def, square)
+    if luautils.walkAdj(player, square) then
+        ISTimedActionQueue.add(ISCDCLockerAction:new(player, def, square))
     end
 end
 
@@ -122,12 +130,35 @@ function M.addPickupOptions(player, context, squares)
     end
 end
 
+-- not gated on isActive: the morgue is searchable whatever the story is doing
+function M.addLockerOptions(player, context, squares)
+    for _, def in ipairs(CDC.story.world.lockers or {}) do
+        for _, sq in ipairs(squares) do
+            if onTile(def, sq) then
+                context:addOption(def.label or "Check locker", player, M.locker, def, sq)
+                break
+            end
+        end
+    end
+end
+
+-- only the server's copy of a body carries the flag; everyone else matches on
+-- the square the quest corpse was recorded at
+local function corpseFlag(body)
+    local flag = body:getModData().CDCCorpse
+    if flag then return flag end
+    local sq = body:getSquare()
+    if not sq then return nil end
+    return CDC.State.corpseAt(CDC.State.get(), sq:getX(), sq:getY(), sq:getZ())
+end
+
 function M.addCorpseOptions(player, context)
     local body = ISWorldObjectContextMenu.fetchVars and ISWorldObjectContextMenu.fetchVars.body
     if not body or body:isAnimal() then return end
+    local flag = corpseFlag(body)
     local ctx = CDC.Context.new(player, nil)
     for _, def in ipairs(CDC.story.world.corpseActions) do
-        if def.cond == nil or def.cond(ctx) then
+        if def.corpse == flag and (def.cond == nil or def.cond(ctx)) then
             local opt = context:addOption(def.label or def.id, player, M.corpse, def, body)
             if def.requires and not CDC.findTool(player:getInventory(), def.requires) then
                 opt.notAvailable = true
@@ -153,6 +184,34 @@ function M.addGroundOptions(player, context, squares)
     end
 end
 
+function M.read(player, def)
+    CDC.Modal.show(player, def.text)
+end
+
+-- entries are either an item or a stack table
+local function selectedItems(items)
+    local out = {}
+    for _, v in ipairs(items) do
+        if not instanceof(v, "InventoryItem") then v = v.items and v.items[1] end
+        if v then table.insert(out, v) end
+    end
+    return out
+end
+
+function M.onFillInventory(playerNum, context, items)
+    local player = getSpecificPlayer(playerNum)
+    if not player then return end
+    local seen = {}
+    for _, item in ipairs(selectedItems(items)) do
+        local full = item:getFullType()
+        if not seen[full] then
+            seen[full] = true
+            local def = CDC.Story.readable(full)
+            if def then context:addOption(def.label or "Read", player, M.read, def) end
+        end
+    end
+end
+
 function M.onFill(playerNum, context, worldobjects, test)
     if test then return end
     local player = getSpecificPlayer(playerNum)
@@ -163,6 +222,7 @@ function M.onFill(playerNum, context, worldobjects, test)
     for _, radio in ipairs(hamRadiosOn(squares)) do
         M.addRadioOptions(player, context, radio, active)
     end
+    M.addLockerOptions(player, context, squares)
     if active then
         M.addPickupOptions(player, context, squares)
         M.addCorpseOptions(player, context)
@@ -171,4 +231,11 @@ function M.onFill(playerNum, context, worldobjects, test)
     if CDC.Debug then CDC.Debug.fill(player, context, squares) end
 end
 
-Events.OnFillWorldObjectContextMenu.Add(M.onFill)
+CDC.bind("menu", function()
+    Events.OnFillWorldObjectContextMenu.Add(function(pn, context, objs, test)
+        CDC.Menu.onFill(pn, context, objs, test)
+    end)
+    Events.OnFillInventoryObjectContextMenu.Add(function(pn, context, items)
+        CDC.Menu.onFillInventory(pn, context, items)
+    end)
+end)
