@@ -6,9 +6,7 @@ CDC.Server = {}
 local Srv = CDC.Server
 local S = CDC.State
 
-local function sync()
-    if isServer() then ModData.transmit(CDC.MODDATA_KEY) end
-end
+local sync = CDC.sync
 
 local function reply(player, cmd, args)
     if isServer() then
@@ -233,6 +231,7 @@ function Srv.handlers.debug(player, args)
         st.placed[args.id] = nil
     elseif args.op == "resetLocker" then
         st.lockers[args.id] = nil
+        if st.corpses then st.corpses[args.id] = nil end
     elseif args.op == "spawn" then
         giveItem(player, args.item)
     end

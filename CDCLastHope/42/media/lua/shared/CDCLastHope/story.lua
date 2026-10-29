@@ -36,7 +36,7 @@ CDC.story = {
     },
   },
 
-  items = { "CDCLastHope.ZombieMeat", "CDCLastHope.VelvetDose", "CDCLastHope.ZombieBrain", "CDCLastHope.SoilSample", "Base.Mov_Microscope", "Base.Mov_DesktopComputer" },
+  items = { "CDCLastHope.ZombieMeat", "CDCLastHope.VelvetDose", "CDCLastHope.ZombieBrain", "CDCLastHope.SoilSample", "CDCLastHope.ODVictimMeat", "CDCLastHope.ODVictimBrain", "CDCLastHope.MedicalExaminerNotes", "Base.Mov_Microscope", "Base.Mov_DesktopComputer" },
 
   world = {
     pickups = {

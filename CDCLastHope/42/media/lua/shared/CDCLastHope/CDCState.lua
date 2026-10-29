@@ -5,10 +5,10 @@ local S = CDC.State
 
 -- met[1] / dead entries: { first, last }; met[1] is the character CDC spoke to most recently
 local function blank()
-    return { quests = {}, jobs = {}, met = {}, dead = {}, pickups = {}, placed = {}, lockers = {}, txlog = {}, meta = { forceActive = false, seq = 0 } }
+    return { quests = {}, jobs = {}, met = {}, dead = {}, pickups = {}, placed = {}, lockers = {}, corpses = {}, txlog = {}, meta = { forceActive = false, seq = 0 } }
 end
 
-local SCHEMA = 4
+local SCHEMA = 5
 
 -- v1 kept quest stages as flags ("quest_first" = 1)
 local function migrate(d)
@@ -54,6 +54,15 @@ end
 
 function S.job(st, key)
     return st.jobs[key]
+end
+
+-- a corpse the client built itself never carries the flag the server put on
+-- the zombie, so the square it came to rest on is what identifies it
+function S.corpseAt(st, x, y, z)
+    for _, c in pairs(st.corpses or {}) do
+        if c.x == x and c.y == y and c.z == z then return c.corpse end
+    end
+    return nil
 end
 
 function S.jobDone(st, key)
@@ -111,6 +120,12 @@ function S.ops.dead(st, op)
     if not indexOf(st.dead, op.first, op.last) then
         table.insert(st.dead, { first = op.first, last = op.last })
     end
+end
+
+-- { id, x, y, z, corpse }
+function S.ops.corpse(st, op)
+    st.corpses = st.corpses or {}
+    st.corpses[op.id] = { x = op.x, y = op.y, z = op.z, corpse = op.corpse }
 end
 
 function S.ops.clearPeople(st)

@@ -129,6 +129,11 @@ Your heart sparks; it seems possible that you are finally doing something useful
 
 ~ set_quest("junkie", 100)
 
+Working with the radio and the equipment is also starting to become second nature. You feel much more comfortable with them than you did at the start of all of this.
+
+~ reward_xp("Electricity", 80.0)
+~ reward_xp("Maintenance", 80.0)
+
 When you finish there's a moment of silence.
 
 cdc: "Okay."

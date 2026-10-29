@@ -16,7 +16,7 @@ Sample the junkie corpse and retrieve ME records
 - [x] Seed notes item upon arrival at PD
 - [x] Fix PLACEHOLDERS
 - [x] cdc.ska ingress for states 1 and 2
-- [ ] Quest status values for 1 and 2
+- [x] Quest status values for 1 and 2
 - [ ] Test and wrap
 
 # March Ridge Scientist

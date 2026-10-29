@@ -31,6 +31,11 @@ function CDC.bind(key, fn)
     fn()
 end
 
+-- push the shared table to every client; nothing to do off the server
+function CDC.sync()
+    if isServer() then ModData.transmit(CDC.MODDATA_KEY) end
+end
+
 function CDC.log(msg)
     print("[CDCLastHope] " .. tostring(msg))
 end

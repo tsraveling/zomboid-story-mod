@@ -142,10 +142,20 @@ function M.addLockerOptions(player, context, squares)
     end
 end
 
+-- only the server's copy of a body carries the flag; everyone else matches on
+-- the square the quest corpse was recorded at
+local function corpseFlag(body)
+    local flag = body:getModData().CDCCorpse
+    if flag then return flag end
+    local sq = body:getSquare()
+    if not sq then return nil end
+    return CDC.State.corpseAt(CDC.State.get(), sq:getX(), sq:getY(), sq:getZ())
+end
+
 function M.addCorpseOptions(player, context)
     local body = ISWorldObjectContextMenu.fetchVars and ISWorldObjectContextMenu.fetchVars.body
     if not body or body:isAnimal() then return end
-    local flag = body:getModData().CDCCorpse
+    local flag = corpseFlag(body)
     local ctx = CDC.Context.new(player, nil)
     for _, def in ipairs(CDC.story.world.corpseActions) do
         if def.corpse == flag and (def.cond == nil or def.cond(ctx)) then

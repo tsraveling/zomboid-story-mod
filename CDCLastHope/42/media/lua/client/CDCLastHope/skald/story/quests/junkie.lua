@@ -498,7 +498,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
                     attribution = "cdc",
                     text = {
                       parts = {
-                        "\"Based on our records, the morgue is in the basement. Check the body coolers until you find the right one. Young white male in a yellow shirt, based on the report the police faxed over. Might look like a zombie, but won't be animate.\"",
+                        "\"Based on our records, the morgue is in the basement. Check the body coolers until you find the right one. Young white male, based on the report the police faxed over. Might look like a zombie, but won't be animate.\"",
                       },
                     },
                   },
@@ -996,13 +996,59 @@ CDCSkaldModules["quests/junkie.ska"] = {
             attribution = "",
             text = {
               parts = {
-                "When you finish there's a moment of silence.",
+                "Working with the radio and the equipment is also starting to become second nature. You feel much more comfortable with them than you did at the start of all of this.",
               },
             },
           },
         },
         {
           line = 134,
+          body = {
+            t = "call",
+            method = "reward_xp",
+            args = {
+              {
+                t = "str",
+                v = "Electricity",
+              },
+              {
+                t = "float",
+                v = 80.0,
+              },
+            },
+          },
+        },
+        {
+          line = 135,
+          body = {
+            t = "call",
+            method = "reward_xp",
+            args = {
+              {
+                t = "str",
+                v = "Maintenance",
+              },
+              {
+                t = "float",
+                v = 80.0,
+              },
+            },
+          },
+        },
+        {
+          line = 137,
+          body = {
+            t = "beat",
+            attribution = "",
+            text = {
+              parts = {
+                "When you finish there's a moment of silence.",
+              },
+            },
+          },
+        },
+        {
+          line = 139,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -1014,7 +1060,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 136,
+          line = 141,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -1026,7 +1072,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 138,
+          line = 143,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -1048,7 +1094,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 140,
+          line = 145,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -1060,7 +1106,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 142,
+          line = 147,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -1072,7 +1118,7 @@ CDCSkaldModules["quests/junkie.ska"] = {
           },
         },
         {
-          line = 143,
+          line = 148,
           body = {
             t = "exit",
           },
