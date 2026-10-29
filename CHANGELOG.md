@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.1.4 - 2026-10-29
+#### Steps
+- junkie quest theoretically done - (8f81b44) - Tim Raveling
+- started building out junkie quest reqs - (69ce3c0) - Tim Raveling
+#### Bug Fixes
+- final junkie quest tweaks - (758a97f) - Tim Raveling
+- junkie corpse spawn now working on mp server - (b299060) - Tim Raveling
+
+- - -
+
 ## v0.1.3 - 2026-10-27
 #### Bug Fixes
 - tweaked quest status text for tri qust - (754b708) - Tim Raveling
