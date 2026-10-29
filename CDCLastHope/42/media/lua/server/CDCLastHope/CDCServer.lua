@@ -6,7 +6,7 @@ CDC.Server = {}
 local Srv = CDC.Server
 local S = CDC.State
 
-local sync = CDC.sync
+local function sync() CDC.sync() end
 
 local function reply(player, cmd, args)
     if isServer() then
@@ -86,11 +86,13 @@ Srv.handlers = {}
 
 -- args: ops = { {type, ...} }; see CDC.State.ops
 local DEBUG_OPS = { clearJob = true, clearPeople = true }
+-- written server-side by the spawn watcher; never taken from a client
+local LOCAL_OPS = { corpse = true }
 
 function Srv.handlers.state(player, args)
     local st = S.get()
     for _, op in ipairs(args.ops or {}) do
-        if not DEBUG_OPS[op.type] or CDC.isDebug() then S.apply(st, op) end
+        if not LOCAL_OPS[op.type] and (not DEBUG_OPS[op.type] or CDC.isDebug()) then S.apply(st, op) end
     end
     sync()
 end

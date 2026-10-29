@@ -5,6 +5,9 @@ Timeline: None
 ```
 
 # Junkie Body
+```
+Finished: Oct 28 2026
+```
 
 Sample the junkie corpse and retrieve ME records
 
@@ -17,7 +20,7 @@ Sample the junkie corpse and retrieve ME records
 - [x] Fix PLACEHOLDERS
 - [x] cdc.ska ingress for states 1 and 2
 - [x] Quest status values for 1 and 2
-- [ ] Test and wrap
+- [x] Test and wrap
 
 # March Ridge Scientist
 

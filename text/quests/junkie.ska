@@ -3,6 +3,7 @@
 (? get_quest("junkie") == 0) -> tri_results
 (? get_quest("junkie") == 1) -> return
 (? get_quest("junkie") == 2) -> resume
+-> back
 
 # tri_results
 
@@ -147,4 +148,6 @@ cdc: "Great fucking work as always."
 cdc: "Daniel Chidi at CDC, over and out."
 EXIT
 
+# back
 
+GO cdc.ska -> router
