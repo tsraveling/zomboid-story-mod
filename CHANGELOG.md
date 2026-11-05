@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v0.1.5 - 2026-11-05
+#### Bug Fixes
+- fixes zombie meat quest becoming reavailable after completion - (3a63891) - Tim Raveling
+
+- - -
+
 ## v0.1.4 - 2026-10-29
 #### Steps
 - junkie quest theoretically done - (8f81b44) - Tim Raveling
