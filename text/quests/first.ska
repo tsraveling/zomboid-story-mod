@@ -6,6 +6,7 @@
 
 --- NOTE: The edge case where character 1 turns him down and now this is char 2 talking is not really handled here.
 
+
 # reconsider
 
 cdc: "Shit -- really? Have you reconsidered?"
@@ -96,11 +97,15 @@ cdc: "Perfect."
 # meat --- if first:1
 
 --- Lead-in: > About the zombie meat ...
+--- TODO: Remove the dev exit below
 
 cdc: "Yeah -- were you able to get a sample?"
 
 > (? has_item("ZombieMeat")) (Zombie Meat) I have it.
   -> complete
+> Actually, I think we already did this.
+  ~ set_quest("first", 100)
+  -> back
 > Not yet.
   cdc: "No worries. Just keep me posted."
   -> back

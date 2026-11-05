@@ -7,7 +7,7 @@ local Q = CDC.Quests
 
 -- @region codex:quest_available
 Q.available = {
-  first = function() return true end,
+  first = function() return CDC.State.quest(CDC.State.get(), "first") < 100 end,
   tri = function() return Q.isDone("first") end,
   junkie = function() return Q.isDone("tri") end,
 }

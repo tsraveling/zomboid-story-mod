@@ -104,10 +104,10 @@ CDCSkaldModules["quests/first.ska"] = {
     },
     {
       tag = "reconsider",
-      line = 9,
+      line = 10,
       members = {
         {
-          line = 11,
+          line = 12,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -120,7 +120,7 @@ CDCSkaldModules["quests/first.ska"] = {
         },
         {
           t = "choices",
-          line = 13,
+          line = 14,
           choices = {
             {
               text = {
@@ -130,14 +130,14 @@ CDCSkaldModules["quests/first.ska"] = {
               },
               members = {
                 {
-                  line = 14,
+                  line = 15,
                   body = {
                     t = "move",
                     target = "accept",
                   },
                 },
               },
-              line = 13,
+              line = 14,
             },
             {
               text = {
@@ -147,7 +147,7 @@ CDCSkaldModules["quests/first.ska"] = {
               },
               members = {
                 {
-                  line = 16,
+                  line = 17,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -159,14 +159,14 @@ CDCSkaldModules["quests/first.ska"] = {
                   },
                 },
                 {
-                  line = 17,
+                  line = 18,
                   body = {
                     t = "move",
                     target = "back",
                   },
                 },
               },
-              line = 15,
+              line = 16,
             },
           },
         },
@@ -174,10 +174,10 @@ CDCSkaldModules["quests/first.ska"] = {
     },
     {
       tag = "accept",
-      line = 19,
+      line = 20,
       members = {
         {
-          line = 21,
+          line = 22,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -189,7 +189,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 23,
+          line = 24,
           body = {
             t = "call",
             method = "set_quest",
@@ -206,7 +206,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 25,
+          line = 26,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -228,7 +228,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 27,
+          line = 28,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -241,7 +241,7 @@ CDCSkaldModules["quests/first.ska"] = {
         },
         {
           t = "choices",
-          line = 29,
+          line = 30,
           choices = {
             {
               text = {
@@ -250,12 +250,12 @@ CDCSkaldModules["quests/first.ska"] = {
                 },
               },
               members = {},
-              line = 29,
+              line = 30,
             },
           },
         },
         {
-          line = 31,
+          line = 32,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -268,7 +268,7 @@ CDCSkaldModules["quests/first.ska"] = {
         },
         {
           t = "choices",
-          line = 33,
+          line = 34,
           choices = {
             {
               cond = {
@@ -302,7 +302,7 @@ CDCSkaldModules["quests/first.ska"] = {
               },
               members = {
                 {
-                  line = 34,
+                  line = 35,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -314,7 +314,7 @@ CDCSkaldModules["quests/first.ska"] = {
                   },
                 },
               },
-              line = 33,
+              line = 34,
             },
             {
               text = {
@@ -324,7 +324,7 @@ CDCSkaldModules["quests/first.ska"] = {
               },
               members = {
                 {
-                  line = 36,
+                  line = 37,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -336,12 +336,12 @@ CDCSkaldModules["quests/first.ska"] = {
                   },
                 },
               },
-              line = 35,
+              line = 36,
             },
           },
         },
         {
-          line = 38,
+          line = 39,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -353,7 +353,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 40,
+          line = 41,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -365,7 +365,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 42,
+          line = 43,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -378,7 +378,7 @@ CDCSkaldModules["quests/first.ska"] = {
         },
         {
           t = "choices",
-          line = 44,
+          line = 45,
           choices = {
             {
               text = {
@@ -387,12 +387,12 @@ CDCSkaldModules["quests/first.ska"] = {
                 },
               },
               members = {},
-              line = 44,
+              line = 45,
             },
           },
         },
         {
-          line = 46,
+          line = 47,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -405,7 +405,7 @@ CDCSkaldModules["quests/first.ska"] = {
         },
         {
           t = "choices",
-          line = 48,
+          line = 49,
           choices = {
             {
               cond = {
@@ -439,7 +439,7 @@ CDCSkaldModules["quests/first.ska"] = {
               },
               members = {
                 {
-                  line = 49,
+                  line = 50,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -451,7 +451,7 @@ CDCSkaldModules["quests/first.ska"] = {
                   },
                 },
                 {
-                  line = 50,
+                  line = 51,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -473,7 +473,7 @@ CDCSkaldModules["quests/first.ska"] = {
                   },
                 },
                 {
-                  line = 51,
+                  line = 52,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -485,7 +485,7 @@ CDCSkaldModules["quests/first.ska"] = {
                   },
                 },
               },
-              line = 48,
+              line = 49,
             },
             {
               text = {
@@ -495,7 +495,7 @@ CDCSkaldModules["quests/first.ska"] = {
               },
               members = {
                 {
-                  line = 53,
+                  line = 54,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -507,12 +507,12 @@ CDCSkaldModules["quests/first.ska"] = {
                   },
                 },
               },
-              line = 52,
+              line = 53,
             },
           },
         },
         {
-          line = 55,
+          line = 56,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -524,7 +524,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 56,
+          line = 57,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -537,7 +537,7 @@ CDCSkaldModules["quests/first.ska"] = {
         },
         {
           t = "choices",
-          line = 58,
+          line = 59,
           choices = {
             {
               text = {
@@ -546,12 +546,12 @@ CDCSkaldModules["quests/first.ska"] = {
                 },
               },
               members = {},
-              line = 58,
+              line = 59,
             },
           },
         },
         {
-          line = 60,
+          line = 61,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -563,7 +563,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 62,
+          line = 63,
           body = {
             t = "call",
             method = "set_quest",
@@ -581,7 +581,7 @@ CDCSkaldModules["quests/first.ska"] = {
         },
         {
           t = "choices",
-          line = 64,
+          line = 65,
           choices = {
             {
               text = {
@@ -590,12 +590,12 @@ CDCSkaldModules["quests/first.ska"] = {
                 },
               },
               members = {},
-              line = 64,
+              line = 65,
             },
           },
         },
         {
-          line = 66,
+          line = 67,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -617,7 +617,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 68,
+          line = 69,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -629,7 +629,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 70,
+          line = 71,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -642,7 +642,7 @@ CDCSkaldModules["quests/first.ska"] = {
         },
         {
           t = "choices",
-          line = 72,
+          line = 73,
           choices = {
             {
               text = {
@@ -651,12 +651,12 @@ CDCSkaldModules["quests/first.ska"] = {
                 },
               },
               members = {},
-              line = 72,
+              line = 73,
             },
           },
         },
         {
-          line = 74,
+          line = 75,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -668,7 +668,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 76,
+          line = 77,
           body = {
             t = "beat",
             attribution = "radio",
@@ -680,7 +680,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 78,
+          line = 79,
           body = {
             t = "exit",
           },
@@ -689,10 +689,10 @@ CDCSkaldModules["quests/first.ska"] = {
     },
     {
       tag = "resume",
-      line = 80,
+      line = 81,
       members = {
         {
-          line = 82,
+          line = 83,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -705,7 +705,7 @@ CDCSkaldModules["quests/first.ska"] = {
         },
         {
           t = "choices",
-          line = 84,
+          line = 85,
           choices = {
             {
               cond = {
@@ -734,7 +734,7 @@ CDCSkaldModules["quests/first.ska"] = {
                 },
               },
               members = {},
-              line = 84,
+              line = 85,
             },
             {
               text = {
@@ -744,7 +744,7 @@ CDCSkaldModules["quests/first.ska"] = {
               },
               members = {
                 {
-                  line = 86,
+                  line = 87,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -756,14 +756,14 @@ CDCSkaldModules["quests/first.ska"] = {
                   },
                 },
                 {
-                  line = 87,
+                  line = 88,
                   body = {
                     t = "move",
                     target = "back",
                   },
                 },
               },
-              line = 85,
+              line = 86,
             },
             {
               text = {
@@ -773,7 +773,7 @@ CDCSkaldModules["quests/first.ska"] = {
               },
               members = {
                 {
-                  line = 89,
+                  line = 90,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -785,19 +785,19 @@ CDCSkaldModules["quests/first.ska"] = {
                   },
                 },
                 {
-                  line = 90,
+                  line = 91,
                   body = {
                     t = "move",
                     target = "back",
                   },
                 },
               },
-              line = 88,
+              line = 89,
             },
           },
         },
         {
-          line = 92,
+          line = 93,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -809,7 +809,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 94,
+          line = 95,
           body = {
             t = "move",
             target = "job",
@@ -819,10 +819,10 @@ CDCSkaldModules["quests/first.ska"] = {
     },
     {
       tag = "meat",
-      line = 96,
+      line = 97,
       members = {
         {
-          line = 100,
+          line = 102,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -835,7 +835,7 @@ CDCSkaldModules["quests/first.ska"] = {
         },
         {
           t = "choices",
-          line = 102,
+          line = 104,
           choices = {
             {
               cond = {
@@ -865,14 +865,48 @@ CDCSkaldModules["quests/first.ska"] = {
               },
               members = {
                 {
-                  line = 103,
+                  line = 105,
                   body = {
                     t = "move",
                     target = "complete",
                   },
                 },
               },
-              line = 102,
+              line = 104,
+            },
+            {
+              text = {
+                parts = {
+                  "Actually, I think we already did this.",
+                },
+              },
+              members = {
+                {
+                  line = 107,
+                  body = {
+                    t = "call",
+                    method = "set_quest",
+                    args = {
+                      {
+                        t = "str",
+                        v = "first",
+                      },
+                      {
+                        t = "int",
+                        v = 100,
+                      },
+                    },
+                  },
+                },
+                {
+                  line = 108,
+                  body = {
+                    t = "move",
+                    target = "back",
+                  },
+                },
+              },
+              line = 106,
             },
             {
               text = {
@@ -882,7 +916,7 @@ CDCSkaldModules["quests/first.ska"] = {
               },
               members = {
                 {
-                  line = 105,
+                  line = 110,
                   body = {
                     t = "beat",
                     attribution = "cdc",
@@ -894,14 +928,14 @@ CDCSkaldModules["quests/first.ska"] = {
                   },
                 },
                 {
-                  line = 106,
+                  line = 111,
                   body = {
                     t = "move",
                     target = "back",
                   },
                 },
               },
-              line = 104,
+              line = 109,
             },
           },
         },
@@ -909,10 +943,10 @@ CDCSkaldModules["quests/first.ska"] = {
     },
     {
       tag = "complete",
-      line = 108,
+      line = 113,
       members = {
         {
-          line = 110,
+          line = 115,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -924,7 +958,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 111,
+          line = 116,
           body = {
             t = "move",
             target = "job",
@@ -934,10 +968,10 @@ CDCSkaldModules["quests/first.ska"] = {
     },
     {
       tag = "job",
-      line = 113,
+      line = 118,
       members = {
         {
-          line = 115,
+          line = 120,
           body = {
             t = "call",
             method = "do_job",
@@ -954,7 +988,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 116,
+          line = 121,
           body = {
             t = "call",
             method = "reward_xp",
@@ -971,7 +1005,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 117,
+          line = 122,
           body = {
             t = "call",
             method = "reward_xp",
@@ -988,7 +1022,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 118,
+          line = 123,
           body = {
             t = "call",
             method = "set_quest",
@@ -1005,7 +1039,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 120,
+          line = 125,
           body = {
             t = "beat",
             attribution = "",
@@ -1017,7 +1051,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 122,
+          line = 127,
           body = {
             t = "beat",
             attribution = "",
@@ -1029,7 +1063,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 124,
+          line = 129,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -1041,7 +1075,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 125,
+          line = 130,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -1053,7 +1087,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 126,
+          line = 131,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -1065,7 +1099,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 127,
+          line = 132,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -1077,7 +1111,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 128,
+          line = 133,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -1099,7 +1133,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 129,
+          line = 134,
           body = {
             t = "beat",
             attribution = "cdc",
@@ -1111,7 +1145,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 130,
+          line = 135,
           body = {
             t = "beat",
             attribution = "radio",
@@ -1123,7 +1157,7 @@ CDCSkaldModules["quests/first.ska"] = {
           },
         },
         {
-          line = 131,
+          line = 136,
           body = {
             t = "exit",
           },
@@ -1132,10 +1166,10 @@ CDCSkaldModules["quests/first.ska"] = {
     },
     {
       tag = "back",
-      line = 133,
+      line = 138,
       members = {
         {
-          line = 135,
+          line = 140,
           body = {
             t = "go",
             module = "cdc.ska",
