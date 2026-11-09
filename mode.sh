@@ -27,7 +27,11 @@ status() {
     else
         echo "mode: workshop"
     fi
-    if [[ -d "$HIDDEN" ]]; then
+    if [[ -d "$HIDDEN" && -d "$STEAM_COPY" ]]; then
+        echo "steam copy: hidden in $HIDDEN"
+        echo "ERROR: Steam re-downloaded $STEAM_COPY; it shadows the symlink and the game is loading it" >&2
+        echo "  delete that directory and unsubscribe from ${WORKSHOP_ID:-?}, or run: $0 workshop" >&2
+    elif [[ -d "$HIDDEN" ]]; then
         echo "steam copy: hidden in $HIDDEN"
     elif [[ -d "$STEAM_COPY" ]]; then
         echo "steam copy: $(stat -f '%Sm' "$STEAM_COPY/mods/CDCLastHope" 2>/dev/null || stat -f '%Sm' "$STEAM_COPY")"

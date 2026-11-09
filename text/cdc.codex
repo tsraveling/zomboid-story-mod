@@ -38,7 +38,7 @@
   --- sets the quest of the given key to the given stage
   set_quest(key string, stage int) action
 
-  --- gets the current stage of the given quest. 0 is always "not started", 1 is always "started", 10 is always "done." Use other numbers for intermediate.
+  --- gets the current stage of the given quest. 0 is always "not started", 1 is always "started", 100 is always "done." Use other numbers for intermediate.
   get_quest(key string) int
 
   --- Fetches the current player's name

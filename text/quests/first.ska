@@ -86,6 +86,9 @@ cdc: "Yeah, perfect. Ready to resume the analysis?"
 > I seem to have misplaced my meat.
   cdc: "Oh. Uh, ok, sure. I guess just let me know when you ... find it."
   -> back
+> Actually, I think we already did this.
+  ~ set_quest("first", 100)
+  -> back
 > Not quite.
   cdc: "Fair enough."
   -> back
@@ -103,9 +106,6 @@ cdc: "Yeah -- were you able to get a sample?"
 
 > (? has_item("ZombieMeat")) (Zombie Meat) I have it.
   -> complete
-> Actually, I think we already did this.
-  ~ set_quest("first", 100)
-  -> back
 > Not yet.
   cdc: "No worries. Just keep me posted."
   -> back

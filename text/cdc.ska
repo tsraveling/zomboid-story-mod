@@ -271,7 +271,10 @@ cdc: "We need you to collect a brain and muscle sample from the Velvet overdose 
 cdc: "We're ready to finish the analysis of the overdose victim's samples whenever you are."
 @endif
 
-cdc: "If you just want to talk, I've got nothing here but time."
+--- MARCH RIDGE JOB
+@if quest_available("march")
+cdc: "We've got a new lead for you on the military side of the Z strain, when you're ready -- a scientist who lived in March Ridge."
+@endif
 
 # router
 
@@ -283,6 +286,8 @@ cdc: "So what did you want to talk about?"
   GO quests/tri.ska
 > (? quest_active("junkie")) About the Velvet overdose victim ...
   GO quests/junkie.ska
+> (? quest_active("march")) About the March Ridge scientist ...
+  GO quests/march.ska
 > I have some other questions.
   GO cdc_talking.ska
 > Any other work I should be doing right now?

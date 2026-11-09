@@ -1,0 +1,48 @@
+# start
+
+(? get_quest("march") == 0) -> last_results
+(? get_quest("march") == 1) -> find_house
+
+# back
+
+GO cdc.ska -> router
+
+# last_results
+
+cdc: "So our analysis of the overdose victim's body in Muldraugh revealed some critical information."
+
+cdc: "Velvet is *definitely* involved with all of this somehow, but it wasn't enough to actually animate the bodies, or cause the aggression we've been seeing."
+
+# intro
+
+cdc: "We want you to investigate the military angle on this next. The details are hazy, but we've made contact with some surviving leadership at the Cheyenne Mountain bunker in Colorado, and they're sharing information with us." 
+
+cdc: "If you want some evidence that the world has ended, there it is. Jesus."
+
+cdc: "Anyway. Their own records are pretty hazy. But they've sent us the address of their chief scientist on what they're calling Project Acorn."
+
+cdc: "Whatever the hell happened down there, he's directly involved. We're hoping if you can find his house in March Ridge, you can find some notes that will give us more information."
+
+> I'm in.
+
+~ set_quest("march", 1)
+
+cdc: "Excellent."
+
+# find_house
+
+cdc: "Any questions?"
+
+> Anything specific I should bring?
+  cdc: "You won't need any special equipment this time."
+  cdc: "But we are recommending you bring a radio with you. We can pass on instructions from the military as needed, depending on what you find."
+  -> find_house
+> How do I find the house?
+  cdc: "It's on the eastern corner of Bradley and Churchill. There's a hedge and a little shed out back. Can't miss it."
+  -> find_house
+> What's the deal with March Ridge?
+  cdc: "It's a military town, almost all service personnel."
+  cdc: "Not a base per se, just base housing."
+  cdc: "We're actually not sure why the truck was coming out of there when it crashed -- there's no lab or secure facilities in town."
+  -> find_house
+

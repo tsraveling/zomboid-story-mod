@@ -52,9 +52,16 @@ We know the chief scientist lived in March Ridge, and we know where his house is
 
 Upstairs, there's his body, self-inflicted gunshot to the head, with a note on it that points to the aide in the military apartments. "I'm just going to pick up my X at home" on answering machine.
 
+- Spawn the body at 9946, 12995, 1
+- Spawn the note at 9945, 12994, 1
+
 ### 2. Find the aide
 
 Aide is a military-uniformed zombie in the [northwest apartment of the top floor of the military apartments](https://projectzomboidmap.com/#10054x12617x684x3), with the book in his inventory.
+
+- Spawn the zombie at 10055, 12621, 3
+- Spawn the book at 10052, 12620, 3
+    - With extended placement: 0.71, 0.57, 0.33, rot 0 0 165.
 
 ### 3. Read the book to the CDC
 

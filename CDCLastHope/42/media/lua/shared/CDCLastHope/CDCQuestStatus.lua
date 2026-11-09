@@ -13,12 +13,14 @@ QS.names = {
   first = "Zombie Meat",
   tri = "Triple Sample",
   junkie = "The Overdose Victim",
+  march = "The Military Scientist"
 }
 
 function QS.name(key)
   return QS.names[key] or tostring(key)
 end
 
+-- @region quests:statuses
 QS.lines = {
   first = {
     [0] = "Contact the CDC to accept the zombie meat job.",
