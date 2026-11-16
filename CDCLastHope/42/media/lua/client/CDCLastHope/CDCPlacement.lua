@@ -30,6 +30,14 @@ local function index()
     return byKey
 end
 
+-- a def with `near` waits for a player to reach that area; the chunk still has
+-- to be streamed in for the spawn itself, so this only widens the window
+local function armed(def, player)
+    local n = def.near
+    if not n then return true end
+    return CDC.dist(player:getX(), player:getY(), n.x, n.y) <= (n.radius or 100)
+end
+
 -- duplicate requests are harmless; the server is the one that checks placed
 local function request(defs)
     local player = getSpecificPlayer(0)
@@ -37,7 +45,7 @@ local function request(defs)
     local placed = CDC.State.get().placed or {}
     for _, def in ipairs(defs) do
         local asks = P.asks[def.id] or 0
-        if not placed[def.id] and (P.tries[def.id] or 0) < MAX_TRIES and asks < MAX_ASKS then
+        if not placed[def.id] and armed(def, player) and (P.tries[def.id] or 0) < MAX_TRIES and asks < MAX_ASKS then
             P.asks[def.id] = asks + 1
             if asks + 1 == MAX_ASKS then
                 CDC.log("placement " .. tostring(def.id) .. ": no response after " .. MAX_ASKS .. " requests")

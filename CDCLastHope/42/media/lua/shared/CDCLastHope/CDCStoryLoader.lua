@@ -82,6 +82,14 @@ function St.validate()
         ids[p.id] = true
         if not p.tiles then p.tiles = { { p.x, p.y, p.z or 0 } } end
     end
+    -- spawn helpers read tiles/at; placements are authored as flat x,y,z
+    for _, p in ipairs(s.world.placements) do
+        if ids[p.id] then CDC.log("WARN: duplicate placement id " .. tostring(p.id)) end
+        ids[p.id] = true
+        p.z = p.z or 0
+        p.tiles = p.tiles or { { p.x, p.y, p.z } }
+        p.at = p.at or { p.x, p.y, p.z }
+    end
     CDC.log("story loaded: " .. tostring(#s.world.pickups) .. " pickups, freq " .. tostring(s.freq))
 end
 

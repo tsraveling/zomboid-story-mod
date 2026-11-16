@@ -155,23 +155,43 @@ function Srv.handlers.place(player, args)
         reply(player, "placeResult", { id = args.id, ok = false, reason = "square" })
         return
     end
-    local cont = findContainer(sq, def.container)
-    if not cont then
-        CDC.log("placement " .. tostring(args.id) .. ": no " .. tostring(def.container or "container") ..
-            " at " .. CDC.squareKey(def.x, def.y, z))
-        reply(player, "placeResult", { id = args.id, ok = false, reason = "container" })
+    local kind = def.kind or "container"
+    local done, reason
+    if kind == "ground" then
+        done = CDC.Spawn.ground(def, sq)
+        reason = "item"
+    elseif kind == "zombie" then
+        -- no player argument: an ambient spawn must not come running from
+        -- wherever the trigger armed it
+        done = CDC.Spawn.zombie(def, nil)
+        reason = "spawn"
+    elseif kind == "corpse" then
+        done = CDC.Spawn.corpse(def)
+        reason = "spawn"
+    elseif kind == "container" then
+        local cont = findContainer(sq, def.container)
+        if not cont then
+            CDC.log("placement " .. tostring(args.id) .. ": no " .. tostring(def.container or "container") ..
+                " at " .. CDC.squareKey(def.x, def.y, z))
+            reply(player, "placeResult", { id = args.id, ok = false, reason = "container" })
+            return
+        end
+        local item = cont:AddItem(def.item)
+        if item then sendAddItemToContainer(cont, item) end
+        done, reason = item ~= nil, "item"
+        if done and CDC.isDebug() then CDC.log("placed " .. tostring(def.item) .. " in " .. cont:getType()) end
+    else
+        CDC.log("placement " .. tostring(args.id) .. ": unknown kind " .. tostring(kind))
         return
     end
-    local item = cont:AddItem(def.item)
-    if not item then
-        CDC.log("placement " .. tostring(args.id) .. ": could not add " .. tostring(def.item))
-        reply(player, "placeResult", { id = args.id, ok = false, reason = "item" })
+    if not done then
+        CDC.log("placement " .. tostring(args.id) .. ": " .. kind .. " failed")
+        reply(player, "placeResult", { id = args.id, ok = false, reason = reason })
         return
     end
-    sendAddItemToContainer(cont, item)
     st.placed[args.id] = { day = CDC.day() }
     sync()
-    if CDC.isDebug() then CDC.log("placed " .. tostring(def.item) .. " in " .. cont:getType()) end
+    reply(player, "placeResult", { id = args.id, ok = true })
 end
 
 -- a locker was checked; fires its kind once, then reads empty forever. args: id

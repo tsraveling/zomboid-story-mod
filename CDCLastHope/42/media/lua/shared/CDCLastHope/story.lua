@@ -10,7 +10,11 @@
     world.corpseActions { id, label, corpse=nil|"od", requires=fullType|"tag:ITEM_TAG"|"category:WEAPON_CATEGORY"|list|nil, requiresLabel, consumes=false, gives, duration=3, text, cond=fn(ctx) }  hidden when cond false; corpse must match the body's CDCCorpse flag, nil for ordinary zombies
     world.groundActions { id, label, x,y,z, radius, ground={"dirt","sand","clay","gravel"}, requires, requiresLabel, consumes=false, gives, duration=3, text, cond=fn(ctx,square) }  natural ground within radius; hidden when cond false
     world.lockers   { id, tiles={{x,y,z},...}, label="Check locker", kind=nil|"zombie"|"corpse", duration=2, text, emptyText }  always offered; a kind fires once then reads empty forever. zombie: outfit, female, skin=0..4, gives={{item,condition,ammo,name}} in its inventory, drops={{...}} on the floor beside it (weapons will not stay in a zombie). corpse: at={x,y,z}, corpse="od", outfit, skin, wears={{item,tint={r,g,b},name}}. name overrides the item's display name, e.g. "Badge: Dr Ashley" on a Base.Badge
-    world.placements { id, x,y,z, item, container="desk" }  Dropped into that container once, the first time the chunk streams in near a player. container omitted = first container on the square.
+    world.placements { id, x,y,z, kind=nil|"container"|"ground"|"zombie"|"corpse", near={x,y,radius=100} }  Fires once, the first time the chunk streams in near a player. near delays arming until a player reaches that area (the chunk still has to stream in for anything to spawn).
+      container (default) { item, container="desk" }  into that container; container omitted = first one on the square
+      ground    { item, name, condition, xoff=.5, yoff=.5, zoff=0, xrot, yrot, zrot, scale, extended }  loose on the floor. rotations are degrees. extended=true allows offsets outside the normal tile clamp
+      zombie    { outfit, female, skin=0..4, gives={{item,name,condition,ammo}}, drops={{...}} }  a live zombie, left idle rather than aggroed
+      corpse    { outfit, female, skin=0..4, corpse=nil|"od", wears={{item,tint,name}}, gives={{...}}, drops={{...}} }  spawned prone and killed, so it reads as a body on the floor
     world.readables { id, item, label="Read", text, image="media/textures/Foo.png", imageW, imageH, w=380, h=160 }  Read option on the item in inventory; shows text in a modal instead of the vanilla reading action. image draws centred above the text; imageW/imageH scale it (omit for native size); w/h size the modal, size them up for a full-page flyer
     world.spawns    { item, lists={"ClassroomDesk"}, chance=5 }
     items           optional extra item list for debug spawn menu
@@ -196,6 +200,51 @@ CDC.story = {
       },
     },
     placements = {
+      {
+        id = "ashley_body",
+        x = 9946,
+        y = 12995,
+        z = 1,
+        kind = "corpse",
+        outfit = "Doctor",
+        gives = { { item = "Base.Badge", name = "Badge: Caleb Ashley" } },
+      },
+      {
+        id = "karo_note_ground",
+        x = 9945,
+        y = 12994,
+        z = 1,
+        kind = "ground",
+        item = "CDCLastHope.KaroNote",
+        zrot = 2.12,
+      },
+      {
+        id = "karo_zombie",
+        x = 10055,
+        y = 12621,
+        z = 3,
+        kind = "zombie",
+        outfit = "ArmyCamoGreen",
+        near = { x = 10094, y = 12648, radius = 300 },
+        gives = { { item = "Base.Badge", name = "Badge: Kevin Karo" } },
+        -- a zombie will not hold onto a weapon, so the axe lies beside him
+        drops = { { item = "Base.Axe" } },
+      },
+      {
+        id = "ashley_notebook_ground",
+        x = 10052,
+        y = 12620,
+        z = 3,
+        kind = "ground",
+        item = "CDCLastHope.AshleyNotebook",
+        extended = true,
+        xoff = 0.71,
+        yoff = 0.57,
+        zoff = 0.33,
+        xrot = 0,
+        yrot = 0,
+        zrot = 165,
+      },
       {
         id = "me_notes",
         x = 10645,

@@ -105,6 +105,33 @@ local function equip(zed, def)
     end
 end
 
+-- a loose item lying on a square: offsets, rotation, extended placement.
+-- rotations are degrees (vanilla randomizeWorldZRotation rolls 0..360).
+function Sp.ground(def, sq)
+    local item
+    local ok, err = pcall(function()
+        item = sq:AddWorldInventoryItem(def.item, def.xoff or 0.5, def.yoff or 0.5, def.zoff or 0)
+        if not item then error("unknown item " .. tostring(def.item)) end
+        rename(item, def.name)
+        if def.condition then item:setCondition(def.condition) end
+        if def.xrot then item:setWorldXRotation(def.xrot) end
+        if def.yrot then item:setWorldYRotation(def.yrot) end
+        if def.zrot then item:setWorldZRotation(def.zrot) end
+        if def.scale then item:setWorldScale(def.scale) end
+        -- offsets outside the usual clamp need the flag, and it lives on the
+        -- world object rather than the item
+        if def.extended then
+            local wo = item:getWorldItem()
+            if wo then
+                wo:setExtendedPlacement(true)
+                wo:setOffset(def.xoff or 0, def.yoff or 0, def.zoff or 0)
+            end
+        end
+    end)
+    if not ok then fail("ground " .. tostring(def.item), err); return false end
+    return item ~= nil
+end
+
 -- onto the floor where the zombie actually ended up, not the blocked locker tile
 local function drop(zed, def, sq)
     local at = zed and zed:getCurrentSquare() or sq
@@ -301,6 +328,8 @@ function Sp.corpse(def)
         return true
     end
     dress(zed, def)
+    equip(zed, def)
+    drop(zed, def, sq)
     if def.corpse then
         local flagged, ferr = pcall(function() zed:getModData().CDCCorpse = def.corpse end)
         -- an unflagged body offers the wrong actions; clear it and let a retry work
