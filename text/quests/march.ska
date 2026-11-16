@@ -2,6 +2,8 @@
 
 (? get_quest("march") == 0) -> last_results
 (? get_quest("march") == 1) -> find_house
+(? get_quest("march") == 2) -> karo_note
+(? get_quest("march") == 3) -> karo_hub
 
 # back
 
@@ -15,11 +17,15 @@ cdc: "Velvet is *definitely* involved with all of this somehow, but it wasn't en
 
 # intro
 
-cdc: "We want you to investigate the military angle on this next. The details are hazy, but we've made contact with some surviving leadership at the Cheyenne Mountain bunker in Colorado, and they're sharing information with us." 
+cdc: "We want you to investigate the military angle on this next one. The details are hazy, but we've made contact with some surviving leadership at the Cheyenne Mountain bunker in Colorado, and they're sharing information with us." 
 
 cdc: "If you want some evidence that the world has ended, there it is. Jesus."
 
 cdc: "Anyway. Their own records are pretty hazy. But they've sent us the address of their chief scientist on what they're calling Project Acorn."
+
+cdc: "His name was Dr. Caleb Ashley. Immunologist, virologist, you name it."
+
+cdc: "I actually attended a talk of his at a conference once ... you know. Before."
 
 cdc: "Whatever the hell happened down there, he's directly involved. We're hoping if you can find his house in March Ridge, you can find some notes that will give us more information."
 
@@ -28,6 +34,8 @@ cdc: "Whatever the hell happened down there, he's directly involved. We're hopin
 ~ set_quest("march", 1)
 
 cdc: "Excellent."
+
+cdc: "Oh, and bring a radio with you on this one. You might need to call in for further guidance from the field."
 
 # find_house
 
@@ -46,3 +54,74 @@ cdc: "Any questions?"
   cdc: "We're actually not sure why the truck was coming out of there when it crashed -- there's no lab or secure facilities in town."
   -> find_house
 
+--- SECTION: KARO'S NOTE
+
+# karo_note
+
+cdc: "Did you find something?"
+
+> Dr. Ashley's body. And a note from a Lt. Karo. He took the notebook and was headed to someplace called "Forest Station."
+
+cdc: "Ok. Give me a minute, I'm going to get in touch with Cheyenne Mountain."
+
+A long pause ensues. You can hear activity in the background.
+
+Then, a moment later, heated voices and swearing.
+
+cdc: "{pc_first_name()}, you there?"
+
+> Yes?
+
+cdc: "Apparently there's a goddamn *secret research base* in your neck of the woods, buried in the forest west of Rosewood a few clicks."
+
+> The fuck?!
+
+cdc: "That's what I said!"
+
+cdc: "Our contacts at Cheyenne just found out themselves, they've got a big old mainframe they keep querying every time I ask them a question."
+
+cdc: "Lieutenant Karo was Ashley's assistant. Unfortunately, it seems like he never made it to Forest Station."
+
+# note_hub
+
+cdc: "Does the note say anything else?"
+
+> (? !note_scratched) It says he got scratched.
+  ~ note_scratched = true
+  cdc: "Yikes. That's not good. For 99.9% of people, that means turning, and turning *fast*."
+  -> note_hub
+> (? !note_blood) There's blood on it.
+  ~ note_blood = true
+  cdc: "That doesn't seem like a good sign."
+  -> note_hub
+> It says he was going home to get his keys.
+  -> note_keys
+
+# note_keys
+
+cdc: "Ah. Okay. Hold on."
+
+More voices in the background, questions and answers.
+
+cdc: "Okay. Karo lived in the March Ridge military apartments on Folger Street, north end of town, between the school and the movie theater."
+
+cdc: "He was quartered in the northwestern corner apartment on the top floor, with a couple of other soldiers."
+
+cdc: "Go check it out -- if we're lucky, the notebook is still there."
+
+> I'm on it.
+
+~ set_quest("march", 3)
+
+cdc: "Good. Call us with what you find."
+
+cdc: "Good luck out there."
+
+cdc: "CDC, over and out."
+EXIT
+
+--- SECTION: KARO HUB
+
+# karo_hub
+
+cdc: "YO"

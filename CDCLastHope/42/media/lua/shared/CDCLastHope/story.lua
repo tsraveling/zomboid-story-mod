@@ -9,9 +9,9 @@
     world.pickups   { id, x,y,z | tiles={{x,y,z},...}, sprite=nil|name|{names}, label, item, once="global"|"character"|"none", duration=2, text, cond=fn(ctx,square), condFailText }  hidden when cond false unless condFailText (then grayed)
     world.corpseActions { id, label, corpse=nil|"od", requires=fullType|"tag:ITEM_TAG"|"category:WEAPON_CATEGORY"|list|nil, requiresLabel, consumes=false, gives, duration=3, text, cond=fn(ctx) }  hidden when cond false; corpse must match the body's CDCCorpse flag, nil for ordinary zombies
     world.groundActions { id, label, x,y,z, radius, ground={"dirt","sand","clay","gravel"}, requires, requiresLabel, consumes=false, gives, duration=3, text, cond=fn(ctx,square) }  natural ground within radius; hidden when cond false
-    world.lockers   { id, tiles={{x,y,z},...}, label="Check locker", kind=nil|"zombie"|"corpse", duration=2, text, emptyText }  always offered; a kind fires once then reads empty forever. zombie: outfit, female, skin=0..4, gives={{item,condition,ammo}} in its inventory, drops={{...}} on the floor beside it (weapons will not stay in a zombie). corpse: at={x,y,z}, corpse="od", outfit, skin, wears={{item,tint={r,g,b}}}
+    world.lockers   { id, tiles={{x,y,z},...}, label="Check locker", kind=nil|"zombie"|"corpse", duration=2, text, emptyText }  always offered; a kind fires once then reads empty forever. zombie: outfit, female, skin=0..4, gives={{item,condition,ammo,name}} in its inventory, drops={{...}} on the floor beside it (weapons will not stay in a zombie). corpse: at={x,y,z}, corpse="od", outfit, skin, wears={{item,tint={r,g,b},name}}. name overrides the item's display name, e.g. "Badge: Dr Ashley" on a Base.Badge
     world.placements { id, x,y,z, item, container="desk" }  Dropped into that container once, the first time the chunk streams in near a player. container omitted = first container on the square.
-    world.readables { id, item, label="Read", text }  Read option on the item in inventory; shows text in a modal instead of the vanilla reading action
+    world.readables { id, item, label="Read", text, image="media/textures/Foo.png", imageW, imageH, w=380, h=160 }  Read option on the item in inventory; shows text in a modal instead of the vanilla reading action. image draws centred above the text; imageW/imageH scale it (omit for native size); w/h size the modal, size them up for a full-page flyer
     world.spawns    { item, lists={"ClassroomDesk"}, chance=5 }
     items           optional extra item list for debug spawn menu
 
@@ -213,6 +213,22 @@ CDC.story = {
             "The majority of this notebook is from Before. Autopsies, musings, even a suspicious death. But the last few pages before it goes blank and smeared with blood are about the overdose victim. How they were pronounced dead on scene by the EMTs. How their heart was stopped and their lungs were collapsed.\n\n" ..
             "But how, despite this, their eyelids quivered as if the corpse was dreaming, and its fingers twitched.\n\n" ..
             "There follows an in-depth medical analysis of this that the CDC will surely be able to make use of.",
+      },
+      {
+        id = "ashley_notebook",
+        item = "CDCLastHope.AshleyNotebook",
+        text = "PLACEHOLDER: Dr Ashley's notes on Project Acorn.",
+      },
+      {
+        id = "karo_note",
+        item = "CDCLastHope.KaroNote",
+        label = "Read",
+        image = "media/textures/CDCKaroNote.png",
+        imageW = 300,
+        imageH = 390,
+        w = 350,
+        h = 460,
+        text = "",
       },
     },
     spawns = {

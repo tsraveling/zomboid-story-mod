@@ -63,6 +63,11 @@ local function placeZombie(x, y, z, outfit, female, prone)
     return nil, true
 end
 
+-- a custom display name, as vanilla Base.Badge does with a random survivor name
+local function rename(item, name)
+    if name then pcall(function() item:setName(name) end) end
+end
+
 local function dress(zed, def)
     local ok, err = pcall(function()
         if def.skin then zed:getHumanVisual():setSkinTextureIndex(def.skin) end
@@ -73,6 +78,7 @@ local function dress(zed, def)
                 if w.tint then
                     item:getVisual():setTint(ImmutableColor.new(w.tint[1], w.tint[2], w.tint[3], 1))
                 end
+                rename(item, w.name)
                 zed:setWornItem(item:getBodyLocation(), item)
             end
         end
@@ -89,6 +95,7 @@ local function equip(zed, def)
         local ok, err = pcall(function()
             local item = inv:AddItem(g.item)
             if not item then error("unknown item " .. tostring(g.item)) end
+            rename(item, g.name)
             if g.condition then item:setCondition(g.condition) end
             if g.ammo and type(item.setCurrentAmmoCount) == "function" then
                 item:setCurrentAmmoCount(g.ammo)
@@ -106,6 +113,7 @@ local function drop(zed, def, sq)
         local ok, err = pcall(function()
             local item = at:AddWorldInventoryItem(d.item, 0.5, 0.5, 0)
             if not item then error("unknown item " .. tostring(d.item)) end
+            rename(item, d.name)
             if d.condition then item:setCondition(d.condition) end
             if d.ammo and type(item.setCurrentAmmoCount) == "function" then
                 item:setCurrentAmmoCount(d.ammo)

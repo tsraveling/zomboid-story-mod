@@ -185,7 +185,7 @@ function M.addGroundOptions(player, context, squares)
 end
 
 function M.read(player, def)
-    CDC.Modal.show(player, def.text)
+    CDC.Modal.show(player, def.text, def)
 end
 
 -- entries are either an item or a stack table

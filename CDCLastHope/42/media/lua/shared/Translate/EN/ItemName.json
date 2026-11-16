@@ -5,5 +5,7 @@
     "CDCLastHope.SoilSample": "Soil Sample",
     "CDCLastHope.ODVictimMeat": "Overdose Victim Muscle Sample",
     "CDCLastHope.ODVictimBrain": "Overdose Victim Brain Sample",
-    "CDCLastHope.MedicalExaminerNotes": "Muldraugh Medical Examiner Notes"
+    "CDCLastHope.MedicalExaminerNotes": "Muldraugh Medical Examiner Notes",
+    "CDCLastHope.KaroNote": "Lt Karo's Note",
+    "CDCLastHope.AshleyNotebook": "Dr Ashley's Notebook"
 }

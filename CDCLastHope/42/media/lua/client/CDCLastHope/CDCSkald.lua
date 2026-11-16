@@ -183,6 +183,8 @@ function Po.set_quest(h, key, stage)
     label = "Quest started: "
   elseif stage == 100 and before ~= 100 then
     label = "Quest completed: "
+  elseif stage ~= before then
+    label = "Quest updated: "
   end
   if label then
     local text = label .. CDC.QuestStatus.name(key)

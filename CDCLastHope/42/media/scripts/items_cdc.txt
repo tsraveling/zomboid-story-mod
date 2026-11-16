@@ -68,6 +68,28 @@ module CDCLastHope
         WorldStaticModel = BookLightGreen_Ground,
     }
 
+    item KaroNote
+    {
+        DisplayName = Lt Karo's Note,
+        DisplayCategory = Literature,
+        ItemType = base:normal,
+        Weight = 0.1,
+        Icon = Flier,
+        StaticModel = Flier1,
+        WorldStaticModel = Flier1,
+    }
+
+    item AshleyNotebook
+    {
+        DisplayName = Dr Ashley's Notebook,
+        DisplayCategory = Literature,
+        ItemType = base:normal,
+        Weight = 1.0,
+        Icon = Book7,
+        StaticModel = BookDarkCyan,
+        WorldStaticModel = BookDarkCyan_Ground,
+    }
+
     item SoilSample
     {
         DisplayName = Soil Sample,

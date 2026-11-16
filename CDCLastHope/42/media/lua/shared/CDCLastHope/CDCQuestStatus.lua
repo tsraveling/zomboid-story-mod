@@ -42,7 +42,12 @@ QS.lines = {
     "Perform a microscopic analysis on the sample while on the radio with the CDC, and transmit the contents of the medical examiner's notes."
   },
   march = {
-    -- STUB: march ridge scientist quest
+    [1] =
+    "Go to March Ridge and investigate Dr. Ashley's house on the eastern corner of Bradley and Churchhill.",
+    [2] =
+    "Call the CDC about Lt. Karo's note.",
+    [3] =
+    "Search Lt. Karo's apartment in the March Ridge Military Apartments on Folger St. It's the northwestern apartment on the top floor."
   }
 }
 
