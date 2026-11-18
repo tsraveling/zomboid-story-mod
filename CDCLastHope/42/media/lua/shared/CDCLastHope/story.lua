@@ -216,7 +216,7 @@ CDC.story = {
         z = 1,
         kind = "ground",
         item = "CDCLastHope.KaroNote",
-        zrot = 2.12,
+        zrot = 121,
       },
       {
         id = "karo_zombie",

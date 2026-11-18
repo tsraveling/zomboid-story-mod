@@ -4,6 +4,7 @@
 (? get_quest("march") == 1) -> find_house
 (? get_quest("march") == 2) -> karo_note
 (? get_quest("march") == 3) -> karo_hub
+(? get_quest("march") == 4) -> read_book
 
 # back
 
@@ -124,7 +125,92 @@ EXIT
 
 # karo_hub
 
-cdc: "YO"
+cdc: "Have you managed to gain access to Karo's apartment?"
 
---- STUB: Reporting receipt of the journal
---- STUB: Then test everything
+> (? has_item("AshleyNotebook")) Yes, and I have Dr. Ashley's notebook!
+  -> got_notebook
+> Where was it again?
+  -> .check_loc
+> Not quite.
+  -> .not_yet
+
+## check_loc
+
+cdc: "It's on the top floor of the military apartments on Folger Street. Northwestern corner apartment."
+cdc: "I'm guessing you haven't gotten in there yet?"
+
+> (? has_item("AshleyNotebook")) Actually, yes I have, and I have Dr. Ashley's notebook!
+  -> got_notebook
+> Not quite.
+  -> -not_yet
+
+## not_yet
+
+cdc: "No worries, {pc_first_name()}. We're wishing you luck!"
+
+cdc: "CDC, over and out."
+
+EXIT
+
+# got_notebook  
+
+cdc: "Hell yes!"
+
+~ set_quest("march", 4)
+-> read_book
+
+# read_book
+
+cdc: "Are you ready to read the book to us now, or do you need to wait until a better time?"
+
+> I'm ready now.
+  -> reading
+> Another time might be better.
+  cdc: "Understood. Can't wait! Give us a call when you're ready."
+  cdc: "CDC, over and out."
+  EXIT
+
+# reading
+
+cdc: "Great. Go ahead when ready."
+
+You begin to read the book out loud, as Daniel and presumably the rest of the CDC listen attentively on the other end of the line.
+
+It starts with what might have sounded horrifying, before the world ended: anthrax, spallpox, ebola, SARS.
+
+Painfully mundane now.
+
+You skim at Daniel's instruction until, suddenly, two-thirds of the way through the book, the first mention of the same overdose victim you just uncovered in Muldraugh.
+
+Something was different with Velvet; not different like LSD or crack once had been, but *fundamentally*, *dangerously* different. 
+
+So different that Dr. Ashley had not believed it was possible for a normal drug lab, even a cartel-run one, to manufacture on their own.
+
+Ashley had taken the sample to study in Forest Station, which, it seems, was a deep-ground secret research based to the west of Rosewood.
+
+Daniel breaks in at this point.
+
+cdc: "For the record, {pc_first_name()}, I think that might be your next stop."
+
+You keep reading. In addition to researching the drug at Forest Station, Ashley also worked with local law enforcement to trace the source.
+
+A page before the abrupt end of the book, a clue. Ashley had found a name. Dr. Emilia Herrera. A disgraced academic who'd once worked at the Louisville State University before apparently suffering a mental break and just ... vanishing.
+
+Ashley had found an address for her, in the the last place he'd expected: a trailer park on the outskirts of Muldraugh.
+
+The notebook ends in spatters of blood. A page is missing; the note left in Ashley's home by Lt. Karo.
+
+~ set_quest("march", 100)
+
+Daniel is silent for a long time, absorbing everything.
+
+> So now what?
+
+cdc: "Let me run this past our friends in Cheyenne Mountain. When you get back to us, hopefully we'll have some next steps for you."
+
+cdc: "It sounds to me though that we have two leads: the scientist and the military base."
+
+cdc: "Impeccable work, {pc_first_name()}."
+
+cdc: "Daniel Chidi, CDC, over and out."
+EXIT
