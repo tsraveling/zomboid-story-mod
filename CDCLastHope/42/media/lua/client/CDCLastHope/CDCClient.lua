@@ -1,5 +1,6 @@
 if isServer() then return end
 require "CDCLastHope/CDCStoryLoader"
+require "CDCLastHope/CDCQuestStatus"
 require "CDCLastHope/CDCModal"
 
 CDC.Client = {}
@@ -20,6 +21,33 @@ function CDC.Client.applyOps(player, ops)
     for _, op in ipairs(ops) do CDC.State.apply(st, op) end
     if CDC.isDebug() then CDC.log("state ops sent: " .. #ops .. ", met " .. #st.met .. ", dead " .. #st.dead) end
     CDC.Net.send(player, "state", { ops = ops })
+end
+
+-- sets the stage and halos the change. returns the halo text, or nil when the
+-- stage was already there and nothing was announced
+function CDC.Client.setQuest(player, key, stage)
+    local before = CDC.State.quest(CDC.State.get(), key)
+    CDC.Client.applyOps(player, { { type = "quest", key = key, stage = stage } })
+    local label
+    if stage == 1 and before ~= 1 then
+        label = "Quest started: "
+    elseif stage == 100 and before ~= 100 then
+        label = "Quest completed: "
+    elseif stage ~= before then
+        label = "Quest updated: "
+    end
+    if not label then return nil end
+    local text = label .. CDC.QuestStatus.name(key)
+    CDC.Net.send(player, "questNotice", { text = text })
+    return text
+end
+
+-- setQuest, but only within the window [from, stage): a repeatable trigger such
+-- as re-reading an item cannot drag a quest backwards or skip its opening
+function CDC.Client.advanceQuest(player, key, stage, from)
+    local now = CDC.State.quest(CDC.State.get(), key)
+    if now < (from or 1) or now >= stage then return nil end
+    return CDC.Client.setQuest(player, key, stage)
 end
 
 CDC.Client.handlers = {}

@@ -175,22 +175,9 @@ local function meet(h)
 end
 
 function Po.set_quest(h, key, stage)
-  local before = S.quest(S.get(), key)
-  CDC.Client.applyOps(h.player, { { type = "quest", key = key, stage = stage } })
-  -- announce only on the transition, so a replayed block stays quiet
-  local label
-  if stage == 1 and before ~= 1 then
-    label = "Quest started: "
-  elseif stage == 100 and before ~= 100 then
-    label = "Quest completed: "
-  elseif stage ~= before then
-    label = "Quest updated: "
-  end
-  if label then
-    local text = label .. CDC.QuestStatus.name(key)
-    h.line("reward", text)
-    CDC.Net.send(h.player, "questNotice", { text = text })
-  end
+  -- setQuest announces only on the transition, so a replayed block stays quiet
+  local text = CDC.Client.setQuest(h.player, key, stage)
+  if text then h.line("reward", text) end
 end
 
 function Po.reward_xp(h, skill, amount)

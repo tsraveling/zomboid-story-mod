@@ -5,20 +5,25 @@ require "CDCLastHope/CDCState"
 CDC.Quests = {}
 local Q = CDC.Quests
 
--- @region codex:quest_available
 Q.available = {
   first = function() return CDC.State.quest(CDC.State.get(), "first") < 100 end,
   tri = function() return Q.isDone("first") end,
   junkie = function() return Q.isDone("tri") end,
+  march = function() return Q.isDone("junkie") end,
 }
 
+-- true if quest has been completed (aka, == 100)
 function Q.isDone(key)
   return CDC.State.quest(CDC.State.get(), key) == 100
 end
 
+-- @region codex:quest_available
+-- returns true if quest is available but hasn't been started.
 function Q.isAvailable(key)
   local f = Q.available[key]
-  return f ~= nil and CDC.State.quest(CDC.State.get(), key) == 0 and f() == true
+
+  -- function exists, validates true, and quest is unstarted
+  return (f ~= nil and f() == true) and CDC.State.quest(CDC.State.get(), key) == 0
 end
 
 -- available, or started and not done

@@ -186,6 +186,8 @@ end
 
 function M.read(player, def)
     CDC.Modal.show(player, def.text, def)
+    local q = def.quest
+    if q then CDC.Client.advanceQuest(player, q.key, q.stage, q.from) end
 end
 
 -- entries are either an item or a stack table

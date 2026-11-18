@@ -273,8 +273,17 @@ cdc: "We're ready to finish the analysis of the overdose victim's samples whenev
 
 --- MARCH RIDGE JOB
 @if quest_available("march")
-cdc: "We've got a new lead for you on the military side of the Z strain, when you're ready -- a scientist who lived in March Ridge."
+cdc: "We've got a new lead for you on the military side of the Z strain, when you're ready -- a notebook belonging to a scientist named Dr. Ashley, who lived in March Ridge."
+@elseif get_quest("march") == 1
+cdc: "We need you to search Dr. Ashley's home in March Ridge for his notebook."
+@elseif get_quest("march") == 2
+cdc: "We're hoping you were able to find Dr. Ashley's notebook."
+@elseif get_quest("march") == 3
+cdc: "We need you to search Lt. Karo's apartment for Dr. Ashley's notebook."
+@elseif get_quest("march") == 4
+cdc: "We're ready to take down your narration of Dr. Ashley's notebook whenever you're ready."
 @endif
+
 
 # router
 
@@ -286,7 +295,7 @@ cdc: "So what did you want to talk about?"
   GO quests/tri.ska
 > (? quest_active("junkie")) About the Velvet overdose victim ...
   GO quests/junkie.ska
-> (? quest_active("march")) About the March Ridge scientist ...
+> (? quest_active("march")) About Dr. Ashley's notebook ...
   GO quests/march.ska
 > I have some other questions.
   GO cdc_talking.ska

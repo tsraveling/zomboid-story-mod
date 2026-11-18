@@ -15,7 +15,7 @@
       ground    { item, name, condition, xoff=.5, yoff=.5, zoff=0, xrot, yrot, zrot, scale, extended }  loose on the floor. rotations are degrees. extended=true allows offsets outside the normal tile clamp
       zombie    { outfit, female, skin=0..4, gives={{item,name,condition,ammo}}, drops={{...}} }  a live zombie, left idle rather than aggroed
       corpse    { outfit, female, skin=0..4, corpse=nil|"od", wears={{item,tint,name}}, gives={{...}}, drops={{...}} }  spawned prone and killed, so it reads as a body on the floor
-    world.readables { id, item, label="Read", text, image="media/textures/Foo.png", imageW, imageH, w=380, h=160 }  Read option on the item in inventory; shows text in a modal instead of the vanilla reading action. image draws centred above the text; imageW/imageH scale it (omit for native size); w/h size the modal, size them up for a full-page flyer
+    world.readables { id, item, label="Read", text, image="media/textures/Foo.png", imageW, imageH, w=380, h=160, quest={key,stage,from=1} }  Read option on the item in inventory; shows text in a modal instead of the vanilla reading action. image draws centred above the text; imageW/imageH scale it (omit for native size); w/h size the modal, size them up for a full-page flyer. quest moves that quest to stage on read, but only while its current stage is within [from, stage), so re-reading cannot rewind it or skip the quest's opening
     world.spawns    { item, lists={"ClassroomDesk"}, chance=5 }
     items           optional extra item list for debug spawn menu
 
@@ -278,6 +278,7 @@ CDC.story = {
         w = 350,
         h = 460,
         text = "",
+        quest = { key = "march", stage = 2, from = 1 },
       },
     },
     spawns = {

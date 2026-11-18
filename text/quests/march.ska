@@ -54,6 +54,8 @@ cdc: "Any questions?"
   cdc: "Not a base per se, just base housing."
   cdc: "We're actually not sure why the truck was coming out of there when it crashed -- there's no lab or secure facilities in town."
   -> find_house
+> That's it for now.
+  -> back
 
 --- SECTION: KARO'S NOTE
 
@@ -73,7 +75,7 @@ cdc: "{pc_first_name()}, you there?"
 
 > Yes?
 
-cdc: "Apparently there's a goddamn *secret research base* in your neck of the woods, buried in the forest west of Rosewood a few clicks."
+cdc: "Apparently there's a goddamn *secret research base* in your neck of the woods, buried in the forest west of Rosewood a few klicks."
 
 > The fuck?!
 
@@ -152,7 +154,7 @@ cdc: "CDC, over and out."
 
 EXIT
 
-# got_notebook  
+# got_notebook
 
 cdc: "Hell yes!"
 
@@ -176,7 +178,7 @@ cdc: "Great. Go ahead when ready."
 
 You begin to read the book out loud, as Daniel and presumably the rest of the CDC listen attentively on the other end of the line.
 
-It starts with what might have sounded horrifying, before the world ended: anthrax, spallpox, ebola, SARS.
+It starts with what might have sounded horrifying, before the world ended: anthrax, smallpox, Ebola, SARS.
 
 Painfully mundane now.
 
@@ -186,7 +188,7 @@ Something was different with Velvet; not different like LSD or crack once had be
 
 So different that Dr. Ashley had not believed it was possible for a normal drug lab, even a cartel-run one, to manufacture on their own.
 
-Ashley had taken the sample to study in Forest Station, which, it seems, was a deep-ground secret research based to the west of Rosewood.
+Ashley had taken the sample to study in Forest Station, which, it seems, was a deep-ground secret research base to the west of Rosewood.
 
 Daniel breaks in at this point.
 
@@ -194,9 +196,9 @@ cdc: "For the record, {pc_first_name()}, I think that might be your next stop."
 
 You keep reading. In addition to researching the drug at Forest Station, Ashley also worked with local law enforcement to trace the source.
 
-A page before the abrupt end of the book, a clue. Ashley had found a name. Dr. Emilia Herrera. A disgraced academic who'd once worked at the Louisville State University before apparently suffering a mental break and just ... vanishing.
+A page before the abrupt end of the book, a clue. Ashley had found a name. Dr. Emilia Herrera. A disgraced academic who'd once worked at Louisville State University before apparently suffering a mental break and just ... vanishing.
 
-Ashley had found an address for her, in the the last place he'd expected: a trailer park on the outskirts of Muldraugh.
+Ashley had found an address for her, in the last place he'd expected: a trailer park on the outskirts of Muldraugh.
 
 The notebook ends in spatters of blood. A page is missing; the note left in Ashley's home by Lt. Karo.
 

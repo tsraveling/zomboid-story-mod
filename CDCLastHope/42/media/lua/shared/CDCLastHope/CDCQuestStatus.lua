@@ -47,7 +47,9 @@ QS.lines = {
     [2] =
     "Call the CDC about Lt. Karo's note.",
     [3] =
-    "Search Lt. Karo's apartment in the March Ridge Military Apartments on Folger St. It's the northwestern apartment on the top floor."
+    "Search Lt. Karo's apartment in the March Ridge Military Apartments on Folger St. It's the northwestern apartment on the top floor.",
+    [4] =
+    "Read Dr. Ashley's notebook to the CDC."
   }
 }
 
