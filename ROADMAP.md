@@ -24,9 +24,33 @@ Sample the junkie corpse and retrieve ME records
 
 # March Ridge Scientist
 
+- [x] Write quest
+- [x] Code support
+- [ ] Full testing
+
+# Reward System
+
+- [ ] VHS Transmission System
+- [ ] Add items
+- [ ] Add first rewards
+- [ ] Add first new skill book
+- [ ] Add first library clue
+
 # MIL: Military base
 
+- [ ] Reqs
+- [ ] Design walkthrough of base
+- [ ] Write quest
+- [ ] Code support
+- [ ] Full test
+
 # MAF: Meth Lab
+
+- [ ] Design walkthrough
+- [ ] Reqs
+- [ ] Write quest
+- [ ] Code support
+- [ ] Full test
 
 # MIL: Racetrack
 

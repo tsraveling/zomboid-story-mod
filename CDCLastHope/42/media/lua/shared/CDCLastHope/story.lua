@@ -266,7 +266,10 @@ CDC.story = {
       {
         id = "ashley_notebook",
         item = "CDCLastHope.AshleyNotebook",
-        text = "PLACEHOLDER: Dr Ashley's notes on Project Acorn.",
+        text =
+            "These are the neatly handwritten notes of Dr. Caleb Ashley, an epidemiologist working for the United States military. For the most part, they comprise normal, daily observations; then suddenly, become very about The Apocalypse.\n\n" ..
+            "They reference a secret military base to the west, and a mysterious fallen academic who may or may not have been the person to invent the very first generation of what is now known as the Z strain.\n\n" ..
+            "You should call the CDC and read it to Daniel.",
       },
       {
         id = "karo_note",
